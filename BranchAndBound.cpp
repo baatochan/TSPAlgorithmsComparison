@@ -8,6 +8,10 @@ BranchAndBound::BranchAndBound(std::shared_ptr<TravellingSalesmanProblem> TSP) :
 
 }
 
+std::string BranchAndBound::prepareToRun() {
+	return std::__cxx11::string();
+}
+
 std::string BranchAndBound::run() {
 	return std::__cxx11::string();
 }

@@ -8,6 +8,10 @@ BruteForce::BruteForce(std::shared_ptr<TravellingSalesmanProblem> TSP) : Algorit
 
 }
 
+std::string BruteForce::prepareToRun() {
+	return std::__cxx11::string();
+}
+
 std::string BruteForce::run() {
 	return std::__cxx11::string();
 }

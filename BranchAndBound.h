@@ -12,7 +12,9 @@ class BranchAndBound : public Algorithm {
 public:
 	BranchAndBound(std::shared_ptr<TravellingSalesmanProblem> TSP);
 
-	std::string run();
+	std::string prepareToRun() override;
+	
+	std::string run() override;
 
 };
 

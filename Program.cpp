@@ -13,6 +13,7 @@ void Program::start() {
 	std::string path;
 	int numberOfCities = 0;
 	int range = 0;
+	std::string output;
 
 	do {
 		printMenu();
@@ -31,10 +32,12 @@ void Program::start() {
 				TSP->printData();
 				break;
 			case '4':
-				BF.run();
+				output = BF.prepareToRun();
+				output = BF.run();
 				break;
 			case '5':
-				BnB.run();
+				output = BnB.prepareToRun();
+				output = BnB.run();
 				break;
 			case '9':
 				std::cout<<"Not so fast xD"<<std::endl;
