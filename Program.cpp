@@ -2,11 +2,10 @@
 // Created by barto on 29.10.18.
 //
 
+#include <limits>
 #include "Program.h"
 
-Program::Program() : TSP(std::make_shared<TravellingSalesmanProblem>()), BF(TSP), BnB(TSP) {
-
-}
+Program::Program() : TSP(std::make_shared<TravellingSalesmanProblem>()), BF(TSP), BnB(TSP) {}
 
 void Program::start() {
 	char selection = 0;
@@ -25,17 +24,33 @@ void Program::start() {
 			case '1':
 				printFileWarning();
 				std::cout << "Podaj sciezke pliku do wczytania danych: ";
-				std::cin.ignore();
+				std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 				getline(std::cin, path);
-				TSP->loadDataFromFile(path);
+
+				try {
+					TSP->loadDataFromFile(path);
+				} catch (const std::runtime_error &e) {
+					std::cerr << e.what() << std::endl;
+				}
 				break;
 
 			case '2':
-				std::cout << "Podaj ilosc miast: ";
-				std::cin >> numberOfCities;
-				std::cout << "Podaj zakres maksymalnej dlugosci drogi (0 - zakres]: ";
-				std::cin >> range;
-				TSP->generateRandomData(numberOfCities, range);
+				do {
+					std::cout << "Podaj ilosc miast: ";
+					std::cin.clear();
+					std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+				} while (!(std::cin >> numberOfCities));
+				do {
+					std::cout << "Podaj zakres maksymalnej dlugosci drogi (0 - zakres]: ";
+					std::cin.clear();
+					std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+				} while (!(std::cin >> range));
+
+				try {
+					TSP->generateRandomData(numberOfCities, range);
+				} catch (const std::runtime_error &e) {
+					std::cerr << e.what() << std::endl;
+				}
 				break;
 
 			case '3':
@@ -44,25 +59,42 @@ void Program::start() {
 				break;
 
 			case '4':
-				output = BF.prepareToRun();
-				std::cout << output << std::endl;
-				output = BF.run();
-				std::cout << output << std::endl;
+				try {
+					output = BF.prepareToRun();
+					std::cout << output << std::endl;
+
+					output = BF.run();
+					std::cout << output << std::endl;
+
+				} catch (const std::runtime_error &e) {
+					std::cerr << e.what() << std::endl;
+				}
 				break;
 
 			case '5':
-				output = BnB.prepareToRun();
-				std::cout << output << std::endl;
-				output = BnB.run();
-				std::cout << output << std::endl;
+				try {
+					output = BnB.prepareToRun();
+					std::cout << output << std::endl;
+
+					output = BnB.run();
+					std::cout << output << std::endl;
+				} catch (const std::runtime_error &e) {
+					std::cerr << e.what() << std::endl;
+				}
 				break;
 
 			case '9':
-				std::cerr << "Not so fast xD" << std::endl;
+				try {
+					throw std::runtime_error("Not yet implemented!");
+				} catch (const std::runtime_error &e) {
+					std::cerr << e.what() << std::endl;
+				}
 				break;
+
 			case '0':
 				std::cout << "Program zostanie zamkniety!" << std::endl;
 				break;
+
 			default:
 				std::cerr << "Wybrana opcja nie istnieje!" << std::endl;
 				break;
