@@ -7,12 +7,23 @@
 
 
 #include <iostream>
+#include <memory>
+#include "TravellingSalesmanProblem.h"
+#include "BruteForce.h"
+#include "BranchAndBound.h"
 
 class Program {
 public:
+	Program();
+
 	void start();
 
 private:
+	std::shared_ptr<TravellingSalesmanProblem> TSP;
+
+	BruteForce BF;
+	BranchAndBound BnB;
+
 	void printMenu();
 };
 

@@ -4,8 +4,16 @@
 
 #include "Program.h"
 
+Program::Program()  : TSP(std::make_shared<TravellingSalesmanProblem>()), BF(TSP), BnB(TSP) {
+
+}
+
 void Program::start() {
 	char selection = 0;
+	std::string path;
+	int numberOfCities = 0;
+	int range = 0;
+	std::string output;
 
 	do {
 		printMenu();
@@ -15,19 +23,21 @@ void Program::start() {
 
 		switch (selection) {
 			case '1':
-				// TSP.loadFile();
+				TSP->loadDataFromFile(path);
 				break;
 			case '2':
-				// TSP.generate;
+				TSP->generateRandomData(numberOfCities, range);
 				break;
 			case '3':
-				// TSP.print;
+				TSP->printData();
 				break;
 			case '4':
-				// BF.start();
+				output = BF.prepareToRun();
+				output = BF.run();
 				break;
 			case '5':
-				//BnB.start();
+				output = BnB.prepareToRun();
+				output = BnB.run();
 				break;
 			case '9':
 				std::cout<<"Not so fast xD"<<std::endl;
