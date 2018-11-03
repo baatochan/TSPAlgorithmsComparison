@@ -23,24 +23,41 @@ void Program::start() {
 
 		switch (selection) {
 			case '1':
+				std::cout << "Podaj sciezke pliku do wczytania danych: ";
+				std::cin.ignore();
+				getline(std::cin, path);
 				TSP->loadDataFromFile(path);
 				break;
+
 			case '2':
+				std::cout << "Podaj ilosc miast: ";
+				std::cin >> numberOfCities;
+				std::cout << "Podaj zakres maksymalnej dlugosci drogi (0 - zakres]: ";
+				std::cin >> range;
 				TSP->generateRandomData(numberOfCities, range);
 				break;
+
 			case '3':
-				TSP->printData();
+				output = TSP->printData();
+				std::cout << output << std::endl;
 				break;
+
 			case '4':
 				output = BF.prepareToRun();
+				std::cout << output << std::endl;
 				output = BF.run();
+				std::cout << output << std::endl;
 				break;
+
 			case '5':
 				output = BnB.prepareToRun();
+				std::cout << output << std::endl;
 				output = BnB.run();
+				std::cout << output << std::endl;
 				break;
+
 			case '9':
-				std::cout << "Not so fast xD" << std::endl;
+				std::cerr << "Not so fast xD" << std::endl;
 				break;
 			case '0':
 				std::cout << "Program zostanie zamkniety!" << std::endl;
