@@ -121,6 +121,9 @@ void Program::printFileWarning() {
 	std::cout << "Pierwsza linijka to pojedyncza liczba (calkowita, dodatnia, rozna od zera) oznaczajaca ilosc miast."
 	          << std::endl;
 	std::cout
-			<< "Kolejne linijki to macierz X na X (X = liczba z pierwszej linijki), kolejne liczby w linii oddzielone spacja, zawierajaca odleglosci pomiedzy miastami (calkowite, dodatnie, rozne od zera). Przekatna macierzy zawiera liczby -1."
-			<< std::endl;
+			<< "Kolejne linijki to macierz X na X (X = liczba z pierwszej linijki), kolejne liczby w linijce oddzielone spacja, zawierajace odleglosci pomiedzy miastami (calkowite, dodatnie, rozne od zera). Przekatna macierzy zawiera liczby -1."
+			<< std::endl << std::endl;
+	std::cout << "Przykladowy plik:" << std::endl;
+	std::cout << "3" << std::endl << "-1 10 15" << std::endl << "20 -1 5" << std::endl << "25 30 -1" << std::endl
+	          << std::endl << std::endl;
 }
