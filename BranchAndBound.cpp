@@ -9,11 +9,11 @@ BranchAndBound::BranchAndBound(std::shared_ptr<TravellingSalesmanProblem> TSP) :
 }
 
 std::string BranchAndBound::prepareToRun() {
-	throw "Not yet implemented!";
+	throw std::runtime_error("Not yet implemented!");
 	return std::__cxx11::string();
 }
 
 std::string BranchAndBound::run() {
-	throw "Not yet implemented!";
+	throw std::runtime_error("Not yet implemented!");
 	return std::__cxx11::string();
 }

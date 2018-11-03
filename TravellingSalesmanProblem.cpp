@@ -2,6 +2,7 @@
 // Created by barto on 03.11.18.
 //
 
+#include <stdexcept>
 #include "TravellingSalesmanProblem.h"
 
 TravellingSalesmanProblem::TravellingSalesmanProblem() {
@@ -9,11 +10,11 @@ TravellingSalesmanProblem::TravellingSalesmanProblem() {
 }
 
 void TravellingSalesmanProblem::loadDataFromFile(std::string path) {
-	throw "Not yet implemented!";
+	throw std::runtime_error("Not yet implemented!");
 }
 
 void TravellingSalesmanProblem::generateRandomData(int numberOfCities, int range) {
-	throw "Not yet implemented!";
+	throw std::runtime_error("Not yet implemented!");
 }
 
 std::string TravellingSalesmanProblem::printData() {

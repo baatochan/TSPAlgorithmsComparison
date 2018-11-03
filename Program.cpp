@@ -24,10 +24,11 @@ void Program::start() {
 				std::cout << "Podaj sciezke pliku do wczytania danych: ";
 				std::cin.ignore();
 				getline(std::cin, path);
+
 				try {
 					TSP->loadDataFromFile(path);
-				} catch (const char* e) {
-					std::cerr << e << std::endl;
+				} catch (const std::runtime_error &e) {
+					std::cerr << e.what() << std::endl;
 				}
 				break;
 
@@ -36,20 +37,17 @@ void Program::start() {
 				std::cin >> numberOfCities;
 				std::cout << "Podaj zakres maksymalnej dlugosci drogi (0 - zakres]: ";
 				std::cin >> range;
+
 				try {
 					TSP->generateRandomData(numberOfCities, range);
-				} catch (const char* e) {
-					std::cerr << e << std::endl;
+				} catch (const std::runtime_error &e) {
+					std::cerr << e.what() << std::endl;
 				}
 				break;
 
 			case '3':
 				output = TSP->printData();
-				try {
-					std::cout << output << std::endl;
-				} catch (const char* e) {
-					std::cerr << e << std::endl;
-				}
+				std::cout << output << std::endl;
 				break;
 
 			case '4':
@@ -57,15 +55,11 @@ void Program::start() {
 					output = BF.prepareToRun();
 					std::cout << output << std::endl;
 
-				} catch (const char* e) {
-					std::cerr << e << std::endl;
-				}
-
-				try {
 					output = BF.run();
 					std::cout << output << std::endl;
-				} catch (const char* e) {
-					std::cerr << e << std::endl;
+
+				} catch (const std::runtime_error &e) {
+					std::cerr << e.what() << std::endl;
 				}
 				break;
 
@@ -73,28 +67,26 @@ void Program::start() {
 				try {
 					output = BnB.prepareToRun();
 					std::cout << output << std::endl;
-				} catch (const char* e) {
-					std::cerr << e << std::endl;
-				}
 
-				try {
 					output = BnB.run();
 					std::cout << output << std::endl;
-				} catch (const char* e) {
-					std::cerr << e << std::endl;
+				} catch (const std::runtime_error &e) {
+					std::cerr << e.what() << std::endl;
 				}
 				break;
 
 			case '9':
 				try {
-					throw "Not yet implemented!";
-				} catch (const char* e) {
-					std::cerr << e << std::endl;
+					throw std::runtime_error("Not yet implemented!");
+				} catch (const std::runtime_error &e) {
+					std::cerr << e.what() << std::endl;
 				}
 				break;
+
 			case '0':
 				std::cout << "Program zostanie zamkniety!" << std::endl;
 				break;
+
 			default:
 				std::cerr << "Wybrana opcja nie istnieje!" << std::endl;
 				break;
