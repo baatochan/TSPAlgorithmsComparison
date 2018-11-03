@@ -65,7 +65,6 @@ void Program::start() {
 
 					output = BF.run();
 					std::cout << output << std::endl;
-
 				} catch (const std::runtime_error &e) {
 					std::cerr << e.what() << std::endl;
 				}
