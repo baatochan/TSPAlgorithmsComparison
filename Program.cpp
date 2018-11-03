@@ -2,6 +2,7 @@
 // Created by barto on 29.10.18.
 //
 
+#include <limits>
 #include "Program.h"
 
 Program::Program() : TSP(std::make_shared<TravellingSalesmanProblem>()), BF(TSP), BnB(TSP) {}
@@ -22,7 +23,7 @@ void Program::start() {
 		switch (selection) {
 			case '1':
 				std::cout << "Podaj sciezke pliku do wczytania danych: ";
-				std::cin.ignore();
+				std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 				getline(std::cin, path);
 
 				try {
@@ -33,10 +34,16 @@ void Program::start() {
 				break;
 
 			case '2':
-				std::cout << "Podaj ilosc miast: ";
-				std::cin >> numberOfCities;
-				std::cout << "Podaj zakres maksymalnej dlugosci drogi (0 - zakres]: ";
-				std::cin >> range;
+				do {
+					std::cout << "Podaj ilosc miast: ";
+					std::cin.clear();
+					std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+				} while (!(std::cin >> numberOfCities));
+				do {
+					std::cout << "Podaj zakres maksymalnej dlugosci drogi (0 - zakres]: ";
+					std::cin.clear();
+					std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+				} while (!(std::cin >> range));
 
 				try {
 					TSP->generateRandomData(numberOfCities, range);
