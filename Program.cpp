@@ -4,9 +4,7 @@
 
 #include "Program.h"
 
-Program::Program() : TSP(std::make_shared<TravellingSalesmanProblem>()), BF(TSP), BnB(TSP) {
-
-}
+Program::Program() : TSP(std::make_shared<TravellingSalesmanProblem>()), BF(TSP), BnB(TSP) {}
 
 void Program::start() {
 	char selection = 0;
@@ -26,7 +24,11 @@ void Program::start() {
 				std::cout << "Podaj sciezke pliku do wczytania danych: ";
 				std::cin.ignore();
 				getline(std::cin, path);
-				TSP->loadDataFromFile(path);
+				try {
+					TSP->loadDataFromFile(path);
+				} catch (const char* e) {
+					std::cerr << e << std::endl;
+				}
 				break;
 
 			case '2':
@@ -34,30 +36,61 @@ void Program::start() {
 				std::cin >> numberOfCities;
 				std::cout << "Podaj zakres maksymalnej dlugosci drogi (0 - zakres]: ";
 				std::cin >> range;
-				TSP->generateRandomData(numberOfCities, range);
+				try {
+					TSP->generateRandomData(numberOfCities, range);
+				} catch (const char* e) {
+					std::cerr << e << std::endl;
+				}
 				break;
 
 			case '3':
 				output = TSP->printData();
-				std::cout << output << std::endl;
+				try {
+					std::cout << output << std::endl;
+				} catch (const char* e) {
+					std::cerr << e << std::endl;
+				}
 				break;
 
 			case '4':
-				output = BF.prepareToRun();
-				std::cout << output << std::endl;
-				output = BF.run();
-				std::cout << output << std::endl;
+				try {
+					output = BF.prepareToRun();
+					std::cout << output << std::endl;
+
+				} catch (const char* e) {
+					std::cerr << e << std::endl;
+				}
+
+				try {
+					output = BF.run();
+					std::cout << output << std::endl;
+				} catch (const char* e) {
+					std::cerr << e << std::endl;
+				}
 				break;
 
 			case '5':
-				output = BnB.prepareToRun();
-				std::cout << output << std::endl;
-				output = BnB.run();
-				std::cout << output << std::endl;
+				try {
+					output = BnB.prepareToRun();
+					std::cout << output << std::endl;
+				} catch (const char* e) {
+					std::cerr << e << std::endl;
+				}
+
+				try {
+					output = BnB.run();
+					std::cout << output << std::endl;
+				} catch (const char* e) {
+					std::cerr << e << std::endl;
+				}
 				break;
 
 			case '9':
-				std::cerr << "Not so fast xD" << std::endl;
+				try {
+					throw "Not yet implemented!";
+				} catch (const char* e) {
+					std::cerr << e << std::endl;
+				}
 				break;
 			case '0':
 				std::cout << "Program zostanie zamkniety!" << std::endl;

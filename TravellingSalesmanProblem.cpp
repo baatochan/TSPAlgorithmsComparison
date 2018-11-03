@@ -9,11 +9,11 @@ TravellingSalesmanProblem::TravellingSalesmanProblem() {
 }
 
 void TravellingSalesmanProblem::loadDataFromFile(std::string path) {
-
+	throw "Not yet implemented!";
 }
 
 void TravellingSalesmanProblem::generateRandomData(int numberOfCities, int range) {
-
+	throw "Not yet implemented!";
 }
 
 std::string TravellingSalesmanProblem::printData() {
