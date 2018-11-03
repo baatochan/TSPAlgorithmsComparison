@@ -18,7 +18,24 @@ void TravellingSalesmanProblem::generateRandomData(int numberOfCities, int range
 }
 
 std::string TravellingSalesmanProblem::printData() {
-	return std::__cxx11::string();
+	if (TSPData.empty())
+		return "Macierz miast jest pusta!";
+
+	std::string output;
+
+	output += "Ilosc miast: " + std::to_string(TSPData.size()) + "\n";
+
+	for (auto &row : TSPData) {
+		for (auto &element : row) {
+			std::string temp = std::to_string(element);
+			while (temp.length() < 4)
+				temp = " " + temp;
+			output += temp + " ";
+		}
+		output += "\n";
+	}
+
+	return output;
 }
 
 void TravellingSalesmanProblem::clearData() {
