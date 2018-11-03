@@ -23,6 +23,7 @@ void Program::start() {
 
 		switch (selection) {
 			case '1':
+				printFileWarning();
 				std::cout << "Podaj sciezke pliku do wczytania danych: ";
 				std::cin.ignore();
 				getline(std::cin, path);
@@ -80,4 +81,14 @@ void Program::printMenu() {
 	std::cout << "9. Testy" << std::endl;
 	std::cout << "0. Wyjscie" << std::endl;
 	std::cout << "Wybor: ";
+}
+
+void Program::printFileWarning() {
+	std::cout << "Program nie wykonuje sprawdzania danych w pliku wejsciowym!" << std::endl;
+	std::cout << "Upewnij sie ze jest on napisany zgodnie z poniszym schematem:" << std::endl;
+	std::cout << "Pierwsza linijka to pojedyncza liczba (calkowita, dodatnia, rozna od zera) oznaczajaca ilosc miast."
+	          << std::endl;
+	std::cout
+			<< "Kolejne linijki to macierz X na X (X = liczba z pierwszej linijki), kolejne liczby w linii oddzielone spacja, zawierajaca odleglosci pomiedzy miastami (calkowite, dodatnie, rozne od zera). Przekatna macierzy zawiera liczby -1."
+			<< std::endl;
 }

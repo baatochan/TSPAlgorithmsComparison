@@ -25,6 +25,8 @@ private:
 	BranchAndBound BnB;
 
 	void printMenu();
+
+	void printFileWarning();
 };
 
 
