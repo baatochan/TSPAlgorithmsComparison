@@ -13,7 +13,7 @@ public:
 	BranchAndBound(std::shared_ptr<TravellingSalesmanProblem> TSP);
 
 	std::string prepareToRun() override;
-	
+
 	std::string run() override;
 
 };

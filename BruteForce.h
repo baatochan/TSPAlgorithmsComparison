@@ -14,7 +14,7 @@ public:
 
 	std::string prepareToRun() override;
 
-	std::string run();
+	std::string run() override;
 
 
 };
