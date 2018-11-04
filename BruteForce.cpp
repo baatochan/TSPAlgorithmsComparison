@@ -10,7 +10,7 @@ BruteForce::BruteForce(std::shared_ptr<TravellingSalesmanProblem> TSP) : Algorit
 }
 
 std::string BruteForce::prepareToRun() {
-	int numberOfCities = TSP->getNumberOfCities();
+	numberOfCities = TSP->getNumberOfCities();
 	if (numberOfCities < 2) {
 		throw std::runtime_error("Macierz miast jest pusta, badz zawiera tylko jedno miasto!");
 	}
@@ -32,7 +32,7 @@ std::string BruteForce::prepareToRun() {
 }
 
 std::string BruteForce::run() {
-	int numberOfCities = TSP->getNumberOfCities();
+	numberOfCities = TSP->getNumberOfCities();
 	if (numberOfCities < 2) {
 		throw std::runtime_error("Macierz miast jest pusta, badz zawiera tylko jedno miasto!");
 	}
@@ -45,7 +45,9 @@ std::string BruteForce::run() {
 	curresntDistance = 0;
 	bestDistance = INT32_MAX;
 
-	enumerateSolutions(0);
+	startVertex = 0;
+
+	enumerateSolutions(startVertex);
 
 	if (bestRoute.empty()) {
 		return "Nie znaleziono zadnej trasy!";

@@ -17,7 +17,10 @@ public:
 	std::string run() override;
 
 private:
+	int numberOfCities;
+
 	std::vector<bool> visitedVertices;
+	int startVertex;
 
 	std::vector<int> currentRoute;
 	std::vector<int> bestRoute;
