@@ -66,29 +66,7 @@ void BruteForce::enumerateSolutions(int vertex) {
 
 	int distanceToNext;
 
-	if (currentRoute.size() == numberOfCities) {
-		distanceToNext = TSP->getDistance(vertex, startVertex);
-
-		if (distanceToNext < 1) {
-			currentRoute.pop_back();
-			return;
-		}
-
-		curresntDistance += distanceToNext;
-
-		if (curresntDistance >= bestDistance) {
-			curresntDistance -= distanceToNext;
-			currentRoute.pop_back();
-			return;
-		}
-
-		bestDistance = curresntDistance;
-		bestRoute = currentRoute;
-
-		curresntDistance -= distanceToNext;
-		currentRoute.pop_back();
-		return;
-	} else {
+	if (currentRoute.size() < numberOfCities) {
 		visitedVertices[vertex] = true;
 
 		for (int i = 0; i < numberOfCities; ++i) {
@@ -108,8 +86,22 @@ void BruteForce::enumerateSolutions(int vertex) {
 		}
 
 		visitedVertices[vertex] = false;
+	} else { // currentRoute.size() == numberOfCities
+		distanceToNext = TSP->getDistance(vertex, startVertex);
 
-		currentRoute.pop_back();
-		return;
+		if (distanceToNext < 1) {
+			currentRoute.pop_back();
+			return;
+		}
+
+		curresntDistance += distanceToNext;
+
+		if (curresntDistance < bestDistance) {
+			bestDistance = curresntDistance;
+			bestRoute = currentRoute;
+		}
+		curresntDistance -= distanceToNext;
 	}
+
+	currentRoute.pop_back();
 }
