@@ -10,10 +10,15 @@ BruteForce::BruteForce(std::shared_ptr<TravellingSalesmanProblem> TSP) : Algorit
 }
 
 std::string BruteForce::prepareToRun() {
+	int numberOfCities = TSP->getNumberOfCities();
+	if (numberOfCities < 2) {
+		throw std::runtime_error("Macierz miast jest pusta, badz zawiera tylko jedno miasto!");
+	}
+
 	std::string output;
 
 	output += "Ilosc permitacji: ";
-	output += std::to_string(static_cast<int>(round(std::tgamma(TSP->getNumberOfCities()))));
+	output += std::to_string(static_cast<int>(round(std::tgamma(numberOfCities))));
 	/**
 	 * number of permutations -> (n-1)!; gamma(n) = (n-1)!
 	 *
