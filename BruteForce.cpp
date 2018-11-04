@@ -9,11 +9,13 @@ BruteForce::BruteForce(std::shared_ptr<TravellingSalesmanProblem> TSP) : Algorit
 }
 
 std::string BruteForce::prepareToRun() {
+	// TODO: Not yet implemented!
 	throw std::runtime_error("Not yet implemented!");
 	return std::__cxx11::string();
 }
 
 std::string BruteForce::run() {
+	// TODO: Not yet implemented!
 	throw std::runtime_error("Not yet implemented!");
 	return std::__cxx11::string();
 }
