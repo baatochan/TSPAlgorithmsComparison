@@ -62,5 +62,54 @@ std::string BruteForce::run() {
 }
 
 void BruteForce::enumerateSolutions(int vertex) {
+	currentRoute.push_back(vertex);
 
+	int distanceToNext;
+
+	if (currentRoute.size() == numberOfCities) {
+		distanceToNext = TSP->getDistance(vertex, startVertex);
+
+		if (distanceToNext < 1) {
+			currentRoute.pop_back();
+			return;
+		}
+
+		curresntDistance += distanceToNext;
+
+		if (curresntDistance >= bestDistance) {
+			curresntDistance -= distanceToNext;
+			currentRoute.pop_back();
+			return;
+		}
+
+		bestDistance = curresntDistance;
+		bestRoute = currentRoute;
+
+		curresntDistance -= distanceToNext;
+		currentRoute.pop_back();
+		return;
+	} else {
+		visitedVertices[vertex] = true;
+
+		for (int i = 0; i < numberOfCities; ++i) {
+			if (!visitedVertices[i]) {
+				distanceToNext = TSP->getDistance(vertex, i);
+
+				if (distanceToNext < 1) {
+					continue;
+				}
+
+				curresntDistance += distanceToNext;
+
+				enumerateSolutions(i);
+
+				curresntDistance -= distanceToNext;
+			}
+		}
+
+		visitedVertices[vertex] = false;
+
+		currentRoute.pop_back();
+		return;
+	}
 }
