@@ -108,7 +108,3 @@ std::string TravellingSalesmanProblem::printData() {
 
 	return output;
 }
-
-void TravellingSalesmanProblem::clearData() {
-
-}
