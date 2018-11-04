@@ -108,3 +108,7 @@ std::string TravellingSalesmanProblem::printData() {
 
 	return output;
 }
+
+int TravellingSalesmanProblem::getNumberOfCities() const {
+	return TSPData.size();
+}

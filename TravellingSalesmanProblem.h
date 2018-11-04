@@ -19,6 +19,8 @@ public:
 
 	std::string printData();
 
+	int getNumberOfCities() const;
+
 private:
 	std::vector<std::vector<int>> TSPData;
 
