@@ -32,7 +32,33 @@ std::string BruteForce::prepareToRun() {
 }
 
 std::string BruteForce::run() {
+	int numberOfCities = TSP->getNumberOfCities();
+	if (numberOfCities < 2) {
+		throw std::runtime_error("Macierz miast jest pusta, badz zawiera tylko jedno miasto!");
+	}
+
+	visitedVertices.clear();
+	visitedVertices.resize(numberOfCities);
+	currentRoute.clear();
+	bestRoute.clear();
+
+	curresntDistance = 0;
+	bestDistance = INT32_MAX;
+
+	enumerateSolutions(0);
+
+	if (bestRoute.empty()) {
+		return "Nie znaleziono zadnej trasy!";
+	}
+
+	std::string output;
+
+
 	// TODO: Not yet implemented!
 	throw std::runtime_error("Not yet implemented!");
 	return std::__cxx11::string();
+}
+
+void BruteForce::enumerateSolutions(int vertex) {
+
 }
