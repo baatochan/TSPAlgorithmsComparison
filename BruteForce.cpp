@@ -5,9 +5,7 @@
 #include <cmath>
 #include "BruteForce.h"
 
-BruteForce::BruteForce(std::shared_ptr<TravellingSalesmanProblem> TSP) : Algorithm(std::move(TSP)) {
-
-}
+BruteForce::BruteForce(std::shared_ptr<TravellingSalesmanProblem> TSP) : Algorithm(std::move(TSP)) {}
 
 std::string BruteForce::prepareToRun() {
 	numberOfCities = TSP->getNumberOfCities();
@@ -43,7 +41,7 @@ std::string BruteForce::run() {
 	currentRoute.clear();
 	bestRoute.clear();
 
-	curresntDistance = 0;
+	currentDistance = 0;
 	bestDistance = INT32_MAX;
 
 	startVertex = 0;
@@ -89,11 +87,11 @@ void BruteForce::enumerateSolutions(int vertex) {
 					continue;
 				}
 
-				curresntDistance += distanceToNext;
+				currentDistance += distanceToNext;
 
 				enumerateSolutions(i);
 
-				curresntDistance -= distanceToNext;
+				currentDistance -= distanceToNext;
 			}
 		}
 
@@ -106,13 +104,13 @@ void BruteForce::enumerateSolutions(int vertex) {
 			return;
 		}
 
-		curresntDistance += distanceToNext;
+		currentDistance += distanceToNext;
 
-		if (curresntDistance < bestDistance) {
-			bestDistance = curresntDistance;
+		if (currentDistance < bestDistance) {
+			bestDistance = currentDistance;
 			bestRoute = currentRoute;
 		}
-		curresntDistance -= distanceToNext;
+		currentDistance -= distanceToNext;
 	}
 
 	currentRoute.pop_back();

@@ -4,9 +4,7 @@
 
 #include "BranchAndBound.h"
 
-BranchAndBound::BranchAndBound(std::shared_ptr<TravellingSalesmanProblem> TSP) : Algorithm(std::move(TSP)) {
-
-}
+BranchAndBound::BranchAndBound(std::shared_ptr<TravellingSalesmanProblem> TSP) : Algorithm(std::move(TSP)) {}
 
 std::string BranchAndBound::prepareToRun() {
 	// TODO: Not yet implemented!

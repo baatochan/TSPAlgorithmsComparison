@@ -25,7 +25,7 @@ private:
 	std::vector<int> currentRoute;
 	std::vector<int> bestRoute;
 
-	int curresntDistance;
+	int currentDistance;
 	int bestDistance;
 
 	void enumerateSolutions(int vertex);
