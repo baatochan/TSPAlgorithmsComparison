@@ -18,7 +18,7 @@ std::string BruteForce::prepareToRun() {
 	std::string output;
 
 	output += "Ilosc permitacji: ";
-	output += std::to_string(static_cast<int>(round(std::tgamma(numberOfCities))));
+	output += std::to_string(static_cast<unsigned long>(round(std::tgamma(numberOfCities))));
 	/**
 	 * number of permutations -> (n-1)!; gamma(n) = (n-1)!
 	 *
