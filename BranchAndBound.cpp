@@ -35,3 +35,22 @@ std::string BranchAndBound::run() {
 	throw std::runtime_error("Not yet implemented!");
 	return std::__cxx11::string();
 }
+
+void BranchAndBound::calculateStartingLowerBound() {
+	lowestDistancesToVertices.clear();
+	lowestDistancesToVertices.resize(numberOfCities);
+
+	int temp;
+
+	for (int i = 0; i < numberOfCities; ++i) {
+		temp = TSP->getMinimumDistanceTo(i);
+		lowestDistancesToVertices[i].push_back(temp);
+		currentLowerBound += temp;
+
+		temp = TSP->getSecondMinimumDistanceTo(i);
+		lowestDistancesToVertices[i].push_back(temp);
+		currentLowerBound += temp;
+	}
+
+	currentLowerBound = (currentLowerBound/2) + (currentLowerBound%2);
+}
