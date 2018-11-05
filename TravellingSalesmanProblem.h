@@ -19,6 +19,10 @@ public:
 
 	std::string printData();
 
+	int getNumberOfCities() const;
+
+	int getDistance(int startVertex, int endVertex) const;
+
 private:
 	std::vector<std::vector<int>> TSPData;
 

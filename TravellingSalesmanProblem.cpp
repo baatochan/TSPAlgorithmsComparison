@@ -108,3 +108,18 @@ std::string TravellingSalesmanProblem::printData() {
 
 	return output;
 }
+
+int TravellingSalesmanProblem::getNumberOfCities() const {
+	return TSPData.size();
+}
+
+int TravellingSalesmanProblem::getDistance(int startVertex, int endVertex) const {
+	if (startVertex < 0 || endVertex < 0) {
+		throw std::runtime_error("Bledny indeks wierzcholka!");
+	}
+	if (startVertex >= TSPData.size() || endVertex >= TSPData.size()) {
+		throw std::runtime_error("Wierzcholek nie istnieje!");
+	}
+
+	return TSPData[startVertex][endVertex];
+}

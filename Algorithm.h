@@ -19,10 +19,12 @@ public:
 
 	virtual std::string run() = 0;
 
+protected:
+	std::shared_ptr<TravellingSalesmanProblem> TSP;
+
 private:
 	Algorithm() = default;
 
-	std::shared_ptr<TravellingSalesmanProblem> TSP;
 };
 
 
