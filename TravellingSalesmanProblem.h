@@ -23,6 +23,10 @@ public:
 
 	int getDistance(int startVertex, int endVertex) const;
 
+	int getMinimumDistanceTo(int vertex) const;
+
+	int getSecondMinimumDistanceTo(int vertex) const;
+
 private:
 	std::vector<std::vector<int>> TSPData;
 
