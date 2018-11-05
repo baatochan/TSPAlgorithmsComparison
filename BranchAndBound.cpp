@@ -31,9 +31,54 @@ std::string BranchAndBound::prepareToRun() {
 }
 
 std::string BranchAndBound::run() {
-	// TODO: Not yet implemented!
-	throw std::runtime_error("Not yet implemented!");
-	return std::__cxx11::string();
+	numberOfChecks = 0;
+
+	numberOfCities = TSP->getNumberOfCities();
+	if (numberOfCities < 2) {
+		throw std::runtime_error("Macierz miast jest pusta, badz zawiera tylko jedno miasto!");
+	}
+
+	visitedVertices.clear();
+	visitedVertices.resize(numberOfCities);
+	currentRoute.clear();
+	bestRoute.clear();
+
+	currentDistance = 0;
+	bestDistance = INT32_MAX;
+
+	startVertex = 0;
+
+	currentLowerBound = 0;
+
+	calculateStartingLowerBound();
+
+	enumerateSolutions(startVertex);
+
+	std::string output;
+
+	output += "Ilosc sprawdoznych permutacji: ";
+	output += std::to_string(numberOfChecks);
+	output += "\n";
+
+	if (bestRoute.empty()) {
+		output += "Nie znaleziono zadnej trasy!\n";
+	} else {
+		output += "Najlepsza droga: ";
+
+		for (auto city : bestRoute) {
+			output += std::to_string(city);
+			output += " - ";
+		}
+
+		output += std::to_string(bestRoute[0]);
+		output += "\n";
+
+		output += "Dlugosc najlepszej drogi: ";
+		output += std::to_string(bestDistance);
+		output += "\n";
+	}
+
+	return output;
 }
 
 void BranchAndBound::calculateStartingLowerBound() {
