@@ -17,6 +17,8 @@ public:
 	std::string run() override;
 
 private:
+	int numberOfChecks;
+
 	int numberOfCities;
 
 	std::vector<bool> visitedVertices;
