@@ -27,6 +27,7 @@ std::string BruteForce::prepareToRun() {
 	 * don't kill me, my future self xD
 	 *
 	 */
+	output += "\n";
 
 	return output;
 }
@@ -55,10 +56,21 @@ std::string BruteForce::run() {
 
 	std::string output;
 
+	output += "Najlepsza droga: ";
 
-	// TODO: Not yet implemented!
-	throw std::runtime_error("Not yet implemented!");
-	return std::__cxx11::string();
+	for (auto city : bestRoute) {
+		output += std::to_string(city);
+		output += " - ";
+	}
+
+	output += std::to_string(bestRoute[0]);
+	output += "\n";
+
+	output += "Dlugosc najlepszej drogi: ";
+	output += std::to_string(bestDistance);
+	output += "\n";
+
+	return output;
 }
 
 void BruteForce::enumerateSolutions(int vertex) {
