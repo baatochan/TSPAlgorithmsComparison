@@ -31,6 +31,8 @@ std::string BruteForce::prepareToRun() {
 }
 
 std::string BruteForce::run() {
+	numberOfChecks = 0;
+
 	numberOfCities = TSP->getNumberOfCities();
 	if (numberOfCities < 2) {
 		throw std::runtime_error("Macierz miast jest pusta, badz zawiera tylko jedno miasto!");
@@ -48,25 +50,29 @@ std::string BruteForce::run() {
 
 	enumerateSolutions(startVertex);
 
-	if (bestRoute.empty()) {
-		return "Nie znaleziono zadnej trasy!";
-	}
-
 	std::string output;
 
-	output += "Najlepsza droga: ";
+	output += "Ilosc sprawdoznych permutacji: ";
+	output += std::to_string(numberOfChecks);
+	output += "\n";
 
-	for (auto city : bestRoute) {
-		output += std::to_string(city);
-		output += " - ";
+	if (bestRoute.empty()) {
+		output += "Nie znaleziono zadnej trasy!\n";
+	} else {
+		output += "Najlepsza droga: ";
+
+		for (auto city : bestRoute) {
+			output += std::to_string(city);
+			output += " - ";
+		}
+
+		output += std::to_string(bestRoute[0]);
+		output += "\n";
+
+		output += "Dlugosc najlepszej drogi: ";
+		output += std::to_string(bestDistance);
+		output += "\n";
 	}
-
-	output += std::to_string(bestRoute[0]);
-	output += "\n";
-
-	output += "Dlugosc najlepszej drogi: ";
-	output += std::to_string(bestDistance);
-	output += "\n";
 
 	return output;
 }
@@ -97,6 +103,8 @@ void BruteForce::enumerateSolutions(int vertex) {
 
 		visitedVertices[vertex] = false;
 	} else { // currentRoute.size() == numberOfCities
+		numberOfChecks++;
+
 		distanceToNext = TSP->getDistance(vertex, startVertex);
 
 		if (distanceToNext < 1) {
