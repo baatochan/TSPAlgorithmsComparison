@@ -16,6 +16,28 @@ public:
 
 	std::string run() override;
 
+private:
+	int numberOfChecks;
+
+	int numberOfCities;
+
+	std::vector<bool> visitedVertices;
+	int startVertex;
+
+	std::vector<int> currentRoute;
+	std::vector<int> bestRoute;
+
+	int currentDistance;
+	int bestDistance;
+
+	int currentLowerBound;
+
+	std::vector<std::vector<int>> lowestDistancesToVertices;
+
+	void enumerateSolutions(int vertex);
+
+	void calculateStartingLowerBound();
+
 };
 
 
