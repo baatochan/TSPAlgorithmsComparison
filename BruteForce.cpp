@@ -89,7 +89,7 @@ void BruteForce::enumerateSolutions(int vertex) {
 			if (!visitedVertices[i]) {
 				distanceToNext = TSP->getDistance(vertex, i);
 
-				if (distanceToNext < 1) {
+				if (distanceToNext < 0) {
 					continue;
 				}
 
@@ -107,7 +107,7 @@ void BruteForce::enumerateSolutions(int vertex) {
 
 		distanceToNext = TSP->getDistance(vertex, startVertex);
 
-		if (distanceToNext < 1) {
+		if (distanceToNext < 0) {
 			currentRoute.pop_back();
 			return;
 		}
