@@ -101,17 +101,10 @@ void BranchAndBound::enumerateSolutions(int vertex) {
 
 				int temp;
 
-				if (currentRoute.size() == 1) {
-					temp = lowestDistancesToVertices[vertex][0] + lowestDistancesToVertices[i][0];
-					temp = (temp/2) + (temp%2);
+				temp = lowestDistancesToVertices[vertex][1] + lowestDistancesToVertices[i][0];
+				temp = (temp/2) + (temp%2);
 
-					currentLowerBound -= temp;
-				} else {
-					temp = lowestDistancesToVertices[vertex][1] + lowestDistancesToVertices[i][0];
-					temp = (temp/2) + (temp%2);
-
-					currentLowerBound -= temp;
-				}
+				currentLowerBound -= temp;
 
 				currentDistance += distanceToNext;
 
@@ -159,7 +152,7 @@ void BranchAndBound::calculateStartingLowerBound() {
 		lowestDistancesToVertices[i].push_back(temp);
 		currentLowerBound += temp;
 
-		temp = TSP->getSecondMinimumDistanceTo(i);
+		temp = TSP->getMinimumDistanceFrom(i);
 		lowestDistancesToVertices[i].push_back(temp);
 		currentLowerBound += temp;
 	}

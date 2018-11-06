@@ -23,6 +23,8 @@ public:
 
 	int getDistance(int startVertex, int endVertex) const;
 
+	int getMinimumDistanceFrom(int vertex) const;
+
 	int getMinimumDistanceTo(int vertex) const;
 
 	int getSecondMinimumDistanceTo(int vertex) const;
