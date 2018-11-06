@@ -81,6 +81,73 @@ std::string BranchAndBound::run() {
 	return output;
 }
 
+void BranchAndBound::enumerateSolutions(int vertex) {
+	currentRoute.push_back(vertex);
+
+	int distanceToNext;
+
+	if (currentRoute.size() < numberOfCities) {
+		visitedVertices[vertex] = true;
+
+		for (int i = 0; i < numberOfCities; ++i) {
+			if (!visitedVertices[i]) {
+				distanceToNext = TSP->getDistance(vertex, i);
+
+				if (distanceToNext < 1) {
+					continue;
+				}
+
+				int tempLowerBound = currentLowerBound;
+
+				int temp;
+
+				if (currentRoute.size() == 1) {
+					temp = lowestDistancesToVertices[vertex][0] + lowestDistancesToVertices[i][0];
+					temp = (temp/2) + (temp%2);
+
+					currentLowerBound -= temp;
+				} else {
+					temp = lowestDistancesToVertices[vertex][1] + lowestDistancesToVertices[i][0];
+					temp = (temp/2) + (temp%2);
+
+					currentLowerBound -= temp;
+				}
+
+				currentDistance += distanceToNext;
+
+				if (currentDistance + currentLowerBound < bestDistance) {
+					enumerateSolutions(i);
+				}
+
+				currentDistance -= distanceToNext;
+
+				currentLowerBound = tempLowerBound;
+			}
+		}
+
+		visitedVertices[vertex] = false;
+	} else { // currentRoute.size() == numberOfCities
+		numberOfChecks++;
+
+		distanceToNext = TSP->getDistance(vertex, startVertex);
+
+		if (distanceToNext < 1) {
+			currentRoute.pop_back();
+			return;
+		}
+
+		currentDistance += distanceToNext;
+
+		if (currentDistance < bestDistance) {
+			bestDistance = currentDistance;
+			bestRoute = currentRoute;
+		}
+		currentDistance -= distanceToNext;
+	}
+
+	currentRoute.pop_back();
+}
+
 void BranchAndBound::calculateStartingLowerBound() {
 	lowestDistancesToVertices.clear();
 	lowestDistancesToVertices.resize(numberOfCities);
