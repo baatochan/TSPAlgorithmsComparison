@@ -127,7 +127,7 @@ int TravellingSalesmanProblem::getDistance(int startVertex, int endVertex) const
 int TravellingSalesmanProblem::getMinimumDistanceFrom(int vertex) const {
 	int min = INT32_MAX;
 
-	for (int i = 0; i < TSPData.size() ; ++i) {
+	for (int i = 0; i < TSPData.size(); ++i) {
 		if (TSPData[vertex][i] < min && TSPData[vertex][i] > 0) {
 			min = TSPData[vertex][i];
 		}
@@ -139,7 +139,7 @@ int TravellingSalesmanProblem::getMinimumDistanceFrom(int vertex) const {
 int TravellingSalesmanProblem::getMinimumDistanceTo(int vertex) const {
 	int min = INT32_MAX;
 
-	for (int i = 0; i < TSPData.size() ; ++i) {
+	for (int i = 0; i < TSPData.size(); ++i) {
 		if (TSPData[i][vertex] < min && TSPData[i][vertex] > 0) {
 			min = TSPData[i][vertex];
 		}
@@ -152,7 +152,7 @@ int TravellingSalesmanProblem::getSecondMinimumDistanceTo(int vertex) const {
 	int min = INT32_MAX;
 	int secondMin = INT32_MAX;
 
-	for (int i = 0; i < TSPData.size() ; ++i) {
+	for (int i = 0; i < TSPData.size(); ++i) {
 		if (TSPData[vertex][i] < 1) {
 			continue;
 		} else if (TSPData[vertex][i] <= min) {

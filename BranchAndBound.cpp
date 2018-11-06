@@ -102,7 +102,7 @@ void BranchAndBound::enumerateSolutions(int vertex) {
 				int temp;
 
 				temp = lowestDistancesToVertices[vertex][1] + lowestDistancesToVertices[i][0];
-				temp = (temp/2) + (temp%2);
+				temp = (temp / 2) + (temp % 2);
 
 				currentLowerBound -= temp;
 
@@ -157,5 +157,5 @@ void BranchAndBound::calculateStartingLowerBound() {
 		currentLowerBound += temp;
 	}
 
-	currentLowerBound = (currentLowerBound/2) + (currentLowerBound%2);
+	currentLowerBound = (currentLowerBound / 2) + (currentLowerBound % 2);
 }
