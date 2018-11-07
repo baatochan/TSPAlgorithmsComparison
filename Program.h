@@ -11,6 +11,7 @@
 #include "TravellingSalesmanProblem.h"
 #include "BruteForce.h"
 #include "BranchAndBound.h"
+#include "Test.h"
 
 class Program {
 public:
@@ -24,9 +25,15 @@ private:
 	BruteForce BF;
 	BranchAndBound BnB;
 
+	Test test;
+
 	void printMenu();
 
 	void printFileWarning();
+
+	void runTestMenu();
+
+	void printTestMenu();
 };
 
 
