@@ -75,8 +75,50 @@ std::string Test::test1() {
 }
 
 std::string Test::test2() {
-	// TODO: Not yet implemented!
-	throw std::runtime_error("Not yet implemented!");
+	int numberOfTests = 10;
+
+	std::ostringstream outputConsole;
+	outputConsole.setf(std::ios::fixed);
+
+	outputFile << "--- " << getTestName('1') << " ---" << std::endl;
+	outputConsole << "--- " << getTestName('1') << " ---" << std::endl;
+
+	for (int numberOfCities = 3; numberOfCities <= 20; ++numberOfCities) {
+		outputFile << "BF " << numberOfCities << std::endl;
+		outputConsole << "BF " << numberOfCities << std::endl;
+
+		int sumOfResults = 0;
+
+		for (int i = 0; i < numberOfTests; ++i) {
+			try {
+				TSP->generateRandomData(numberOfCities, 30);
+
+				outputConsole << "Test: " << i << " - ";
+
+				auto start_time = std::chrono::high_resolution_clock::now();
+				BnB.run();
+				auto end_time = std::chrono::high_resolution_clock::now();
+
+				auto result = std::chrono::duration_cast<std::chrono::microseconds>(end_time - start_time).count();
+
+				outputFile << result << std::endl;
+				outputConsole << result << std::endl;
+
+				sumOfResults += result;
+			} catch (const std::runtime_error &e) {
+				i--;
+				outputConsole << e.what() << std::endl;
+			}
+		}
+
+		sumOfResults /= numberOfTests;
+
+		outputFile << sumOfResults << std::endl;
+		outputConsole << "Srednia: " << sumOfResults << std::endl;
+	}
+
+	std::string output = outputConsole.str();
+	return output;
 }
 
 std::string Test::test3() {
@@ -120,7 +162,7 @@ std::string Test::getTestName(char test) {
 			return "Brute force (3-12 miast)";
 
 		case '2':
-			return "Not yet implemented!";
+			return "Branch and bound (3-20 miast)";
 
 		case '3':
 			return "Not yet implemented!";
