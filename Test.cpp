@@ -5,7 +5,7 @@
 #include "Test.h"
 
 void Test::openFile() {
-	std::string path = "..\\wyniki\\";
+	std::string path = "../wyniki/";
 	path += "test-";
 	path += std::to_string(time(0));
 	path += ".txt";

@@ -83,7 +83,11 @@ void Program::start() {
 				break;
 
 			case '9':
-				runTestMenu();
+				try {
+					runTestMenu();
+				} catch (const std::runtime_error &e) {
+					std::cerr << e.what() << std::endl;
+				}
 				break;
 
 			case '0':
