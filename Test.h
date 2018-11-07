@@ -10,9 +10,8 @@
 
 class Test {
 public:
-	Test();
-
-	~Test();
+	void openFile();
+	void closeFile();
 
 	std::string test1();
 	std::string test2();
@@ -29,8 +28,6 @@ public:
 private:
 
 	std::fstream outputFile;
-
-	void openFile();
 };
 
 
