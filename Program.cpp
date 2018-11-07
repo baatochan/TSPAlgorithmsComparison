@@ -131,6 +131,7 @@ void Program::runTestMenu() {
 	test.openFile();
 
 	char selection = 0;
+	std::string output;
 
 	do {
 		printTestMenu();
@@ -141,7 +142,8 @@ void Program::runTestMenu() {
 		switch (selection) {
 			case '1':
 				try {
-					test.test1();
+					output = test.test1();
+					std::cout << output << std::endl;
 				} catch (const std::runtime_error &e) {
 					std::cerr << e.what() << std::endl;
 				}
@@ -149,7 +151,8 @@ void Program::runTestMenu() {
 
 			case '2':
 				try {
-					test.test2();
+					output = test.test2();
+					std::cout << output << std::endl;
 				} catch (const std::runtime_error &e) {
 					std::cerr << e.what() << std::endl;
 				}
@@ -157,7 +160,8 @@ void Program::runTestMenu() {
 
 			case '3':
 				try {
-					test.test3();
+					output = test.test3();
+					std::cout << output << std::endl;
 				} catch (const std::runtime_error &e) {
 					std::cerr << e.what() << std::endl;
 				}
@@ -165,7 +169,8 @@ void Program::runTestMenu() {
 
 			case '4':
 				try {
-					test.test4();
+					output = test.test4();
+					std::cout << output << std::endl;
 				} catch (const std::runtime_error &e) {
 					std::cerr << e.what() << std::endl;
 				}
@@ -173,7 +178,8 @@ void Program::runTestMenu() {
 
 			case '5':
 				try {
-					test.test5();
+					output = test.test5();
+					std::cout << output << std::endl;
 				} catch (const std::runtime_error &e) {
 					std::cerr << e.what() << std::endl;
 				}
@@ -181,7 +187,8 @@ void Program::runTestMenu() {
 
 			case '6':
 				try {
-					test.test6();
+					output = test.test6();
+					std::cout << output << std::endl;
 				} catch (const std::runtime_error &e) {
 					std::cerr << e.what() << std::endl;
 				}
@@ -189,7 +196,8 @@ void Program::runTestMenu() {
 
 			case '7':
 				try {
-					test.test7();
+					output = test.test7();
+					std::cout << output << std::endl;
 				} catch (const std::runtime_error &e) {
 					std::cerr << e.what() << std::endl;
 				}
@@ -197,7 +205,8 @@ void Program::runTestMenu() {
 
 			case '8':
 				try {
-					test.test8();
+					output = test.test8();
+					std::cout << output << std::endl;
 				} catch (const std::runtime_error &e) {
 					std::cerr << e.what() << std::endl;
 				}
@@ -205,7 +214,8 @@ void Program::runTestMenu() {
 
 			case '9':
 				try {
-					test.test9();
+					output = test.test9();
+					std::cout << output << std::endl;
 				} catch (const std::runtime_error &e) {
 					std::cerr << e.what() << std::endl;
 				}

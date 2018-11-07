@@ -2,6 +2,8 @@
 // Created by barto on 07.11.18.
 //
 
+#include <sstream>
+#include <chrono>
 #include "Test.h"
 
 Test::Test() : TSP(std::make_shared<TravellingSalesmanProblem>()), BF(TSP), BnB(TSP) {}
@@ -26,8 +28,50 @@ void Test::closeFile() {
 }
 
 std::string Test::test1() {
-	// TODO: Not yet implemented!
-	throw std::runtime_error("Not yet implemented!");
+	int numberOfTests = 10;
+
+	std::ostringstream outputConsole;
+	outputConsole.setf(std::ios::fixed);
+
+	outputFile << "--- " << getTestName('1') << " ---" << std::endl;
+	outputConsole << "--- " << getTestName('1') << " ---" << std::endl;
+
+	for (int numberOfCities = 3; numberOfCities <= 12; ++numberOfCities) {
+		outputFile << "BF " << numberOfCities << std::endl;
+		outputConsole << "BF " << numberOfCities << std::endl;
+
+		int sumOfResults = 0;
+
+		for (int i = 0; i < numberOfTests; ++i) {
+			try {
+				TSP->generateRandomData(numberOfCities, 30);
+
+				outputConsole << "Test: " << i << " - ";
+
+				auto start_time = std::chrono::high_resolution_clock::now();
+				BF.run();
+				auto end_time = std::chrono::high_resolution_clock::now();
+
+				auto result = std::chrono::duration_cast<std::chrono::microseconds>(end_time - start_time).count();
+
+				outputFile << result << std::endl;
+				outputConsole << result << std::endl;
+
+				sumOfResults += result;
+			} catch (const std::runtime_error &e) {
+				i--;
+				outputConsole << e.what() << std::endl;
+			}
+		}
+
+		sumOfResults /= numberOfTests;
+
+		outputFile << sumOfResults << std::endl;
+		outputConsole << "Srednia: " << sumOfResults << std::endl;
+	}
+
+	std::string output = outputConsole.str();
+	return output;
 }
 
 std::string Test::test2() {
@@ -73,7 +117,7 @@ std::string Test::test9() {
 std::string Test::getTestName(char test) {
 	switch (test) {
 		case '1':
-			return "Not yet implemented!";
+			return "Brute force (3-12 miast)";
 
 		case '2':
 			return "Not yet implemented!";
