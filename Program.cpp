@@ -84,8 +84,7 @@ void Program::start() {
 
 			case '9':
 				try {
-					// TODO: Not yet implemented!
-					throw std::runtime_error("Not yet implemented!");
+					runTestMenu();
 				} catch (const std::runtime_error &e) {
 					std::cerr << e.what() << std::endl;
 				}
@@ -126,4 +125,125 @@ void Program::printFileWarning() {
 	std::cout << "Przykladowy plik:" << std::endl;
 	std::cout << "3" << std::endl << "-1 10 15" << std::endl << "20 -1 5" << std::endl << "25 30 -1" << std::endl
 	          << std::endl << std::endl;
+}
+
+void Program::runTestMenu() {
+	test.openFile();
+
+	char selection = 0;
+	std::string output;
+
+	do {
+		printTestMenu();
+
+		std::cin >> selection;
+		std::cout << std::endl;
+
+		switch (selection) {
+			case '1':
+				try {
+					output = test.test1();
+					std::cout << output << std::endl;
+				} catch (const std::runtime_error &e) {
+					std::cerr << e.what() << std::endl;
+				}
+				break;
+
+			case '2':
+				try {
+					output = test.test2();
+					std::cout << output << std::endl;
+				} catch (const std::runtime_error &e) {
+					std::cerr << e.what() << std::endl;
+				}
+				break;
+
+			case '3':
+				try {
+					output = test.test3();
+					std::cout << output << std::endl;
+				} catch (const std::runtime_error &e) {
+					std::cerr << e.what() << std::endl;
+				}
+				break;
+
+			case '4':
+				try {
+					output = test.test4();
+					std::cout << output << std::endl;
+				} catch (const std::runtime_error &e) {
+					std::cerr << e.what() << std::endl;
+				}
+				break;
+
+			case '5':
+				try {
+					output = test.test5();
+					std::cout << output << std::endl;
+				} catch (const std::runtime_error &e) {
+					std::cerr << e.what() << std::endl;
+				}
+				break;
+
+			case '6':
+				try {
+					output = test.test6();
+					std::cout << output << std::endl;
+				} catch (const std::runtime_error &e) {
+					std::cerr << e.what() << std::endl;
+				}
+				break;
+
+			case '7':
+				try {
+					output = test.test7();
+					std::cout << output << std::endl;
+				} catch (const std::runtime_error &e) {
+					std::cerr << e.what() << std::endl;
+				}
+				break;
+
+			case '8':
+				try {
+					output = test.test8();
+					std::cout << output << std::endl;
+				} catch (const std::runtime_error &e) {
+					std::cerr << e.what() << std::endl;
+				}
+				break;
+
+			case '9':
+				try {
+					output = test.test9();
+					std::cout << output << std::endl;
+				} catch (const std::runtime_error &e) {
+					std::cerr << e.what() << std::endl;
+				}
+				break;
+
+			case '0':
+				break;
+
+			default:
+				std::cerr << "Wybrana opcja nie istnieje!" << std::endl;
+				break;
+		}
+	} while (selection != '0');
+
+	test.closeFile();
+}
+
+void Program::printTestMenu() {
+	std::cout << "--- TESTY ---" << std::endl;
+	std::cout << "1. Test nr 1 (" << test.getTestName('1') << ")" << std::endl;
+	std::cout << "2. Test nr 2 (" << test.getTestName('2') << ")" << std::endl;
+	std::cout << "3. Test nr 3 (" << test.getTestName('3') << ")" << std::endl;
+	std::cout << "4. Test nr 4 (" << test.getTestName('4') << ")" << std::endl;
+	std::cout << "5. Test nr 5 (" << test.getTestName('5') << ")" << std::endl;
+	std::cout << "6. Test nr 6 (" << test.getTestName('6') << ")" << std::endl;
+	std::cout << "7. Test nr 7 (" << test.getTestName('7') << ")" << std::endl;
+	std::cout << "8. Test nr 8 (" << test.getTestName('8') << ")" << std::endl;
+	std::cout << "9. Test nr 9 (" << test.getTestName('9') << ")" << std::endl;
+	std::cout << "0. Powrot" << std::endl;
+	std::cout << "Wybor: ";
 }
