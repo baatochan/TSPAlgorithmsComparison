@@ -4,6 +4,8 @@
 
 #include "Test.h"
 
+Test::Test() : TSP(std::make_shared<TravellingSalesmanProblem>()), BF(TSP), BnB(TSP) {}
+
 void Test::openFile() {
 	std::string path = "../wyniki/";
 	path += "test-";

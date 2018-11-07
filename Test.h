@@ -7,9 +7,14 @@
 
 
 #include <fstream>
+#include "TravellingSalesmanProblem.h"
+#include "BruteForce.h"
+#include "BranchAndBound.h"
 
 class Test {
 public:
+	Test();
+
 	void openFile();
 	void closeFile();
 
@@ -26,6 +31,10 @@ public:
 	std::string getTestName(char test);
 
 private:
+	std::shared_ptr<TravellingSalesmanProblem> TSP;
+
+	BruteForce BF;
+	BranchAndBound BnB;
 
 	std::fstream outputFile;
 };
