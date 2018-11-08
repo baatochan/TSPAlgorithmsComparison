@@ -80,8 +80,8 @@ std::string Test::test2() {
 	std::ostringstream outputConsole;
 	outputConsole.setf(std::ios::fixed);
 
-	outputFile << "--- " << getTestName('1') << " ---" << std::endl;
-	outputConsole << "--- " << getTestName('1') << " ---" << std::endl;
+	outputFile << "--- " << getTestName('2') << " ---" << std::endl;
+	outputConsole << "--- " << getTestName('2') << " ---" << std::endl;
 
 	for (int numberOfCities = 3; numberOfCities <= 20; ++numberOfCities) {
 		outputFile << "BnB " << numberOfCities << std::endl;
