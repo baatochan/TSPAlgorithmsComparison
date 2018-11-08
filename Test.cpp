@@ -84,8 +84,8 @@ std::string Test::test2() {
 	outputConsole << "--- " << getTestName('1') << " ---" << std::endl;
 
 	for (int numberOfCities = 3; numberOfCities <= 20; ++numberOfCities) {
-		outputFile << "BF " << numberOfCities << std::endl;
-		outputConsole << "BF " << numberOfCities << std::endl;
+		outputFile << "BnB " << numberOfCities << std::endl;
+		outputConsole << "BnB " << numberOfCities << std::endl;
 
 		int sumOfResults = 0;
 
