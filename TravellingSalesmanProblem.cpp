@@ -15,7 +15,7 @@ void TravellingSalesmanProblem::loadDataFromFile(std::string path) {
 	std::fstream file(path, std::ios::in);
 
 	if (!file.is_open())
-		throw std::runtime_error("Plik nie istnieje, badz zablokowany dostep!");
+		throw std::runtime_error("Plik nie istnieje, bądź zablokowany dostęp!");
 
 	std::string temp;
 	while (file >> temp) {
@@ -23,12 +23,12 @@ void TravellingSalesmanProblem::loadDataFromFile(std::string path) {
 			intBuffer.push_back(stoi(temp));
 		} catch (const std::exception &e) {
 			intBuffer.clear();
-			throw std::runtime_error("Bledna zawartosc pliku! Upewnij sie ze podales odpowiedni format!");
+			throw std::runtime_error("Błędna zawartość pliku! Upewnij sie ze podałeś odpowiedni format!");
 		}
 	}
 
 	if (intBuffer.empty())
-		throw std::runtime_error("Plik pusty, badz bledna zawartosc!");
+		throw std::runtime_error("Plik pusty, bądź błędna zawartość!");
 
 	int i = 0;
 	int numberOfCities = intBuffer[i++];
@@ -47,7 +47,7 @@ void TravellingSalesmanProblem::loadDataFromFile(std::string path) {
 			if (intBuffer.size() > i) {
 				row.push_back(intBuffer[i++]);
 			} else {
-				throw std::runtime_error("Za krotka zawartosc pliku! Upewnij sie ze podales odpowiedni format!");
+				throw std::runtime_error("Za krotka zawartość pliku! Upewnij sie ze podałeś odpowiedni format!");
 			}
 		}
 	}
@@ -59,7 +59,7 @@ void TravellingSalesmanProblem::loadDataFromFile(std::string path) {
 
 void TravellingSalesmanProblem::generateRandomData(int numberOfCities, int range) {
 	if (numberOfCities < 0) {
-		throw std::runtime_error("Liczba miast nie moze byc ujemna!");
+		throw std::runtime_error("Liczba miast nie może byc ujemna!");
 	}
 	if (numberOfCities == 0) {
 		TSPData.clear();
@@ -67,7 +67,7 @@ void TravellingSalesmanProblem::generateRandomData(int numberOfCities, int range
 		return;
 	}
 	if (range < 1) {
-		throw std::runtime_error("Gorna granica zakresu musi byc dodatnia!");
+		throw std::runtime_error("Górna granica zakresu musi byc dodatnia!");
 	}
 
 	std::random_device seed;
@@ -94,7 +94,7 @@ std::string TravellingSalesmanProblem::printData() {
 
 	std::string output;
 
-	output += "Ilosc miast: " + std::to_string(TSPData.size()) + "\n";
+	output += "Ilość miast: " + std::to_string(TSPData.size()) + "\n";
 
 	for (auto &row : TSPData) {
 		for (auto &element : row) {
@@ -115,10 +115,10 @@ int TravellingSalesmanProblem::getNumberOfCities() const {
 
 int TravellingSalesmanProblem::getDistance(int startVertex, int endVertex) const {
 	if (startVertex < 0 || endVertex < 0) {
-		throw std::runtime_error("Bledny indeks wierzcholka!");
+		throw std::runtime_error("Błędny indeks wierzchołka!");
 	}
 	if (startVertex >= TSPData.size() || endVertex >= TSPData.size()) {
-		throw std::runtime_error("Wierzcholek nie istnieje!");
+		throw std::runtime_error("Wierzchołek nie istnieje!");
 	}
 
 	return TSPData[startVertex][endVertex];

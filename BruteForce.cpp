@@ -10,12 +10,12 @@ BruteForce::BruteForce(std::shared_ptr<TravellingSalesmanProblem> TSP) : Algorit
 std::string BruteForce::prepareToRun() {
 	numberOfCities = TSP->getNumberOfCities();
 	if (numberOfCities < 2) {
-		throw std::runtime_error("Macierz miast jest pusta, badz zawiera tylko jedno miasto!");
+		throw std::runtime_error("Macierz miast jest pusta, bądź zawiera tylko jedno miasto!");
 	}
 
 	std::string output;
 
-	output += "Ilosc permitacji: ";
+	output += "Ilość permutacji: ";
 	output += std::to_string(static_cast<unsigned long>(round(std::tgamma(numberOfCities))));
 	/**
 	 * number of permutations -> (n-1)!; gamma(n) = (n-1)!
@@ -35,7 +35,7 @@ std::string BruteForce::run() {
 
 	numberOfCities = TSP->getNumberOfCities();
 	if (numberOfCities < 2) {
-		throw std::runtime_error("Macierz miast jest pusta, badz zawiera tylko jedno miasto!");
+		throw std::runtime_error("Macierz miast jest pusta, bądź zawiera tylko jedno miasto!");
 	}
 
 	visitedVertices.clear();
@@ -52,12 +52,12 @@ std::string BruteForce::run() {
 
 	std::string output;
 
-	output += "Ilosc sprawdoznych permutacji: ";
+	output += "Ilość sprawdzonych permutacji: ";
 	output += std::to_string(numberOfChecks);
 	output += "\n";
 
 	if (bestRoute.empty()) {
-		output += "Nie znaleziono zadnej trasy!\n";
+		output += "Nie znaleziono żadnej trasy!\n";
 	} else {
 		output += "Najlepsza droga: ";
 
@@ -69,7 +69,7 @@ std::string BruteForce::run() {
 		output += std::to_string(bestRoute[0]);
 		output += "\n";
 
-		output += "Dlugosc najlepszej drogi: ";
+		output += "Długość najlepszej drogi: ";
 		output += std::to_string(bestDistance);
 		output += "\n";
 	}

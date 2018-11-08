@@ -23,7 +23,7 @@ void Program::start() {
 		switch (selection) {
 			case '1':
 				printFileWarning();
-				std::cout << "Podaj sciezke pliku do wczytania danych: ";
+				std::cout << "Podaj ścieżkę pliku do wczytania danych: ";
 				std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 				getline(std::cin, path);
 
@@ -36,12 +36,12 @@ void Program::start() {
 
 			case '2':
 				do {
-					std::cout << "Podaj ilosc miast: ";
+					std::cout << "Podaj ilość miast: ";
 					std::cin.clear();
 					std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 				} while (!(std::cin >> numberOfCities));
 				do {
-					std::cout << "Podaj zakres maksymalnej dlugosci drogi (0 - zakres]: ";
+					std::cout << "Podaj zakres maksymalnej długości drogi (0 - zakres]: ";
 					std::cin.clear();
 					std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 				} while (!(std::cin >> range));
@@ -91,7 +91,7 @@ void Program::start() {
 				break;
 
 			case '0':
-				std::cout << "Program zostanie zamkniety!" << std::endl;
+				std::cout << "Program zostanie zamknięty!" << std::endl;
 				break;
 
 			default:
@@ -106,23 +106,23 @@ void Program::printMenu() {
 	std::cout << "--- TRAVELLING SALESMAN PROBLEM ---" << std::endl;
 	std::cout << "1. Wczytaj macierz miast z pliku" << std::endl;
 	std::cout << "2. Generuj losowa macierz miast" << std::endl;
-	std::cout << "3. Wyswietl macierz miast" << std::endl;
+	std::cout << "3. Wyświetl macierz miast" << std::endl;
 	std::cout << "4. Uruchom algorytm Brute-force" << std::endl;
 	std::cout << "5. Uruchom algorytm Branch and bound" << std::endl;
 	std::cout << "9. Testy" << std::endl;
-	std::cout << "0. Wyjscie" << std::endl;
-	std::cout << "Wybor: ";
+	std::cout << "0. Wyjście" << std::endl;
+	std::cout << "Wybór: ";
 }
 
 void Program::printFileWarning() {
-	std::cout << "Program nie wykonuje sprawdzania danych w pliku wejsciowym!" << std::endl;
-	std::cout << "Upewnij sie ze jest on napisany zgodnie z poniszym schematem:" << std::endl;
-	std::cout << "Pierwsza linijka to pojedyncza liczba (calkowita, dodatnia, rozna od zera) oznaczajaca ilosc miast."
+	std::cout << "Program nie wykonuje sprawdzania danych w pliku wejściowym!" << std::endl;
+	std::cout << "Upewnij sie ze jest on napisany zgodnie z poniższym schematem:" << std::endl;
+	std::cout << "Pierwsza linijka to pojedyncza liczba (całkowita, dodatnia, różna od zera) oznaczająca ilość miast."
 	          << std::endl;
 	std::cout
-			<< "Kolejne linijki to macierz X na X (X = liczba z pierwszej linijki), kolejne liczby w linijce oddzielone spacja, zawierajace odleglosci pomiedzy miastami (calkowite, dodatnie, rozne od zera). Przekatna macierzy zawiera liczby -1."
+			<< "Kolejne linijki to macierz X na X (X = liczba z pierwszej linijki), kolejne liczby w linijce oddzielone spacja, zawierające odległości pomiędzy miastami (całkowite, dodatnie, różne od zera). Przekątna macierzy zawiera liczby -1."
 			<< std::endl << std::endl;
-	std::cout << "Przykladowy plik:" << std::endl;
+	std::cout << "Przykładowy plik:" << std::endl;
 	std::cout << "3" << std::endl << "-1 10 15" << std::endl << "20 -1 5" << std::endl << "25 30 -1" << std::endl
 	          << std::endl << std::endl;
 }
@@ -244,6 +244,6 @@ void Program::printTestMenu() {
 	std::cout << "7. Test nr 7 (" << test.getTestName('7') << ")" << std::endl;
 	std::cout << "8. Test nr 8 (" << test.getTestName('8') << ")" << std::endl;
 	std::cout << "9. Test nr 9 (" << test.getTestName('9') << ")" << std::endl;
-	std::cout << "0. Powrot" << std::endl;
-	std::cout << "Wybor: ";
+	std::cout << "0. Powrót" << std::endl;
+	std::cout << "Wybór: ";
 }

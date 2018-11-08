@@ -17,7 +17,7 @@ void Test::openFile() {
 	outputFile.open(path, std::fstream::out);
 
 	if (!outputFile.is_open()) {
-		throw std::runtime_error("Nie mozna otworzyc pliku (sprawdz czy istnieje katalog wyniki)!");
+		throw std::runtime_error("Nie można otworzyć pliku (sprawdź, czy istnieje katalog wyniki)!");
 	}
 
 	outputFile.setf(std::ios::fixed);
@@ -67,7 +67,7 @@ std::string Test::test1() {
 		sumOfResults /= numberOfTests;
 
 		outputFile << sumOfResults << std::endl;
-		outputConsole << "Srednia: " << sumOfResults << std::endl;
+		outputConsole << "Średnia: " << sumOfResults << std::endl;
 	}
 
 	std::string output = outputConsole.str();
@@ -114,7 +114,7 @@ std::string Test::test2() {
 		sumOfResults /= numberOfTests;
 
 		outputFile << sumOfResults << std::endl;
-		outputConsole << "Srednia: " << sumOfResults << std::endl;
+		outputConsole << "Średnia: " << sumOfResults << std::endl;
 	}
 
 	std::string output = outputConsole.str();
