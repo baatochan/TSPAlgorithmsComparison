@@ -12,7 +12,7 @@ Polega on na znalezieniu minimalnego cyklu Hamiltona w pełnym grafie ważonym. 
 
 Jest to problem NP-trudny.
 
-![Graf dla 5 miast](graph2.png)  
+![Graf dla 5 miast](graphs/graph2.png)  
 Powyżej znajduje się przykładowy graf dla 5-ciu miast. Każda krawędź posiada wagę, różną dla przejść w jedną i drugą stronę.
 
 W programie graf jest reprezentowany jako macierz `n`x`n` z wagami przejść, gdzie `n` oznacza liczbę miast.
@@ -25,7 +25,7 @@ Polega on na policzeniu każdego możliwego rozwiązania i sprawdzeniu, które j
 
 Implementacja jego polega na rekurencyjnym przechodzeniu drzewa rozwiązań.
 
-![Graf rozwiązań dla 5 miast](graph1.png)  
+![Graf rozwiązań dla 5 miast](graphs/graph1.png)  
 Przykładowe drzewo rozwiązań dla 5 miast. Wymaga sprawdzenia 24 permutacji.
 
 #### Algorytm Branch and Bound
