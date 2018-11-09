@@ -12,7 +12,7 @@ Polega on na znalezieniu minimalnego cyklu Hamiltona w pełnym grafie ważonym. 
 
 Jest to problem NP-trudny.
 
-![Graf dla 5 miast](graphs/graph2.png)  
+![Graf dla 5 miast](graphs/graph2.png =250x0)  
 Powyżej znajduje się przykładowy graf dla 5-ciu miast. Każda krawędź posiada wagę, różną dla przejść w jedną i drugą stronę.
 
 W programie graf jest reprezentowany jako macierz `n`x`n` z wagami przejść, gdzie `n` oznacza liczbę miast.
@@ -72,20 +72,22 @@ Przed każdym uruchomieniem algorytmu generowany był nowy graf, z losowymi waga
 Wszystkie wyniki znajdują się na końcu dokumentu.
 
 #### Brute Force
-![BF wyniki](charts/image001.png)
-![BF wyniki s logarytm](charts/image003.png)
+![BF wyniki](charts/image001.png =325x0)
+![BF wyniki s logarytm](charts/image003.png =325x0)
 
 Wyniki pomiarów potwierdzają złożoność logarytmiczną. Lekkie zakrzywienie na dole zdaje się tłumaczyć większym wpływem możliwego chwilowego obciążenia komputera na tak małe czasy.
 
+<div class="page-break">
+
 #### Branch and Bound
-![BnB wyniki](charts/image005.png)
-![BnB wyniki s logarytm](charts/image006.png)
+![BnB wyniki](charts/image005.png =335x0)
+![BnB wyniki s logarytm](charts/image006.png =335x0)
 
 Wyniki pomiarów potwierdzają złożoność logarytmiczną. O wiele większe nierówności wynikają z faktu, że przy losowych instancjach problemu nie możemy oszacować ile permutacji, będzie musiał algorytm sprawdzić. Te wyniki są również o wiele bardziej nie równe względem siebie dla takiej samej liczby miast.
 
 #### Porównanie algorytmów
-![porównanie](charts/image009.png)
-![porównanie s logarytm](charts/image011.png)
+![porównanie](charts/image009.png =400x0)
+![porównanie s logarytm](charts/image011.png =400x0)
 
 Na powyższych wykresach widać, że algorytm Branch and Bound zaczyna osiągać lepsze wyniki już przy 6 miastach. Przy mniejszej liczbie czas dodatkowych obliczeń jest większy niż zysk ze zmniejszonego drzewa do sprawdzenia. Widać też, że mimo iż w przypadku Podziału i Ograniczeń złożoność czasu również jest logarytmiczna, wzrasta ona w sposób o wiele wolniejszych.
 
