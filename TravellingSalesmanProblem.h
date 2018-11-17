@@ -11,23 +11,19 @@
 
 class TravellingSalesmanProblem {
 public:
-	TravellingSalesmanProblem();
-
 	void loadDataFromFile(std::string path);
 
 	void generateRandomData(int numberOfCities, int range);
 
 	std::string printData();
 
-	int getNumberOfCities() const;
+	unsigned long getNumberOfCities() const;
 
 	int getDistance(int startVertex, int endVertex) const;
 
 	int getMinimumDistanceFrom(int vertex) const;
 
 	int getMinimumDistanceTo(int vertex) const;
-
-	int getSecondMinimumDistanceTo(int vertex) const;
 
 private:
 	std::vector<std::vector<int>> TSPData;

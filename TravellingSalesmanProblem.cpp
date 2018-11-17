@@ -8,8 +8,6 @@
 #include <random>
 #include <fstream>
 
-TravellingSalesmanProblem::TravellingSalesmanProblem() {}
-
 void TravellingSalesmanProblem::loadDataFromFile(std::string path) {
 	std::vector<int> intBuffer;
 
@@ -53,8 +51,8 @@ void TravellingSalesmanProblem::loadDataFromFile(std::string path) {
 		}
 	}
 
-	for (int i = 0; i < TSPData.size(); ++i) {
-		TSPData[i][i] = -1;
+	for (int j = 0; j < TSPData.size(); ++j) {
+		TSPData[j][j] = -1;
 	}
 }
 
@@ -110,7 +108,7 @@ std::string TravellingSalesmanProblem::printData() {
 	return output;
 }
 
-int TravellingSalesmanProblem::getNumberOfCities() const {
+unsigned long TravellingSalesmanProblem::getNumberOfCities() const {
 	return TSPData.size();
 }
 
@@ -140,29 +138,11 @@ int TravellingSalesmanProblem::getMinimumDistanceFrom(int vertex) const {
 int TravellingSalesmanProblem::getMinimumDistanceTo(int vertex) const {
 	int min = INT32_MAX;
 
-	for (int i = 0; i < TSPData.size(); ++i) {
-		if (TSPData[i][vertex] < min && TSPData[i][vertex] >= 0) {
-			min = TSPData[i][vertex];
+	for (const auto &row : TSPData) {
+		if (row[vertex] < min && row[vertex] >= 0) {
+			min = row[vertex];
 		}
 	}
 
 	return min;
-}
-
-int TravellingSalesmanProblem::getSecondMinimumDistanceTo(int vertex) const {
-	int min = INT32_MAX;
-	int secondMin = INT32_MAX;
-
-	for (int i = 0; i < TSPData.size(); ++i) {
-		if (TSPData[vertex][i] < 0) {
-			continue;
-		} else if (TSPData[vertex][i] <= min) {
-			secondMin = min;
-			min = TSPData[vertex][i];
-		} else if (TSPData[vertex][i] <= secondMin && TSPData[vertex][i] > min) {
-			secondMin = TSPData[vertex][i];
-		}
-	}
-
-	return secondMin;
 }

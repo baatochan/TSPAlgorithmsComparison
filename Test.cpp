@@ -11,7 +11,7 @@ Test::Test() : TSP(std::make_shared<TravellingSalesmanProblem>()), BF(TSP), BnB(
 void Test::openFile() {
 	std::string path = "../wyniki/";
 	path += "test-";
-	path += std::to_string(time(0));
+	path += std::to_string(time(nullptr));
 	path += ".txt";
 
 	outputFile.open(path, std::fstream::out);

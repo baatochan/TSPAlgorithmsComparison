@@ -10,7 +10,7 @@
 
 class BruteForce : public Algorithm {
 public:
-	BruteForce(std::shared_ptr<TravellingSalesmanProblem> TSP);
+	explicit BruteForce(std::shared_ptr<TravellingSalesmanProblem> TSP);
 
 	std::string showInfoBeforeRunning() override;
 
@@ -29,7 +29,7 @@ protected:
 
 	int numberOfChecks;
 
-	int numberOfCities;
+	unsigned long numberOfCities;
 
 	std::vector<bool> visitedVertices;
 
