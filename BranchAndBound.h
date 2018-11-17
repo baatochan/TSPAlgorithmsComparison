@@ -6,37 +6,24 @@
 #define TSPALGORITHMSCOMPARISON_BRANCHANDBOUND_H
 
 
-#include "Algorithm.h"
+#include "BruteForce.h"
 
-class BranchAndBound : public Algorithm {
+class BranchAndBound : public BruteForce {
 public:
-	BranchAndBound(std::shared_ptr<TravellingSalesmanProblem> TSP);
+	explicit BranchAndBound(std::shared_ptr<TravellingSalesmanProblem> TSP);
 
-	std::string prepareToRun() override;
-
-	std::string run() override;
+	~BranchAndBound() override;
 
 private:
-	int numberOfChecks;
+	void prepareToRun() override;
 
-	int numberOfCities;
+	void takeCareOfNode(int currentVertex) override;
 
-	std::vector<bool> visitedVertices;
-	int startVertex;
-
-	std::vector<int> currentRoute;
-	std::vector<int> bestRoute;
-
-	int currentDistance;
-	int bestDistance;
+	void calculateStartingLowerBound();
 
 	int currentLowerBound;
 
 	std::vector<std::vector<int>> lowestDistancesToVertices;
-
-	void enumerateSolutions(int vertex);
-
-	void calculateStartingLowerBound();
 
 };
 

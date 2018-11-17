@@ -2,15 +2,16 @@
 // Created by barto on 29.10.18.
 //
 
-#include <limits>
 #include "Program.h"
+
+#include <limits>
 
 Program::Program() : TSP(std::make_shared<TravellingSalesmanProblem>()), BF(TSP), BnB(TSP) {}
 
 void Program::start() {
 	char selection = 0;
 	std::string path;
-	int numberOfCities = 0;
+	unsigned long numberOfCities = 0;
 	int range = 0;
 	std::string output;
 
@@ -60,7 +61,7 @@ void Program::start() {
 
 			case '4':
 				try {
-					output = BF.prepareToRun();
+					output = BF.showInfoBeforeRunning();
 					std::cout << output << std::endl;
 
 					output = BF.run();
@@ -72,7 +73,7 @@ void Program::start() {
 
 			case '5':
 				try {
-					output = BnB.prepareToRun();
+					output = BnB.showInfoBeforeRunning();
 					std::cout << output << std::endl;
 
 					output = BnB.run();
