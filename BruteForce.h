@@ -10,27 +10,38 @@
 
 class BruteForce : public Algorithm {
 public:
-	BruteForce(std::shared_ptr<TravellingSalesmanProblem> TSP);
+	explicit BruteForce(std::shared_ptr<TravellingSalesmanProblem> TSP);
 
-	std::string prepareToRun() override;
+	~BruteForce() override;
+
+	std::string showInfoBeforeRunning() override;
 
 	std::string run() override;
 
-private:
+protected:
+	virtual void prepareToRun();
+
+	virtual void enumerateSolutions(int vertex);
+
+	virtual void takeCareOfNode(int currentVertex);
+
+	virtual void takeCareOfLeaf(int currentVertex);
+
+	virtual std::string generateOutput();
+
 	int numberOfChecks;
 
-	int numberOfCities;
+	unsigned long numberOfCities;
 
 	std::vector<bool> visitedVertices;
+
 	int startVertex;
 
 	std::vector<int> currentRoute;
-	std::vector<int> bestRoute;
-
 	int currentDistance;
-	int bestDistance;
 
-	void enumerateSolutions(int vertex);
+	std::vector<int> bestRoute;
+	int bestDistance;
 
 };
 
