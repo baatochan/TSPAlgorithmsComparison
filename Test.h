@@ -6,10 +6,11 @@
 #define TSPALGORITHMSCOMPARISON_TEST_H
 
 
-#include <fstream>
 #include "TravellingSalesmanProblem.h"
 #include "BruteForce.h"
 #include "BranchAndBound.h"
+
+#include <fstream>
 
 class Test {
 public:

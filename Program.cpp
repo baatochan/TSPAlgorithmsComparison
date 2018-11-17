@@ -2,8 +2,9 @@
 // Created by barto on 29.10.18.
 //
 
-#include <limits>
 #include "Program.h"
+
+#include <limits>
 
 Program::Program() : TSP(std::make_shared<TravellingSalesmanProblem>()), BF(TSP), BnB(TSP) {}
 
