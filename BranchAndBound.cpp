@@ -7,6 +7,14 @@
 
 BranchAndBound::BranchAndBound(std::shared_ptr<TravellingSalesmanProblem> TSP) : BruteForce(std::move(TSP)) {}
 
+void BranchAndBound::prepareToRun() {
+	BruteForce::prepareToRun();
+
+	currentLowerBound = 0;
+
+	calculateStartingLowerBound();
+}
+
 void BranchAndBound::takeCareOfNode(int currentVertex) {
 	for (int i = 0; i < numberOfCities; ++i) {
 		if (!visitedVertices[i]) {
@@ -50,12 +58,4 @@ void BranchAndBound::calculateStartingLowerBound() {
 	}
 
 	currentLowerBound = (currentLowerBound / 2);
-}
-
-void BranchAndBound::prepareToRun() {
-	BruteForce::prepareToRun();
-
-	currentLowerBound = 0;
-
-	calculateStartingLowerBound();
 }
