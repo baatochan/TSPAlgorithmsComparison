@@ -36,7 +36,7 @@ std::string Test::test1() {
 	outputFile << "--- " << getTestName('1') << " ---" << std::endl;
 	outputConsole << "--- " << getTestName('1') << " ---" << std::endl;
 
-	for (int numberOfCities = 3; numberOfCities <= 12; ++numberOfCities) {
+	for (unsigned long numberOfCities = 3; numberOfCities <= 12; ++numberOfCities) {
 		outputFile << "BF " << numberOfCities << std::endl;
 		outputConsole << "BF " << numberOfCities << std::endl;
 
@@ -83,7 +83,7 @@ std::string Test::test2() {
 	outputFile << "--- " << getTestName('2') << " ---" << std::endl;
 	outputConsole << "--- " << getTestName('2') << " ---" << std::endl;
 
-	for (int numberOfCities = 3; numberOfCities <= 20; ++numberOfCities) {
+	for (unsigned long numberOfCities = 3; numberOfCities <= 20; ++numberOfCities) {
 		outputFile << "BnB " << numberOfCities << std::endl;
 		outputConsole << "BnB " << numberOfCities << std::endl;
 
