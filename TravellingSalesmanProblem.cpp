@@ -2,10 +2,11 @@
 // Created by barto on 03.11.18.
 //
 
+#include "TravellingSalesmanProblem.h"
+
 #include <stdexcept>
 #include <random>
 #include <fstream>
-#include "TravellingSalesmanProblem.h"
 
 TravellingSalesmanProblem::TravellingSalesmanProblem() {}
 

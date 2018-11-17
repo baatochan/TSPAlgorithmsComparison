@@ -6,12 +6,13 @@
 #define TSPALGORITHMSCOMPARISON_PROGRAM_H
 
 
-#include <iostream>
-#include <memory>
 #include "TravellingSalesmanProblem.h"
 #include "BruteForce.h"
 #include "BranchAndBound.h"
 #include "Test.h"
+
+#include <iostream>
+#include <memory>
 
 class Program {
 public:
@@ -20,13 +21,6 @@ public:
 	void start();
 
 private:
-	std::shared_ptr<TravellingSalesmanProblem> TSP;
-
-	BruteForce BF;
-	BranchAndBound BnB;
-
-	Test test;
-
 	void printMenu();
 
 	void printFileWarning();
@@ -34,6 +28,13 @@ private:
 	void runTestMenu();
 
 	void printTestMenu();
+
+	std::shared_ptr<TravellingSalesmanProblem> TSP;
+
+	BruteForce BF;
+	BranchAndBound BnB;
+
+	Test test;
 };
 
 

@@ -2,8 +2,9 @@
 // Created by barto on 03.11.18.
 //
 
-#include <cmath>
 #include "BranchAndBound.h"
+
+#include <cmath>
 
 BranchAndBound::BranchAndBound(std::shared_ptr<TravellingSalesmanProblem> TSP) : BruteForce(std::move(TSP)) {}
 

@@ -2,8 +2,9 @@
 // Created by barto on 03.11.18.
 //
 
-#include <cmath>
 #include "BruteForce.h"
+
+#include <cmath>
 
 BruteForce::BruteForce(std::shared_ptr<TravellingSalesmanProblem> TSP) : Algorithm(std::move(TSP)) {}
 
