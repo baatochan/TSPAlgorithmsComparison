@@ -10,7 +10,7 @@
 
 class BranchAndBound : public BruteForce {
 public:
-	BranchAndBound(std::shared_ptr<TravellingSalesmanProblem> TSP);
+	explicit BranchAndBound(std::shared_ptr<TravellingSalesmanProblem> TSP);
 
 private:
 	void prepareToRun() override;

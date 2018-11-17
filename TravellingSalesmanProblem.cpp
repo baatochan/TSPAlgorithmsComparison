@@ -7,8 +7,8 @@
 #include <stdexcept>
 #include <random>
 #include <fstream>
-
-TravellingSalesmanProblem::TravellingSalesmanProblem() {}
+#include <sstream>
+#include <iomanip>
 
 void TravellingSalesmanProblem::loadDataFromFile(std::string path) {
 	std::vector<int> intBuffer;
@@ -19,6 +19,14 @@ void TravellingSalesmanProblem::loadDataFromFile(std::string path) {
 		throw std::runtime_error("Plik nie istnieje, bądź zablokowany dostęp!");
 
 	std::string temp;
+	file >> temp;
+	unsigned long numberOfCities;
+	try {
+		numberOfCities = stoul(temp);
+	} catch (const std::exception &e) {
+		throw std::runtime_error("Błędna zawartość pliku! Upewnij sie ze podałeś odpowiedni format!");
+	}
+
 	while (file >> temp) {
 		try {
 			intBuffer.push_back(stoi(temp));
@@ -31,9 +39,6 @@ void TravellingSalesmanProblem::loadDataFromFile(std::string path) {
 	if (intBuffer.empty())
 		throw std::runtime_error("Plik pusty, bądź błędna zawartość!");
 
-	int i = 0;
-	int numberOfCities = intBuffer[i++];
-
 	if (numberOfCities == 0) {
 		TSPData.clear();
 		TSPData.resize(0);
@@ -42,6 +47,8 @@ void TravellingSalesmanProblem::loadDataFromFile(std::string path) {
 
 	TSPData.clear();
 	TSPData.resize(numberOfCities);
+
+	int i = 0;
 
 	for (auto &row : TSPData) {
 		for (int j = 0; j < numberOfCities; ++j) {
@@ -53,12 +60,12 @@ void TravellingSalesmanProblem::loadDataFromFile(std::string path) {
 		}
 	}
 
-	for (int i = 0; i < TSPData.size(); ++i) {
-		TSPData[i][i] = -1;
+	for (int j = 0; j < TSPData.size(); ++j) {
+		TSPData[j][j] = -1;
 	}
 }
 
-void TravellingSalesmanProblem::generateRandomData(int numberOfCities, int range) {
+void TravellingSalesmanProblem::generateRandomData(unsigned long numberOfCities, int range) {
 	if (numberOfCities < 0) {
 		throw std::runtime_error("Liczba miast nie może byc ujemna!");
 	}
@@ -93,24 +100,35 @@ std::string TravellingSalesmanProblem::printData() {
 	if (TSPData.empty())
 		return "Macierz miast jest pusta!";
 
-	std::string output;
+	std::stringstream output;
 
-	output += "Ilość miast: " + std::to_string(TSPData.size()) + "\n";
+	output << "Ilość miast: " << TSPData.size() << std::endl << std::endl;
 
+	output << "    | ";
+	for (int i = 0; i < TSPData.size(); ++i) {
+		output << std::setw(3) << i << " | ";
+	}
+	output << std::endl;
+
+	output << "    -";
+	for (int i = 0; i < TSPData.size(); ++i) {
+		output << "------";
+	}
+	output << std::endl;
+
+	int i = 0;
 	for (auto &row : TSPData) {
+		output << std::setw(3) << i++ << " |";
 		for (auto &element : row) {
-			std::string temp = std::to_string(element);
-			while (temp.length() < 4)
-				temp = " " + temp;
-			output += temp + " ";
+			output << std::setw(5) << element << " ";
 		}
-		output += "\n";
+		output << std::endl;
 	}
 
-	return output;
+	return output.str();
 }
 
-int TravellingSalesmanProblem::getNumberOfCities() const {
+unsigned long TravellingSalesmanProblem::getNumberOfCities() const {
 	return TSPData.size();
 }
 
@@ -140,29 +158,11 @@ int TravellingSalesmanProblem::getMinimumDistanceFrom(int vertex) const {
 int TravellingSalesmanProblem::getMinimumDistanceTo(int vertex) const {
 	int min = INT32_MAX;
 
-	for (int i = 0; i < TSPData.size(); ++i) {
-		if (TSPData[i][vertex] < min && TSPData[i][vertex] >= 0) {
-			min = TSPData[i][vertex];
+	for (const auto &row : TSPData) {
+		if (row[vertex] < min && row[vertex] >= 0) {
+			min = row[vertex];
 		}
 	}
 
 	return min;
-}
-
-int TravellingSalesmanProblem::getSecondMinimumDistanceTo(int vertex) const {
-	int min = INT32_MAX;
-	int secondMin = INT32_MAX;
-
-	for (int i = 0; i < TSPData.size(); ++i) {
-		if (TSPData[vertex][i] < 0) {
-			continue;
-		} else if (TSPData[vertex][i] <= min) {
-			secondMin = min;
-			min = TSPData[vertex][i];
-		} else if (TSPData[vertex][i] <= secondMin && TSPData[vertex][i] > min) {
-			secondMin = TSPData[vertex][i];
-		}
-	}
-
-	return secondMin;
 }
