@@ -7,57 +7,6 @@
 
 BranchAndBound::BranchAndBound(std::shared_ptr<TravellingSalesmanProblem> TSP) : BruteForce(std::move(TSP)) {}
 
-std::string BranchAndBound::run() {
-	numberOfChecks = 0;
-
-	numberOfCities = TSP->getNumberOfCities();
-	if (numberOfCities < 2) {
-		throw std::runtime_error("Macierz miast jest pusta, bądź zawiera tylko jedno miasto!");
-	}
-
-	visitedVertices.clear();
-	visitedVertices.resize(numberOfCities);
-	currentRoute.clear();
-	bestRoute.clear();
-
-	currentDistance = 0;
-	bestDistance = INT32_MAX;
-
-	startVertex = 0;
-
-	currentLowerBound = 0;
-
-	calculateStartingLowerBound();
-
-	enumerateSolutions(startVertex);
-
-	std::string output;
-
-	output += "Ilość sprawdzonych permutacji: ";
-	output += std::to_string(numberOfChecks);
-	output += "\n";
-
-	if (bestRoute.empty()) {
-		output += "Nie znaleziono żadnej trasy!\n";
-	} else {
-		output += "Najlepsza droga: ";
-
-		for (auto city : bestRoute) {
-			output += std::to_string(city);
-			output += " - ";
-		}
-
-		output += std::to_string(bestRoute[0]);
-		output += "\n";
-
-		output += "Długość najlepszej drogi: ";
-		output += std::to_string(bestDistance);
-		output += "\n";
-	}
-
-	return output;
-}
-
 void BranchAndBound::enumerateSolutions(int vertex) {
 	currentRoute.push_back(vertex);
 
@@ -134,4 +83,12 @@ void BranchAndBound::calculateStartingLowerBound() {
 	}
 
 	currentLowerBound = (currentLowerBound / 2);
+}
+
+void BranchAndBound::prepareToRun() {
+	BruteForce::prepareToRun();
+
+	currentLowerBound = 0;
+
+	calculateStartingLowerBound();
 }

@@ -16,7 +16,7 @@ public:
 
 	std::string run() override;
 
-private:
+protected:
 	int numberOfChecks;
 
 	int numberOfCities;
@@ -30,7 +30,11 @@ private:
 	int currentDistance;
 	int bestDistance;
 
-	void enumerateSolutions(int vertex);
+	virtual void prepareToRun();
+
+	virtual void enumerateSolutions(int vertex);
+
+	std::string generateOutput();
 
 };
 
