@@ -9,7 +9,6 @@
 #include <fstream>
 #include <sstream>
 #include <iomanip>
-#include <string>
 
 void TravellingSalesmanProblem::loadDataFromFile(std::string path) {
 	std::vector<int> intBuffer;

@@ -4,8 +4,6 @@
 
 #include "BranchAndBound.h"
 
-#include <cmath>
-
 BranchAndBound::BranchAndBound(std::shared_ptr<TravellingSalesmanProblem> TSP) : BruteForce(std::move(TSP)) {}
 
 void BranchAndBound::prepareToRun() {
