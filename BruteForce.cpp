@@ -34,7 +34,11 @@ std::string BruteForce::showInfoBeforeRunning() {
 std::string BruteForce::run() {
 	prepareToRun();
 
+	startTime = std::chrono::high_resolution_clock::now();
+
 	enumerateSolutions(startVertex);
+
+	endTime = std::chrono::high_resolution_clock::now();
 
 	return generateOutput();
 }
@@ -113,6 +117,12 @@ std::string BruteForce::generateOutput() {
 
 	output += "Ilość sprawdzonych permutacji: ";
 	output += std::to_string(numberOfChecks);
+	output += "\n";
+
+	output += "Długość pracy algorytmu: ";
+	auto duration = std::chrono::duration_cast<std::chrono::microseconds>(endTime - startTime).count();
+	output += std::to_string(duration);
+	output += "µs";
 	output += "\n";
 
 	if (bestRoute.empty()) {

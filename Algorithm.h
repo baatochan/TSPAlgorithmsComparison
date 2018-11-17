@@ -6,10 +6,12 @@
 #define TSPALGORITHMSCOMPARISON_ALGORITHM_H
 
 
+#include "TravellingSalesmanProblem.h"
+
 #include <utility>
 #include <string>
 #include <memory>
-#include "TravellingSalesmanProblem.h"
+#include <chrono>
 
 class Algorithm {
 public:
@@ -21,6 +23,9 @@ public:
 
 protected:
 	std::shared_ptr<TravellingSalesmanProblem> TSP;
+
+	std::chrono::high_resolution_clock::time_point startTime;
+	std::chrono::high_resolution_clock::time_point endTime;
 
 private:
 	Algorithm() = default;
