@@ -59,49 +59,52 @@ void BruteForce::prepareToRun() {
 
 void BruteForce::enumerateSolutions(int vertex) {
 	currentRoute.push_back(vertex);
-
-	int distanceToNext;
+	visitedVertices[vertex] = true;
 
 	if (currentRoute.size() < numberOfCities) {
-		visitedVertices[vertex] = true;
-
-		for (int i = 0; i < numberOfCities; ++i) {
-			if (!visitedVertices[i]) {
-				distanceToNext = TSP->getDistance(vertex, i);
-
-				if (distanceToNext < 0) {
-					continue;
-				}
-
-				currentDistance += distanceToNext;
-
-				enumerateSolutions(i);
-
-				currentDistance -= distanceToNext;
-			}
-		}
-
-		visitedVertices[vertex] = false;
+		takeCareOfNode(vertex);
 	} else { // currentRoute.size() == numberOfCities
-		numberOfChecks++;
-
-		distanceToNext = TSP->getDistance(vertex, startVertex);
-
-		if (distanceToNext < 0) {
-			currentRoute.pop_back();
-			return;
-		}
-
-		currentDistance += distanceToNext;
-
-		if (currentDistance < bestDistance) {
-			bestDistance = currentDistance;
-			bestRoute = currentRoute;
-		}
-		currentDistance -= distanceToNext;
+		takeCareOfLeaf(vertex);
 	}
 
+	visitedVertices[vertex] = false;
 	currentRoute.pop_back();
+}
+
+void BruteForce::takeCareOfNode(int currentVertex) {
+	for (int i = 0; i < numberOfCities; ++i) {
+		if (!visitedVertices[i]) {
+			int distanceToNext = TSP->getDistance(currentVertex, i);
+
+			if (distanceToNext < 0) {
+				continue;
+			}
+
+			currentDistance += distanceToNext;
+
+			enumerateSolutions(i);
+
+			currentDistance -= distanceToNext;
+		}
+	}
+}
+
+void BruteForce::takeCareOfLeaf(int currentVertex) {
+	numberOfChecks++;
+
+	int distanceToNext = TSP->getDistance(currentVertex, startVertex);
+
+	if (distanceToNext < 0) {
+		return;
+	}
+
+	currentDistance += distanceToNext;
+
+	if (currentDistance < bestDistance) {
+		bestDistance = currentDistance;
+		bestRoute = currentRoute;
+	}
+	currentDistance -= distanceToNext;
 }
 
 std::string BruteForce::generateOutput() {

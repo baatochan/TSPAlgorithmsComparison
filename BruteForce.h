@@ -34,6 +34,10 @@ protected:
 
 	virtual void enumerateSolutions(int vertex);
 
+	virtual void takeCareOfNode(int currentVertex);
+
+	virtual void takeCareOfLeaf(int currentVertex);
+
 	std::string generateOutput();
 
 };

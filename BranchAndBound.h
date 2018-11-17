@@ -12,14 +12,14 @@ class BranchAndBound : public BruteForce {
 public:
 	BranchAndBound(std::shared_ptr<TravellingSalesmanProblem> TSP);
 
-private:
+protected:
 	int currentLowerBound;
 
 	std::vector<std::vector<int>> lowestDistancesToVertices;
 
 	void prepareToRun() override;
 
-	void enumerateSolutions(int vertex) override;
+	void takeCareOfNode(int currentVertex) override;
 
 	void calculateStartingLowerBound();
 
