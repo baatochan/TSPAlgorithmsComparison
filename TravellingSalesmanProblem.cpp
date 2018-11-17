@@ -7,6 +7,8 @@
 #include <stdexcept>
 #include <random>
 #include <fstream>
+#include <sstream>
+#include <iomanip>
 
 void TravellingSalesmanProblem::loadDataFromFile(std::string path) {
 	std::vector<int> intBuffer;
@@ -91,21 +93,32 @@ std::string TravellingSalesmanProblem::printData() {
 	if (TSPData.empty())
 		return "Macierz miast jest pusta!";
 
-	std::string output;
+	std::stringstream output;
 
-	output += "Ilość miast: " + std::to_string(TSPData.size()) + "\n";
+	output << "Ilość miast: " << TSPData.size() << std::endl << std::endl;
 
+	output << "    | ";
+	for (int i = 0; i < TSPData.size(); ++i) {
+		output << std::setw(3) << i << " | ";
+	}
+	output << std::endl;
+
+	output << "    -";
+	for (int i = 0; i < TSPData.size(); ++i) {
+		output << "------";
+	}
+	output << std::endl;
+
+	int i = 0;
 	for (auto &row : TSPData) {
+		output << std::setw(3) << i++ << " |";
 		for (auto &element : row) {
-			std::string temp = std::to_string(element);
-			while (temp.length() < 4)
-				temp = " " + temp;
-			output += temp + " ";
+			output << std::setw(5) << element << " ";
 		}
-		output += "\n";
+		output << std::endl;
 	}
 
-	return output;
+	return output.str();
 }
 
 unsigned long TravellingSalesmanProblem::getNumberOfCities() const {
