@@ -8,6 +8,8 @@
 
 BruteForce::BruteForce(std::shared_ptr<TravellingSalesmanProblem> TSP) : Algorithm(std::move(TSP)) {}
 
+BruteForce::~BruteForce() = default;
+
 std::string BruteForce::showInfoBeforeRunning() {
 	numberOfCities = TSP->getNumberOfCities();
 	if (numberOfCities < 2) {

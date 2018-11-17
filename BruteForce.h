@@ -12,6 +12,8 @@ class BruteForce : public Algorithm {
 public:
 	explicit BruteForce(std::shared_ptr<TravellingSalesmanProblem> TSP);
 
+	~BruteForce() override;
+
 	std::string showInfoBeforeRunning() override;
 
 	std::string run() override;

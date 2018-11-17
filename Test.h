@@ -7,8 +7,7 @@
 
 
 #include "TravellingSalesmanProblem.h"
-#include "BruteForce.h"
-#include "BranchAndBound.h"
+#include "Algorithm.h"
 
 #include <fstream>
 
@@ -41,10 +40,11 @@ public:
 	std::string getTestName(char test);
 
 private:
+	std::string testTemplate(int numberOfTests, int cityRange, char testNumber);
+
 	std::shared_ptr<TravellingSalesmanProblem> TSP;
 
-	BruteForce BF;
-	BranchAndBound BnB;
+	Algorithm* algorithm;
 
 	std::fstream outputFile;
 };

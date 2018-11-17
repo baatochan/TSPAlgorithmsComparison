@@ -12,6 +12,8 @@ class BranchAndBound : public BruteForce {
 public:
 	explicit BranchAndBound(std::shared_ptr<TravellingSalesmanProblem> TSP);
 
+	~BranchAndBound() override;
+
 private:
 	void prepareToRun() override;
 

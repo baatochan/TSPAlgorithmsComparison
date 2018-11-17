@@ -2,11 +2,13 @@
 // Created by barto on 07.11.18.
 //
 
+#include "Test.h"
+#include "BranchAndBound.h"
+
 #include <sstream>
 #include <chrono>
-#include "Test.h"
 
-Test::Test() : TSP(std::make_shared<TravellingSalesmanProblem>()), BF(TSP), BnB(TSP) {}
+Test::Test() : TSP(std::make_shared<TravellingSalesmanProblem>()) {}
 
 void Test::openFile() {
 	std::string path = "../wyniki/";
@@ -29,106 +31,58 @@ void Test::closeFile() {
 
 std::string Test::test1() {
 	int numberOfTests = 10;
+	int maxCityNumber = 12;
+	char testNumber = '1';
 
-	std::ostringstream outputConsole;
-	outputConsole.setf(std::ios::fixed);
+	algorithm = new BruteForce(TSP);
 
-	outputFile << "--- " << getTestName('1') << " ---" << std::endl;
-	outputConsole << "--- " << getTestName('1') << " ---" << std::endl;
+	std::string output = testTemplate(numberOfTests, maxCityNumber, testNumber);
 
-	for (unsigned long numberOfCities = 3; numberOfCities <= 12; ++numberOfCities) {
-		outputFile << "BF " << numberOfCities << std::endl;
-		outputConsole << "BF " << numberOfCities << std::endl;
+	delete algorithm;
 
-		int sumOfResults = 0;
-
-		for (int i = 0; i < numberOfTests; ++i) {
-			try {
-				TSP->generateRandomData(numberOfCities, 30);
-
-				outputConsole << "Test: " << i << " - ";
-
-				auto start_time = std::chrono::high_resolution_clock::now();
-				BF.run();
-				auto end_time = std::chrono::high_resolution_clock::now();
-
-				auto result = std::chrono::duration_cast<std::chrono::microseconds>(end_time - start_time).count();
-
-				outputFile << result << std::endl;
-				outputConsole << result << std::endl;
-
-				sumOfResults += result;
-			} catch (const std::runtime_error &e) {
-				i--;
-				outputConsole << e.what() << std::endl;
-			}
-		}
-
-		sumOfResults /= numberOfTests;
-
-		outputFile << sumOfResults << std::endl;
-		outputConsole << "Średnia: " << sumOfResults << std::endl;
-	}
-
-	std::string output = outputConsole.str();
 	return output;
 }
 
 std::string Test::test2() {
 	int numberOfTests = 10;
+	int maxCityNumber = 20;
+	char testNumber = '2';
 
-	std::ostringstream outputConsole;
-	outputConsole.setf(std::ios::fixed);
+	algorithm = new BranchAndBound(TSP);
 
-	outputFile << "--- " << getTestName('2') << " ---" << std::endl;
-	outputConsole << "--- " << getTestName('2') << " ---" << std::endl;
+	std::string output = testTemplate(numberOfTests, maxCityNumber, testNumber);
 
-	for (unsigned long numberOfCities = 3; numberOfCities <= 20; ++numberOfCities) {
-		outputFile << "BnB " << numberOfCities << std::endl;
-		outputConsole << "BnB " << numberOfCities << std::endl;
+	delete algorithm;
 
-		int sumOfResults = 0;
-
-		for (int i = 0; i < numberOfTests; ++i) {
-			try {
-				TSP->generateRandomData(numberOfCities, 30);
-
-				outputConsole << "Test: " << i << " - ";
-
-				auto start_time = std::chrono::high_resolution_clock::now();
-				BnB.run();
-				auto end_time = std::chrono::high_resolution_clock::now();
-
-				auto result = std::chrono::duration_cast<std::chrono::microseconds>(end_time - start_time).count();
-
-				outputFile << result << std::endl;
-				outputConsole << result << std::endl;
-
-				sumOfResults += result;
-			} catch (const std::runtime_error &e) {
-				i--;
-				outputConsole << e.what() << std::endl;
-			}
-		}
-
-		sumOfResults /= numberOfTests;
-
-		outputFile << sumOfResults << std::endl;
-		outputConsole << "Średnia: " << sumOfResults << std::endl;
-	}
-
-	std::string output = outputConsole.str();
 	return output;
 }
 
 std::string Test::test3() {
-	// TODO: Not yet implemented!
-	throw std::runtime_error("Not yet implemented!");
+	int numberOfTests = 1;
+	int maxCityNumber = 13;
+	char testNumber = '3';
+
+	algorithm = new BruteForce(TSP);
+
+	std::string output = testTemplate(numberOfTests, maxCityNumber, testNumber);
+
+	delete algorithm;
+
+	return output;
 }
 
 std::string Test::test4() {
-	// TODO: Not yet implemented!
-	throw std::runtime_error("Not yet implemented!");
+	int numberOfTests = 1;
+	int maxCityNumber = 25;
+	char testNumber = '4';
+
+	algorithm = new BranchAndBound(TSP);
+
+	std::string output = testTemplate(numberOfTests, maxCityNumber, testNumber);
+
+	delete algorithm;
+
+	return output;
 }
 
 std::string Test::test5() {
@@ -159,16 +113,16 @@ std::string Test::test9() {
 std::string Test::getTestName(char test) {
 	switch (test) {
 		case '1':
-			return "Brute force (3-12 miast)";
+			return "Brute force (3-12 miast) x10";
 
 		case '2':
-			return "Branch and bound (3-20 miast)";
+			return "Branch and bound (3-20 miast) x10";
 
 		case '3':
-			return "Not yet implemented!";
+			return "Brute force (3-13 miast) x1";
 
 		case '4':
-			return "Not yet implemented!";
+			return "Branch and bound (3-25 miast) x1";
 
 		case '5':
 			return "Not yet implemented!";
@@ -188,4 +142,49 @@ std::string Test::getTestName(char test) {
 		default:
 			return "";
 	}
+}
+
+std::string Test::testTemplate(int numberOfTests, int cityRange, char testNumber) {
+	std::stringstream outputConsole;
+	outputConsole.setf(std::ios::fixed);
+
+	outputFile << "--- " << getTestName(testNumber) << " ---" << std::endl;
+	outputConsole << "--- " << getTestName(testNumber) << " ---" << std::endl;
+
+	for (unsigned long numberOfCities = 3; numberOfCities <= cityRange; ++numberOfCities) {
+		outputFile << "Ilość miast: " << numberOfCities << std::endl;
+		outputConsole << "Ilość miast: " << numberOfCities << std::endl;
+
+		int sumOfResults = 0;
+
+		for (int i = 0; i < numberOfTests; ++i) {
+			try {
+				TSP->generateRandomData(numberOfCities, 30);
+
+				outputConsole << "Test " << i << " - ";
+
+				std::chrono::high_resolution_clock::time_point startTime = std::chrono::high_resolution_clock::now();
+				algorithm->run();
+				std::chrono::high_resolution_clock::time_point endTime = std::chrono::high_resolution_clock::now();
+
+				auto result = std::chrono::duration_cast<std::chrono::microseconds>(endTime - startTime).count();
+
+				outputFile << result << std::endl;
+				outputConsole << result << std::endl;
+
+				sumOfResults += result;
+			} catch (const std::runtime_error &e) {
+				i--;
+				outputConsole << e.what() << std::endl;
+			}
+		}
+
+		sumOfResults /= numberOfTests;
+
+		outputFile << sumOfResults << std::endl;
+		outputConsole << "Średnia: " << sumOfResults << std::endl;
+	}
+
+	std::string output = outputConsole.str();
+	return output;
 }

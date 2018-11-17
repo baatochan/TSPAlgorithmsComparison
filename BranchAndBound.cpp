@@ -6,6 +6,8 @@
 
 BranchAndBound::BranchAndBound(std::shared_ptr<TravellingSalesmanProblem> TSP) : BruteForce(std::move(TSP)) {}
 
+BranchAndBound::~BranchAndBound() = default;
+
 void BranchAndBound::prepareToRun() {
 	BruteForce::prepareToRun();
 
