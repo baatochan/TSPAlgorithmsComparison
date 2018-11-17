@@ -5,30 +5,7 @@
 #include <cmath>
 #include "BranchAndBound.h"
 
-BranchAndBound::BranchAndBound(std::shared_ptr<TravellingSalesmanProblem> TSP) : Algorithm(std::move(TSP)) {}
-
-std::string BranchAndBound::prepareToRun() {
-	numberOfCities = TSP->getNumberOfCities();
-	if (numberOfCities < 2) {
-		throw std::runtime_error("Macierz miast jest pusta, bądź zawiera tylko jedno miasto!");
-	}
-
-	std::string output;
-
-	output += "Ilość permutacji: ";
-	output += std::to_string(static_cast<unsigned long>(round(std::tgamma(numberOfCities))));
-	/**
-	 * number of permutations -> (n-1)!; gamma(n) = (n-1)!
-	 *
-	 * gets the number of cities, calculates gamma function (explained above), result is stored as a double,
-	 * rounds to int, the result of rounding is still the double, casts into int and coverts that int to string :D
-	 * don't kill me, my future self xD
-	 *
-	 */
-	output += "\n";
-
-	return output;
-}
+BranchAndBound::BranchAndBound(std::shared_ptr<TravellingSalesmanProblem> TSP) : BruteForce(std::move(TSP)) {}
 
 std::string BranchAndBound::run() {
 	numberOfChecks = 0;

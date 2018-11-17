@@ -6,13 +6,11 @@
 #define TSPALGORITHMSCOMPARISON_BRANCHANDBOUND_H
 
 
-#include "Algorithm.h"
+#include "BruteForce.h"
 
-class BranchAndBound : public Algorithm {
+class BranchAndBound : public BruteForce {
 public:
 	BranchAndBound(std::shared_ptr<TravellingSalesmanProblem> TSP);
-
-	std::string prepareToRun() override;
 
 	std::string run() override;
 

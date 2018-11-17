@@ -60,7 +60,7 @@ void Program::start() {
 
 			case '4':
 				try {
-					output = BF.prepareToRun();
+					output = BF.showInfoBeforeRunning();
 					std::cout << output << std::endl;
 
 					output = BF.run();
@@ -72,7 +72,7 @@ void Program::start() {
 
 			case '5':
 				try {
-					output = BnB.prepareToRun();
+					output = BnB.showInfoBeforeRunning();
 					std::cout << output << std::endl;
 
 					output = BnB.run();

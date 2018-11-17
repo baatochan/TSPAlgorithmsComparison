@@ -12,7 +12,7 @@ class BruteForce : public Algorithm {
 public:
 	BruteForce(std::shared_ptr<TravellingSalesmanProblem> TSP);
 
-	std::string prepareToRun() override;
+	std::string showInfoBeforeRunning() override;
 
 	std::string run() override;
 

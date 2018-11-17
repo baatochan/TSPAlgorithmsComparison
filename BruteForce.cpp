@@ -7,7 +7,7 @@
 
 BruteForce::BruteForce(std::shared_ptr<TravellingSalesmanProblem> TSP) : Algorithm(std::move(TSP)) {}
 
-std::string BruteForce::prepareToRun() {
+std::string BruteForce::showInfoBeforeRunning() {
 	numberOfCities = TSP->getNumberOfCities();
 	if (numberOfCities < 2) {
 		throw std::runtime_error("Macierz miast jest pusta, bądź zawiera tylko jedno miasto!");
