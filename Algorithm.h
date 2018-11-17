@@ -15,7 +15,7 @@ class Algorithm {
 public:
 	Algorithm(std::shared_ptr<TravellingSalesmanProblem> TSP);
 
-	virtual std::string prepareToRun() = 0;
+	virtual std::string showInfoBeforeRunning() = 0;
 
 	virtual std::string run() = 0;
 

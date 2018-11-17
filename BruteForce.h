@@ -12,11 +12,11 @@ class BruteForce : public Algorithm {
 public:
 	BruteForce(std::shared_ptr<TravellingSalesmanProblem> TSP);
 
-	std::string prepareToRun() override;
+	std::string showInfoBeforeRunning() override;
 
 	std::string run() override;
 
-private:
+protected:
 	int numberOfChecks;
 
 	int numberOfCities;
@@ -30,7 +30,15 @@ private:
 	int currentDistance;
 	int bestDistance;
 
-	void enumerateSolutions(int vertex);
+	virtual void prepareToRun();
+
+	virtual void enumerateSolutions(int vertex);
+
+	virtual void takeCareOfNode(int currentVertex);
+
+	virtual void takeCareOfLeaf(int currentVertex);
+
+	std::string generateOutput();
 
 };
 
