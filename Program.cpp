@@ -11,7 +11,7 @@ Program::Program() : TSP(std::make_shared<TravellingSalesmanProblem>()), BF(TSP)
 void Program::start() {
 	char selection = 0;
 	std::string path;
-	int numberOfCities = 0;
+	unsigned long numberOfCities = 0;
 	int range = 0;
 	std::string output;
 

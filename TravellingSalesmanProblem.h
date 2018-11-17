@@ -13,7 +13,7 @@ class TravellingSalesmanProblem {
 public:
 	void loadDataFromFile(std::string path);
 
-	void generateRandomData(int numberOfCities, int range);
+	void generateRandomData(unsigned long numberOfCities, int range);
 
 	std::string printData();
 

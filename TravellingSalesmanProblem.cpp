@@ -9,6 +9,7 @@
 #include <fstream>
 #include <sstream>
 #include <iomanip>
+#include <string>
 
 void TravellingSalesmanProblem::loadDataFromFile(std::string path) {
 	std::vector<int> intBuffer;
@@ -19,6 +20,14 @@ void TravellingSalesmanProblem::loadDataFromFile(std::string path) {
 		throw std::runtime_error("Plik nie istnieje, bądź zablokowany dostęp!");
 
 	std::string temp;
+	file >> temp;
+	unsigned long numberOfCities;
+	try {
+		numberOfCities = stoul(temp);
+	} catch (const std::exception &e) {
+		throw std::runtime_error("Błędna zawartość pliku! Upewnij sie ze podałeś odpowiedni format!");
+	}
+
 	while (file >> temp) {
 		try {
 			intBuffer.push_back(stoi(temp));
@@ -31,9 +40,6 @@ void TravellingSalesmanProblem::loadDataFromFile(std::string path) {
 	if (intBuffer.empty())
 		throw std::runtime_error("Plik pusty, bądź błędna zawartość!");
 
-	int i = 0;
-	int numberOfCities = intBuffer[i++];
-
 	if (numberOfCities == 0) {
 		TSPData.clear();
 		TSPData.resize(0);
@@ -42,6 +48,8 @@ void TravellingSalesmanProblem::loadDataFromFile(std::string path) {
 
 	TSPData.clear();
 	TSPData.resize(numberOfCities);
+
+	int i = 0;
 
 	for (auto &row : TSPData) {
 		for (int j = 0; j < numberOfCities; ++j) {
@@ -58,7 +66,7 @@ void TravellingSalesmanProblem::loadDataFromFile(std::string path) {
 	}
 }
 
-void TravellingSalesmanProblem::generateRandomData(int numberOfCities, int range) {
+void TravellingSalesmanProblem::generateRandomData(unsigned long numberOfCities, int range) {
 	if (numberOfCities < 0) {
 		throw std::runtime_error("Liczba miast nie może byc ujemna!");
 	}
