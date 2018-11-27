@@ -10,6 +10,7 @@
 #include "BruteForce.h"
 #include "BranchAndBound.h"
 #include "Test.h"
+#include "TabuSearch.h"
 
 #include <iostream>
 #include <memory>
@@ -33,6 +34,7 @@ private:
 
 	BruteForce BF;
 	BranchAndBound BnB;
+	TabuSearch TS;
 
 	Test test;
 };

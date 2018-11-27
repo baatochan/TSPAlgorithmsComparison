@@ -46,7 +46,7 @@ protected:
 	int bestDistance;
 
 private:
-	Algorithm() = default;
+	Algorithm() = default; //TODO: hide default contructors in classes that inherit from this one
 
 };
 

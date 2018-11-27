@@ -6,7 +6,7 @@
 
 #include <limits>
 
-Program::Program() : TSP(std::make_shared<TravellingSalesmanProblem>()), BF(TSP), BnB(TSP) {}
+Program::Program() : TSP(std::make_shared<TravellingSalesmanProblem>()), BF(TSP), BnB(TSP), TS(TSP) {}
 
 void Program::start() {
 	char selection = 0;
@@ -83,6 +83,18 @@ void Program::start() {
 				}
 				break;
 
+			case '6':
+				try {
+					//output = TS.showInfoBeforeRunning();
+					std::cout << output << std::endl;
+
+					output = TS.run();
+					std::cout << output << std::endl;
+				} catch (const std::runtime_error &e) {
+					std::cerr << e.what() << std::endl;
+				}
+				break;
+
 			case '9':
 				try {
 					runTestMenu();
@@ -110,6 +122,7 @@ void Program::printMenu() {
 	std::cout << "3. Wyświetl macierz miast" << std::endl;
 	std::cout << "4. Uruchom algorytm Brute-force" << std::endl;
 	std::cout << "5. Uruchom algorytm Branch and bound" << std::endl;
+	std::cout << "6. Uruchom algorytm Tabu Search" << std::endl;
 	std::cout << "9. Testy" << std::endl;
 	std::cout << "0. Wyjście" << std::endl;
 	std::cout << "Wybór: ";

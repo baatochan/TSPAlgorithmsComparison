@@ -10,6 +10,8 @@
 
 class TabuSearch : public Algorithm {
 public:
+	explicit TabuSearch(std::shared_ptr<TravellingSalesmanProblem> TSP);
+
 	~TabuSearch() override;
 
 	std::string showInfoBeforeRunning() override;
