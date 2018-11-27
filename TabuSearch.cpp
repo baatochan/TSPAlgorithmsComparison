@@ -21,6 +21,36 @@ std::string TabuSearch::run() {
 
 	prepareToRun();
 
+	bool timeNotExceeded = true;
+
+	while (timeNotExceeded) {
+		std::tuple<int, int, int> nextTabuElement = enumerateNeighbourSolutions();
+
+		currentDistance = calculateRouteDistance(currentRoute);
+
+		if (currentDistance < bestDistance) {
+			bestDistance = currentDistance;
+			bestRoute = currentRoute;
+
+			iterationWithoutChangingNeighborhood = 0;
+		}
+
+		updateTabuList();
+		tabuList.push_back(nextTabuElement);
+
+		if (diversification && iterationWithoutChangingNeighborhood >= iterationsToChangeNeighborhood) {
+			generateRandomRoute();
+			currentDistance = calculateRouteDistance(currentRoute);
+		}
+
+		endTime = std::chrono::high_resolution_clock::now();
+		auto duration = std::chrono::duration_cast<std::chrono::seconds>(endTime - startTime).count();
+
+		if (duration > timeToBreakSearch) {
+			timeNotExceeded = false;
+		}
+	}
+
 	endTime = std::chrono::high_resolution_clock::now();
 
 	// TODO: Not yet implemented!
@@ -104,6 +134,69 @@ int TabuSearch::calculateRouteDistance(std::vector<int> &route) {
 	}
 
 	return distance;
+}
+
+std::tuple<int, int, int> TabuSearch::enumerateNeighbourSolutions() {
+	std::vector<int> nextRoute;
+	int nextRouteDistance = INT32_MAX;
+
+	std::tuple<int, int, int> nextTabuElement = std::make_tuple(-1, -1, cadency);
+
+	for (int i = 1; i < numberOfCities; ++i) {
+		for (int j = i + 1; j < numberOfCities; ++j) {
+			std::vector<int> neighbourRoute = currentRoute;
+
+			std::swap(neighbourRoute[i], neighbourRoute[j]);
+
+			int neighbourRouteDistance = calculateRouteDistance(neighbourRoute);
+
+			bool moveInTabu = false;
+			for (auto &tabuElement : tabuList) {
+				if (std::get<0>(tabuElement) == i && std::get<1>(tabuElement) == j) {
+					moveInTabu = true;
+				}
+				if (std::get<1>(tabuElement) == i && std::get<0>(tabuElement) == j) {
+					moveInTabu = true;
+				}
+			}
+
+			if (!aspiration && moveInTabu) {
+				continue;
+			}
+
+			if (aspiration && moveInTabu && neighbourRouteDistance >= bestDistance) {
+				continue;
+			}
+
+			if (nextRouteDistance > neighbourRouteDistance) {
+				nextRoute = neighbourRoute;
+				nextRouteDistance = neighbourRouteDistance;
+
+				std::get<0>(nextTabuElement) = i;
+				std::get<1>(nextTabuElement) = j;
+			}
+
+		}
+	}
+
+	currentRoute = nextRoute;
+	currentDistance = nextRouteDistance;
+
+	return nextTabuElement;
+}
+
+void TabuSearch::updateTabuList() {
+	for (auto &tabuElement : tabuList) {
+		std::get<2>(tabuElement)--;
+	}
+
+	// TODO: propably could be change to use std::remove_if but i cant see how
+	for (int i = 0; i < tabuList.size(); ++i) {
+		if(std::get<2>(tabuList[i]) == 0) {
+			tabuList.erase(tabuList.begin() + i);
+			i--;
+		}
+	}
 }
 
 void TabuSearch::generateRandomRoute() {

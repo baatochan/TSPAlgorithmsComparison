@@ -25,6 +25,10 @@ private:
 
 	int calculateRouteDistance(std::vector<int>& route);
 
+	std::tuple<int, int, int> enumerateNeighbourSolutions();
+
+	void updateTabuList();
+
 	void generateRandomRoute();
 
 	std::string generateOutput() override;
@@ -37,6 +41,7 @@ private:
 	//int tabuSize;
 	double timeToBreakSearch;
 	bool aspiration;
+	bool diversification;
 	int iterationsToChangeNeighborhood;
 
 	int iterationWithoutChangingNeighborhood;
