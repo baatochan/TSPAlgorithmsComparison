@@ -44,7 +44,7 @@ private:
 	bool diversification;
 	int iterationsToChangeNeighborhood;
 
-	int iterationWithoutChangingNeighborhood;
+	int iterationWithoutImprovement;
 };
 
 

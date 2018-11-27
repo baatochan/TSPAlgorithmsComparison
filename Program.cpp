@@ -85,7 +85,7 @@ void Program::start() {
 
 			case '6':
 				try {
-					//output = TS.showInfoBeforeRunning();
+					output = TS.showInfoBeforeRunning();
 					std::cout << output << std::endl;
 
 					output = TS.run();

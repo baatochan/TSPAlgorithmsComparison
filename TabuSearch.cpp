@@ -11,9 +11,9 @@ TabuSearch::TabuSearch(std::shared_ptr<TravellingSalesmanProblem> TSP) : Algorit
 TabuSearch::~TabuSearch() = default;
 
 std::string TabuSearch::showInfoBeforeRunning() {
+	return "";
 	// TODO: Not yet implemented!
 	throw std::runtime_error("Not yet implemented!");
-	return std::__cxx11::string();
 }
 
 std::string TabuSearch::run() {
@@ -28,19 +28,22 @@ std::string TabuSearch::run() {
 
 		currentDistance = calculateRouteDistance(currentRoute);
 
+		iterationWithoutImprovement++;
+
 		if (currentDistance < bestDistance) {
 			bestDistance = currentDistance;
 			bestRoute = currentRoute;
 
-			iterationWithoutChangingNeighborhood = 0;
+			iterationWithoutImprovement = 0;
 		}
 
 		updateTabuList();
 		tabuList.push_back(nextTabuElement);
 
-		if (diversification && iterationWithoutChangingNeighborhood >= iterationsToChangeNeighborhood) {
+		if (diversification && iterationWithoutImprovement >= iterationsToChangeNeighborhood) {
 			generateRandomRoute();
 			currentDistance = calculateRouteDistance(currentRoute);
+			iterationWithoutImprovement = 0;
 		}
 
 		endTime = std::chrono::high_resolution_clock::now();
@@ -61,12 +64,13 @@ void TabuSearch::prepareToRun() {
 
 	tabuList.clear();
 
-	iterationWithoutChangingNeighborhood = 0;
+	iterationWithoutImprovement = 0;
 
 	// load default setting TODO: take care of it in UI
 	cadency = numberOfCities/2;
 	timeToBreakSearch = 10; //seconds
 	aspiration = true;
+	diversification = true;
 	iterationsToChangeNeighborhood = 10000;
 
 	generateStartRoute();
@@ -144,10 +148,6 @@ std::tuple<int, int, int> TabuSearch::enumerateNeighbourSolutions() {
 		for (int j = i + 1; j < numberOfCities; ++j) {
 			std::vector<int> neighbourRoute = currentRoute;
 
-			std::swap(neighbourRoute[i], neighbourRoute[j]);
-
-			int neighbourRouteDistance = calculateRouteDistance(neighbourRoute);
-
 			bool moveInTabu = false;
 			for (auto &tabuElement : tabuList) {
 				if (std::get<0>(tabuElement) == i && std::get<1>(tabuElement) == j) {
@@ -161,6 +161,12 @@ std::tuple<int, int, int> TabuSearch::enumerateNeighbourSolutions() {
 			if (!aspiration && moveInTabu) {
 				continue;
 			}
+
+			numberOfChecks++;
+
+			std::swap(neighbourRoute[i], neighbourRoute[j]);
+
+			int neighbourRouteDistance = calculateRouteDistance(neighbourRoute);
 
 			if (aspiration && moveInTabu && neighbourRouteDistance >= bestDistance) {
 				continue;
@@ -226,7 +232,35 @@ void TabuSearch::generateRandomRoute() {
 }
 
 std::string TabuSearch::generateOutput() {
-	// TODO: Not yet implemented!
-	throw std::runtime_error("Not yet implemented!");
-	return std::__cxx11::string();
+	std::string output;
+
+	output += "Ilość sprawdzonych rozwiązań: ";
+	output += std::to_string(numberOfChecks);
+	output += "\n";
+
+	output += "Długość pracy algorytmu: ";
+	auto duration = std::chrono::duration_cast<std::chrono::microseconds>(endTime - startTime).count();
+	output += std::to_string(duration);
+	output += "µs";
+	output += "\n";
+
+	if (bestRoute.empty()) {
+		output += "Nie znaleziono żadnej trasy!\n";
+	} else {
+		output += "Najlepsza droga: ";
+
+		for (auto city : bestRoute) {
+			output += std::to_string(city);
+			output += " - ";
+		}
+
+		output += std::to_string(bestRoute[0]);
+		output += "\n";
+
+		output += "Długość najlepszej drogi: ";
+		output += std::to_string(bestDistance);
+		output += "\n";
+	}
+
+	return output;
 }
