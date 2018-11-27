@@ -30,6 +30,7 @@ void Program::start() {
 
 				try {
 					TSP->loadDataFromFile(path);
+					TS.setDefaultParameters();
 				} catch (const std::runtime_error &e) {
 					std::cerr << e.what() << std::endl;
 				}
@@ -49,6 +50,7 @@ void Program::start() {
 
 				try {
 					TSP->generateRandomData(numberOfCities, range);
+					TS.setDefaultParameters();
 				} catch (const std::runtime_error &e) {
 					std::cerr << e.what() << std::endl;
 				}
