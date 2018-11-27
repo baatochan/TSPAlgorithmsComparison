@@ -4,6 +4,7 @@
 
 #include "Test.h"
 #include "BranchAndBound.h"
+#include "TabuSearch.h"
 
 #include <sstream>
 #include <chrono>
@@ -172,8 +173,46 @@ std::string Test::test6() {
 }
 
 std::string Test::test7() {
-	// TODO: Not yet implemented!
-	throw std::runtime_error("Not yet implemented!");
+	std::vector<std::string> filePaths;
+
+	for (int i = 1; i <= 7; ++i) {
+		filePaths.emplace_back("../tests/exact/" + std::to_string(i) + ".txt");
+	}
+
+	std::vector<int> correctValues {132, 80, 212, 264, 269, 282, 291};
+
+	std::string output;
+
+	algorithm = new TabuSearch(TSP);
+
+	for (int j = 0; j < 7; ++j) {
+		TSP->loadDataFromFile(filePaths[j]);
+
+		output += "\n";
+
+		std::string temp = algorithm->run();
+
+		int numberOfNewLines = 0;
+		int cutPosition = 0;
+		for (int k = 0; k < temp.size(); ++k) {
+			if (temp[k] == '\n') {
+				numberOfNewLines++;
+				if (numberOfNewLines == 3) {
+					cutPosition = k;
+				}
+			}
+		}
+
+		temp.erase(temp.begin(), temp.begin() + cutPosition + 1);
+
+		output += temp;
+
+		output += "POPRAWNY WYNIK:           " + std::to_string(correctValues[j]) + "\n";
+	}
+
+	delete algorithm;
+
+	return output;
 }
 
 std::string Test::test8() {
@@ -207,7 +246,7 @@ std::string Test::getTestName(char test) {
 			return "Branch and bound (test z plików) x1";
 
 		case '7':
-			return "Not yet implemented!";
+			return "Tabu Search (test z plików) x1";
 
 		case '8':
 			return "Not yet implemented!";

@@ -6,7 +6,9 @@
 #include <random>
 #include "TabuSearch.h"
 
-TabuSearch::TabuSearch(std::shared_ptr<TravellingSalesmanProblem> TSP) : Algorithm(std::move(TSP)) {}
+TabuSearch::TabuSearch(std::shared_ptr<TravellingSalesmanProblem> TSP) : Algorithm(std::move(TSP)) {
+	setDefaultParameters();
+}
 
 TabuSearch::~TabuSearch() = default;
 
