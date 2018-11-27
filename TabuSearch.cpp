@@ -53,8 +53,6 @@ std::string TabuSearch::run() {
 
 	endTime = std::chrono::high_resolution_clock::now();
 
-	// TODO: Not yet implemented!
-	throw std::runtime_error("Not yet implemented!");
 	return generateOutput();
 }
 
@@ -190,13 +188,10 @@ void TabuSearch::updateTabuList() {
 		std::get<2>(tabuElement)--;
 	}
 
-	// TODO: propably could be change to use std::remove_if but i cant see how
-	for (int i = 0; i < tabuList.size(); ++i) {
-		if(std::get<2>(tabuList[i]) == 0) {
-			tabuList.erase(tabuList.begin() + i);
-			i--;
-		}
-	}
+	tabuList.erase(std::remove_if(tabuList.begin(),
+	                              tabuList.end(),
+	                              [&](const std::tuple<int,int,int> element) -> bool { return std::get<2>(element) <= 0; }),
+	               tabuList.end());
 }
 
 void TabuSearch::generateRandomRoute() {
