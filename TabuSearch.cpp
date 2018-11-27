@@ -3,6 +3,7 @@
 //
 
 #include <algorithm>
+#include <random>
 #include "TabuSearch.h"
 
 TabuSearch::TabuSearch(std::shared_ptr<TravellingSalesmanProblem> TSP) : Algorithm(std::move(TSP)) {}
@@ -16,11 +17,9 @@ std::string TabuSearch::showInfoBeforeRunning() {
 }
 
 std::string TabuSearch::run() {
-	prepareToRun();
-
 	startTime = std::chrono::high_resolution_clock::now();
 
-	generateStartRoute();
+	prepareToRun();
 
 	endTime = std::chrono::high_resolution_clock::now();
 
@@ -41,6 +40,12 @@ void TabuSearch::prepareToRun() {
 	timeToBreakSearch = 10; //seconds
 	aspiration = true;
 	iterationsToChangeNeighborhood = 10000;
+
+	generateStartRoute();
+	currentDistance = calculateRouteDistance(currentRoute);
+
+	bestRoute = currentRoute;
+	bestDistance = currentDistance;
 }
 
 void TabuSearch::generateStartRoute() {
@@ -48,6 +53,8 @@ void TabuSearch::generateStartRoute() {
 
 	visitedVertices.clear();
 	visitedVertices.resize(numberOfCities);
+
+	currentRoute.clear();
 
 	int currentVertex = startVertex;
 	currentRoute.push_back(currentVertex);
@@ -77,6 +84,57 @@ void TabuSearch::generateStartRoute() {
 		currentRoute.push_back(currentVertex);
 		visitedVertices[currentVertex] = true;
 	}
+}
+
+int TabuSearch::calculateRouteDistance(std::vector<int> &route) {
+	int currentVertex = -1;
+	int nextVertex = -1;
+
+	int distance = 0;
+
+	for (int i = 0; i < route.size(); ++i) {
+		currentVertex = route[i];
+		if (i != route.size() - 1) {
+			nextVertex = route[i + 1];
+		} else {
+			nextVertex = route[0];
+		}
+
+		distance += TSP->getDistance(currentVertex, nextVertex);
+	}
+
+	return distance;
+}
+
+void TabuSearch::generateRandomRoute() {
+	std::vector<bool> visitedVertices;
+
+	visitedVertices.clear();
+	visitedVertices.resize(numberOfCities);
+
+	currentRoute.clear();
+
+	int currentVertex = startVertex;
+	currentRoute.push_back(currentVertex);
+	visitedVertices[currentVertex] = true;
+
+	int nextVertex = -1;
+
+	std::random_device seed;
+	std::mt19937 randomGenerator(seed());
+	std::uniform_int_distribution<> rangeTransformer(0, numberOfCities - 1);
+
+	for (int i = 0; i < numberOfCities - 1; ++i) {
+		do {
+			nextVertex = rangeTransformer(randomGenerator);
+		} while (visitedVertices[nextVertex]);
+
+		currentVertex = nextVertex;
+
+		currentRoute.push_back(currentVertex);
+		visitedVertices[currentVertex] = true;
+	}
+
 }
 
 std::string TabuSearch::generateOutput() {

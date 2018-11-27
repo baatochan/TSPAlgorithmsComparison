@@ -23,6 +23,10 @@ private:
 
 	void generateStartRoute();
 
+	int calculateRouteDistance(std::vector<int>& route);
+
+	void generateRandomRoute();
+
 	std::string generateOutput() override;
 
 	// city 1, city 2, cadency; blocks exchanging the pair of cities
