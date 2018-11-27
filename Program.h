@@ -10,6 +10,7 @@
 #include "BruteForce.h"
 #include "BranchAndBound.h"
 #include "Test.h"
+#include "TabuSearch.h"
 
 #include <iostream>
 #include <memory>
@@ -29,10 +30,15 @@ private:
 
 	void printTestMenu();
 
+	void runTSSettingsMenu();
+
+	void printTSSettingsMenu();
+
 	std::shared_ptr<TravellingSalesmanProblem> TSP;
 
 	BruteForce BF;
 	BranchAndBound BnB;
+	TabuSearch TS;
 
 	Test test;
 };
