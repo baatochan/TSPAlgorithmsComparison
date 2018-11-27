@@ -19,6 +19,8 @@ public:
 private:
 	void prepareToRun() override;
 
+	void generateStartRoute();
+
 	std::string generateOutput() override;
 
 	// city 1, city 2, cadency; blocks exchanging the pair of cities
@@ -26,8 +28,8 @@ private:
 
 	// TS parameters TODO: some kind of UI to change it
 	int cadency;
-	int tabuSize;
-	double endTime;
+	//int tabuSize;
+	double timeToBreakSearch;
 	bool aspiration;
 	int iterationsToChangeNeighborhood;
 
