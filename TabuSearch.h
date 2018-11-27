@@ -45,7 +45,7 @@ private:
 
 	void generateStartRoute();
 
-	int calculateRouteDistance(std::vector<int>& route);
+	int calculateRouteDistance(std::vector<int> &route);
 
 	std::tuple<int, int, int> enumerateNeighbourSolutions();
 
@@ -58,9 +58,7 @@ private:
 	// city 1, city 2, cadency; blocks exchanging the pair of cities
 	std::vector<std::tuple<int, int, int>> tabuList;
 
-	// TS parameters TODO: some kind of UI to change it
 	int cadency;
-	//int tabuSize;
 	double timeToBreakSearch;
 	bool aspiration;
 	bool diversification;

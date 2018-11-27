@@ -14,7 +14,8 @@ std::string TabuSearch::showInfoBeforeRunning() {
 	std::string output;
 
 	output += "Algoryt został uruchomiony z następującymi parametrami:\n";
-	output += "* Długość kadencji ruchu na liście tabu: " + std::to_string(cadency) + " (ilość miast: " + std::to_string(TSP->getNumberOfCities()) + ")\n";
+	output += "* Długość kadencji ruchu na liście tabu: " + std::to_string(cadency) + " (ilość miast: " +
+	          std::to_string(TSP->getNumberOfCities()) + ")\n";
 	output += "* Czas wykonywania algorytmu: " + std::to_string(timeToBreakSearch) + " (s)\n";
 	output += "* Aspiracja: ";
 	if (aspiration) {
@@ -254,7 +255,9 @@ void TabuSearch::updateTabuList() {
 
 	tabuList.erase(std::remove_if(tabuList.begin(),
 	                              tabuList.end(),
-	                              [&](const std::tuple<int,int,int> element) -> bool { return std::get<2>(element) <= 0; }),
+	                              [&](const std::tuple<int, int, int> element) -> bool {
+		                              return std::get<2>(element) <= 0;
+	                              }),
 	               tabuList.end());
 }
 

@@ -293,7 +293,8 @@ void Program::runTSSettingsMenu() {
 
 			case '2':
 				do {
-					std::cout << "Podaj mnożnik do długości kadencji, który zostanie przemnożony przez ilość miast (liczba wymierna): ";
+					std::cout
+							<< "Podaj mnożnik do długości kadencji, który zostanie przemnożony przez ilość miast (liczba wymierna): ";
 					std::cin.clear();
 					std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 				} while (!(std::cin >> tempDouble));
@@ -316,7 +317,8 @@ void Program::runTSSettingsMenu() {
 						std::cin.clear();
 						std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 					} while (!(std::cin >> tempChar));
-				} while (tempChar == 'y' || tempChar == 'Y' || tempChar == 't' || tempChar == 'T' || tempChar == 'n' || tempChar == 'N');
+				} while (tempChar == 'y' || tempChar == 'Y' || tempChar == 't' || tempChar == 'T' || tempChar == 'n' ||
+				         tempChar == 'N');
 
 				if (tempChar == 'y' || tempChar == 'Y' || tempChar == 't' || tempChar == 'T') {
 					TS.setAspiration(true);
@@ -332,7 +334,8 @@ void Program::runTSSettingsMenu() {
 						std::cin.clear();
 						std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 					} while (!(std::cin >> tempChar));
-				} while (tempChar == 'y' || tempChar == 'Y' || tempChar == 't' || tempChar == 'T' || tempChar == 'n' || tempChar == 'N');
+				} while (tempChar == 'y' || tempChar == 'Y' || tempChar == 't' || tempChar == 'T' || tempChar == 'n' ||
+				         tempChar == 'N');
 
 				if (tempChar == 'y' || tempChar == 'Y' || tempChar == 't' || tempChar == 'T') {
 					TS.setDiversification(true);
@@ -365,14 +368,25 @@ void Program::runTSSettingsMenu() {
 void Program::printTSSettingsMenu() {
 	std::cout << "--- Ustawienia algorytmu Tabu Search ---" << std::endl;
 	std::cout << "Algorytm Tabu Search posiada kilka ustawień, które możesz tutaj zmienić:" << std::endl;
-	std::cout << "* Długość kadencji ruchu na liście tabu (przez taką ilość operacji ruch jest zabroniony); domyślnie 0.5 * ilosc_miast" << std::endl;
-	std::cout << "* Czas wykonywania algorytmu (po takim czasie algorytm zostanie przerwany i zwróci najlepsze dotąd znalezione rozwiązanie; domyślnie 10s" << std::endl;
-	std::cout << "* Aspiracja (czy algorytm powinien zezwolić na zakazany ruch, jeśli poprawia on najlepsze znalezione rozwiązanie; domyślnie TAK" << std::endl;
-	std::cout << "* Dywersyfikacja (czy algorytm powinien zmienić otoczenie w którym szuka, jeśli przez jakąś ilość operacji nie znalazł lepszego wyniku; domyślnie TAK" << std::endl;
-	std::cout << "* Ilość iteracji do zmiany otoczenia (jeśli dywersyfikacja jest aktywna to po tylu iteracjach nastąpi zmiana otoczenia na nowe, losowe); domyślnie 10 tys." << std::endl;
+	std::cout
+			<< "* Długość kadencji ruchu na liście tabu (przez taką ilość operacji ruch jest zabroniony); domyślnie 0.5 * ilosc_miast"
+			<< std::endl;
+	std::cout
+			<< "* Czas wykonywania algorytmu (po takim czasie algorytm zostanie przerwany i zwróci najlepsze dotąd znalezione rozwiązanie; domyślnie 10s"
+			<< std::endl;
+	std::cout
+			<< "* Aspiracja (czy algorytm powinien zezwolić na zakazany ruch, jeśli poprawia on najlepsze znalezione rozwiązanie; domyślnie TAK"
+			<< std::endl;
+	std::cout
+			<< "* Dywersyfikacja (czy algorytm powinien zmienić otoczenie w którym szuka, jeśli przez jakąś ilość operacji nie znalazł lepszego wyniku; domyślnie TAK"
+			<< std::endl;
+	std::cout
+			<< "* Ilość iteracji do zmiany otoczenia (jeśli dywersyfikacja jest aktywna to po tylu iteracjach nastąpi zmiana otoczenia na nowe, losowe); domyślnie 10 tys."
+			<< std::endl;
 	std::cout << std::endl;
 	std::cout << "Aktualne ustawienia:" << std::endl;
-	std::cout << "* Długość kadencji ruchu na liście tabu: " << TS.getCadency() << " (ilość miast: " << TSP->getNumberOfCities() << ")" << std::endl;
+	std::cout << "* Długość kadencji ruchu na liście tabu: " << TS.getCadency() << " (ilość miast: "
+	          << TSP->getNumberOfCities() << ")" << std::endl;
 	std::cout << "* Czas wykonywania algorytmu: " << TS.getTimeToBreakSearch() << " (s)" << std::endl;
 	std::cout << "* Aspiracja: ";
 	if (TS.isAspiration()) {
