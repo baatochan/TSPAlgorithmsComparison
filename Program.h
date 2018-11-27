@@ -30,6 +30,10 @@ private:
 
 	void printTestMenu();
 
+	void runTSSettingsMenu();
+
+	void printTSSettingsMenu();
+
 	std::shared_ptr<TravellingSalesmanProblem> TSP;
 
 	BruteForce BF;

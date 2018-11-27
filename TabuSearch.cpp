@@ -59,6 +59,46 @@ std::string TabuSearch::run() {
 	return generateOutput();
 }
 
+int TabuSearch::getCadency() const {
+	return cadency;
+}
+
+double TabuSearch::getTimeToBreakSearch() const {
+	return timeToBreakSearch;
+}
+
+bool TabuSearch::isAspiration() const {
+	return aspiration;
+}
+
+bool TabuSearch::isDiversification() const {
+	return diversification;
+}
+
+int TabuSearch::getIterationsToChangeNeighborhood() const {
+	return iterationsToChangeNeighborhood;
+}
+
+void TabuSearch::setCadency(int cadency) {
+	TabuSearch::cadency = cadency;
+}
+
+void TabuSearch::setTimeToBreakSearch(double timeToBreakSearch) {
+	TabuSearch::timeToBreakSearch = timeToBreakSearch;
+}
+
+void TabuSearch::setAspiration(bool aspiration) {
+	TabuSearch::aspiration = aspiration;
+}
+
+void TabuSearch::setDiversification(bool diversification) {
+	TabuSearch::diversification = diversification;
+}
+
+void TabuSearch::setIterationsToChangeNeighborhood(int iterationsToChangeNeighborhood) {
+	TabuSearch::iterationsToChangeNeighborhood = iterationsToChangeNeighborhood;
+}
+
 void TabuSearch::prepareToRun() {
 	Algorithm::prepareToRun();
 

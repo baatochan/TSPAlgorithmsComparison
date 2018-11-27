@@ -85,6 +85,14 @@ void Program::start() {
 
 			case '6':
 				try {
+					runTSSettingsMenu();
+				} catch (const std::runtime_error &e) {
+					std::cerr << e.what() << std::endl;
+				}
+				break;
+
+			case '7':
+				try {
 					output = TS.showInfoBeforeRunning();
 					std::cout << output << std::endl;
 
@@ -122,7 +130,8 @@ void Program::printMenu() {
 	std::cout << "3. Wyświetl macierz miast" << std::endl;
 	std::cout << "4. Uruchom algorytm Brute-force" << std::endl;
 	std::cout << "5. Uruchom algorytm Branch and bound" << std::endl;
-	std::cout << "6. Uruchom algorytm Tabu Search" << std::endl;
+	std::cout << "6. Zmień ustawienia algorytmu Tabu Search" << std::endl;
+	std::cout << "7. Uruchom algorytm Tabu Search" << std::endl;
 	std::cout << "9. Testy" << std::endl;
 	std::cout << "0. Wyjście" << std::endl;
 	std::cout << "Wybór: ";
@@ -260,4 +269,25 @@ void Program::printTestMenu() {
 	std::cout << "9. Test nr 9 (" << test.getTestName('9') << ")" << std::endl;
 	std::cout << "0. Powrót" << std::endl;
 	std::cout << "Wybór: ";
+}
+
+void Program::runTSSettingsMenu() {
+	char selection = 0;
+	std::string output;
+
+	do {
+		printTSSettingsMenu();
+
+		std::cin >> selection;
+		std::cout << std::endl;
+
+		switch (selection) {
+
+		}
+
+	} while (selection != '0');
+}
+
+void Program::printTSSettingsMenu() {
+
 }

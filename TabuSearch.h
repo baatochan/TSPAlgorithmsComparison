@@ -18,6 +18,26 @@ public:
 
 	std::string run() override;
 
+	int getCadency() const;
+
+	double getTimeToBreakSearch() const;
+
+	bool isAspiration() const;
+
+	bool isDiversification() const;
+
+	int getIterationsToChangeNeighborhood() const;
+
+	void setCadency(int cadency);
+
+	void setTimeToBreakSearch(double timeToBreakSearch);
+
+	void setAspiration(bool aspiration);
+
+	void setDiversification(bool diversification);
+
+	void setIterationsToChangeNeighborhood(int iterationsToChangeNeighborhood);
+
 private:
 	void prepareToRun() override;
 
