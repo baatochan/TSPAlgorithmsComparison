@@ -11,9 +11,26 @@ TabuSearch::TabuSearch(std::shared_ptr<TravellingSalesmanProblem> TSP) : Algorit
 TabuSearch::~TabuSearch() = default;
 
 std::string TabuSearch::showInfoBeforeRunning() {
-	return "";
-	// TODO: Not yet implemented!
-	throw std::runtime_error("Not yet implemented!");
+	std::string output;
+
+	output += "Algoryt został uruchomiony z następującymi parametrami:\n";
+	output += "* Długość kadencji ruchu na liście tabu: " + std::to_string(cadency) + " (ilość miast: " + std::to_string(TSP->getNumberOfCities()) + ")\n";
+	output += "* Czas wykonywania algorytmu: " + std::to_string(timeToBreakSearch) + " (s)\n";
+	output += "* Aspiracja: ";
+	if (aspiration) {
+		output += "TAK\n";
+	} else {
+		output += "NIE\n";
+	}
+	output += "* Dywersyfikacja: ";
+	if (diversification) {
+		output += "TAK\n";
+	} else {
+		output += "NIE\n";
+	}
+	output += "* Ilość iteracji do zmiany otoczenia: " + std::to_string(iterationsToChangeNeighborhood) + "\n";
+
+	return output;
 }
 
 std::string TabuSearch::run() {
