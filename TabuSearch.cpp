@@ -59,6 +59,14 @@ std::string TabuSearch::run() {
 	return generateOutput();
 }
 
+void TabuSearch::setDefaultParameters() {
+	cadency = TSP->getNumberOfCities() / 2;
+	timeToBreakSearch = 10; //seconds
+	aspiration = true;
+	diversification = true;
+	iterationsToChangeNeighborhood = 10000;
+}
+
 int TabuSearch::getCadency() const {
 	return cadency;
 }
@@ -105,13 +113,6 @@ void TabuSearch::prepareToRun() {
 	tabuList.clear();
 
 	iterationWithoutImprovement = 0;
-
-	// load default setting TODO: take care of it in UI
-	cadency = numberOfCities/2;
-	timeToBreakSearch = 10; //seconds
-	aspiration = true;
-	diversification = true;
-	iterationsToChangeNeighborhood = 10000;
 
 	generateStartRoute();
 	currentDistance = calculateRouteDistance(currentRoute);

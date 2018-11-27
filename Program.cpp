@@ -274,6 +274,9 @@ void Program::printTestMenu() {
 void Program::runTSSettingsMenu() {
 	char selection = 0;
 	std::string output;
+	double tempDouble = 0;
+	char tempChar;
+	int tempInt = 0;
 
 	do {
 		printTSSettingsMenu();
@@ -282,6 +285,75 @@ void Program::runTSSettingsMenu() {
 		std::cout << std::endl;
 
 		switch (selection) {
+			case '1':
+				TS.setDefaultParameters();
+				break;
+
+			case '2':
+				do {
+					std::cout << "Podaj mnożnik do długości kadencji, który zostanie przemnożony przez ilość miast (liczba wymierna): ";
+					std::cin.clear();
+					std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+				} while (!(std::cin >> tempDouble));
+				TS.setCadency(static_cast<int>(tempDouble * TSP->getNumberOfCities()));
+				break;
+
+			case '3':
+				do {
+					std::cout << "Podaj czas wykonywania algorytmu w sekundach (liczba wymierna): ";
+					std::cin.clear();
+					std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+				} while (!(std::cin >> tempDouble));
+				TS.setTimeToBreakSearch(tempDouble);
+				break;
+
+			case '4':
+				do {
+					do {
+						std::cout << "Czy aspiracja ma być włączona [y/n]: ";
+						std::cin.clear();
+						std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+					} while (!(std::cin >> tempChar));
+				} while (tempChar == 'y' || tempChar == 'Y' || tempChar == 't' || tempChar == 'T' || tempChar == 'n' || tempChar == 'N');
+
+				if (tempChar == 'y' || tempChar == 'Y' || tempChar == 't' || tempChar == 'T') {
+					TS.setAspiration(true);
+				} else {
+					TS.setAspiration(false);
+				}
+				break;
+
+			case '5':
+				do {
+					do {
+						std::cout << "Czy dywersyfikacja ma być włączona [y/n]: ";
+						std::cin.clear();
+						std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+					} while (!(std::cin >> tempChar));
+				} while (tempChar == 'y' || tempChar == 'Y' || tempChar == 't' || tempChar == 'T' || tempChar == 'n' || tempChar == 'N');
+
+				if (tempChar == 'y' || tempChar == 'Y' || tempChar == 't' || tempChar == 'T') {
+					TS.setDiversification(true);
+				} else {
+					TS.setDiversification(false);
+				}
+				break;
+
+			case '6':
+				do {
+					std::cout << "Podaj ilosc iteracji do zmiany otoczenia (liczba calkowita): ";
+					std::cin.clear();
+					std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+				} while (!(std::cin >> tempInt));
+				TS.setIterationsToChangeNeighborhood(tempInt);
+				break;
+
+			case '0':
+				break;
+
+			default:
+				std::cerr << "Wybrana opcja nie istnieje!" << std::endl;
+				break;
 
 		}
 
@@ -289,5 +361,37 @@ void Program::runTSSettingsMenu() {
 }
 
 void Program::printTSSettingsMenu() {
-
+	std::cout << "--- Ustawienia algorytmu Tabu Search ---" << std::endl;
+	std::cout << "Algorytm Tabu Search posiada kilka ustawień, które możesz tutaj zmienić:" << std::endl;
+	std::cout << "* Długość kadencji ruchu na liście tabu (przez taką ilość operacji ruch jest zabroniony); domyślnie 0.5 * ilosc_miast" << std::endl;
+	std::cout << "* Czas wykonywania algorytmu (po takim czasie algorytm zostanie przerwany i zwróci najlepsze dotąd znalezione rozwiązanie; domyślnie 10s" << std::endl;
+	std::cout << "* Aspiracja (czy algorytm powinien zezwolić na zakazany ruch, jeśli poprawia on najlepsze znalezione rozwiązanie; domyślnie TAK" << std::endl;
+	std::cout << "* Dywersyfikacja (czy algorytm powinien zmienić otoczenie w którym szuka, jeśli przez jakąś ilość operacji nie znalazł lepszego wyniku; domyślnie TAK" << std::endl;
+	std::cout << "* Ilość iteracji do zmiany otoczenia (jeśli dywersyfikacja jest aktywna to po tylu iteracjach nastąpi zmiana otoczenia na nowe, losowe); domyślnie 10 tys." << std::endl;
+	std::cout << std::endl;
+	std::cout << "Aktualne ustawienia:" << std::endl;
+	std::cout << "* Długość kadencji ruchu na liście tabu: " << TS.getCadency() << " (ilość miast: " << TSP->getNumberOfCities() << ")" << std::endl;
+	std::cout << "* Czas wykonywania algorytmu: " << TS.getTimeToBreakSearch() << " (s)" << std::endl;
+	std::cout << "* Aspiracja: ";
+	if (TS.isAspiration()) {
+		std::cout << "TAK" << std::endl;
+	} else {
+		std::cout << "NIE" << std::endl;
+	}
+	std::cout << "* Dywersyfikacja: ";
+	if (TS.isDiversification()) {
+		std::cout << "TAK" << std::endl;
+	} else {
+		std::cout << "NIE" << std::endl;
+	}
+	std::cout << "* Ilość iteracji do zmiany otoczenia: " << TS.getIterationsToChangeNeighborhood() << std::endl;
+	std::cout << std::endl;
+	std::cout << "1. Wczytaj domyślne ustawienia" << std::endl;
+	std::cout << "2. Zmień długość kadencji" << std::endl;
+	std::cout << "3. Zmień czas wykonywania algorytmu" << std::endl;
+	std::cout << "4. Zmień ustawienie aspiracji" << std::endl;
+	std::cout << "5. Zmień ustawienie dywersyfikacji" << std::endl;
+	std::cout << "6. Zmień ilość iteracji do zmiany otoczenia" << std::endl;
+	std::cout << "0. Wyjście" << std::endl;
+	std::cout << "Wybór: ";
 }

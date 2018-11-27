@@ -18,6 +18,8 @@ public:
 
 	std::string run() override;
 
+	void setDefaultParameters();
+
 	int getCadency() const;
 
 	double getTimeToBreakSearch() const;
