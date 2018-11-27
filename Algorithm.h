@@ -24,7 +24,7 @@ public:
 	virtual std::string run() = 0;
 
 protected:
-	virtual void prepareToRun() = 0;
+	virtual void prepareToRun();
 
 	virtual std::string generateOutput() = 0;
 
