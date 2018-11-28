@@ -118,8 +118,42 @@ std::string Test::test9() {
 }
 
 std::string Test::testA() {
-	// TODO: Not yet implemented!
-	throw std::runtime_error("Not yet implemented!");
+	std::stringstream outputConsole;
+	outputConsole.setf(std::ios::fixed);
+
+	outputFile << "--- " << getTestName('6') << " ---" << std::endl;
+	outputConsole << "--- " << getTestName('6') << " ---" << std::endl;
+
+	algorithm = new BranchAndBound(TSP);
+
+	for (int i = 0; i < 10; ++i) {
+		auto startTime = std::chrono::high_resolution_clock::now();
+		exactTestTemplateOnFiles(7);
+		auto endTime = std::chrono::high_resolution_clock::now();
+
+		auto duration = std::chrono::duration_cast<std::chrono::microseconds>(endTime - startTime).count();
+
+		outputFile << duration << std::endl;
+		outputConsole << duration << std::endl;
+	}
+
+	outputFile << "--- " << getTestName('9') << " ---" << std::endl;
+	outputConsole << "--- " << getTestName('9') << " ---" << std::endl;
+
+	for (int i = 0; i < 10; ++i) {
+		auto startTime = std::chrono::high_resolution_clock::now();
+		TSTestTemplateOnSmallFiles(0.01);
+		auto endTime = std::chrono::high_resolution_clock::now();
+
+		auto duration = std::chrono::duration_cast<std::chrono::microseconds>(endTime - startTime).count();
+
+		outputFile << duration << std::endl;
+		outputConsole << duration << std::endl;
+	}
+
+	delete algorithm;
+
+	return outputConsole.str();
 }
 
 std::string Test::testB() {
@@ -177,7 +211,7 @@ std::string Test::getTestName(char test) {
 			return "Tabu Search (test z małych plików) (0.01s) x1";
 
 		case 'A':
-			return "Not yet implemented!";
+			return "(Branch and bound (test z plików) x1) vs (Tabu Search (test z małych plików) (0.01s) x1) x10";
 
 		case 'B':
 			return "Not yet implemented!";
