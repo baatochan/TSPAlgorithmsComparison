@@ -38,6 +38,18 @@ public:
 
 	std::string test9();
 
+	std::string testA();
+
+	std::string testB();
+
+	std::string testC();
+
+	std::string testD();
+
+	std::string testE();
+
+	std::string testF();
+
 	std::string getTestName(char test);
 
 private:

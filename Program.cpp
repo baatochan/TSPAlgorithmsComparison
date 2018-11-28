@@ -246,6 +246,66 @@ void Program::runTestMenu() {
 				}
 				break;
 
+			case 'A':
+			case 'a':
+				try {
+					output = test.testA();
+					std::cout << output << std::endl;
+				} catch (const std::runtime_error &e) {
+					std::cerr << e.what() << std::endl;
+				}
+				break;
+
+			case 'B':
+			case 'b':
+				try {
+					output = test.testB();
+					std::cout << output << std::endl;
+				} catch (const std::runtime_error &e) {
+					std::cerr << e.what() << std::endl;
+				}
+				break;
+
+			case 'C':
+			case 'c':
+				try {
+					output = test.testC();
+					std::cout << output << std::endl;
+				} catch (const std::runtime_error &e) {
+					std::cerr << e.what() << std::endl;
+				}
+				break;
+
+			case 'D':
+			case 'd':
+				try {
+					output = test.testD();
+					std::cout << output << std::endl;
+				} catch (const std::runtime_error &e) {
+					std::cerr << e.what() << std::endl;
+				}
+				break;
+
+			case 'E':
+			case 'e':
+				try {
+					output = test.testE();
+					std::cout << output << std::endl;
+				} catch (const std::runtime_error &e) {
+					std::cerr << e.what() << std::endl;
+				}
+				break;
+
+			case 'F':
+			case 'f':
+				try {
+					output = test.testF();
+					std::cout << output << std::endl;
+				} catch (const std::runtime_error &e) {
+					std::cerr << e.what() << std::endl;
+				}
+				break;
+
 			case '0':
 				break;
 
@@ -269,6 +329,12 @@ void Program::printTestMenu() {
 	std::cout << "7. Test nr 7 (" << test.getTestName('7') << ")" << std::endl;
 	std::cout << "8. Test nr 8 (" << test.getTestName('8') << ")" << std::endl;
 	std::cout << "9. Test nr 9 (" << test.getTestName('9') << ")" << std::endl;
+	std::cout << "A. Test nr 10 (" << test.getTestName('A') << ")" << std::endl;
+	std::cout << "B. Test nr 11 (" << test.getTestName('B') << ")" << std::endl;
+	std::cout << "C. Test nr 12 (" << test.getTestName('C') << ")" << std::endl;
+	std::cout << "D. Test nr 13 (" << test.getTestName('D') << ")" << std::endl;
+	std::cout << "E. Test nr 14 (" << test.getTestName('E') << ")" << std::endl;
+	std::cout << "F. Test nr 15 (" << test.getTestName('F') << ")" << std::endl;
 	std::cout << "0. Powrót" << std::endl;
 	std::cout << "Wybór: ";
 }

@@ -117,6 +117,36 @@ std::string Test::test9() {
 	return TSTestTemplateOnSmallFiles(0.01);
 }
 
+std::string Test::testA() {
+	// TODO: Not yet implemented!
+	throw std::runtime_error("Not yet implemented!");
+}
+
+std::string Test::testB() {
+	// TODO: Not yet implemented!
+	throw std::runtime_error("Not yet implemented!");
+}
+
+std::string Test::testC() {
+	// TODO: Not yet implemented!
+	throw std::runtime_error("Not yet implemented!");
+}
+
+std::string Test::testD() {
+	// TODO: Not yet implemented!
+	throw std::runtime_error("Not yet implemented!");
+}
+
+std::string Test::testE() {
+	// TODO: Not yet implemented!
+	throw std::runtime_error("Not yet implemented!");
+}
+
+std::string Test::testF() {
+	// TODO: Not yet implemented!
+	throw std::runtime_error("Not yet implemented!");
+}
+
 std::string Test::getTestName(char test) {
 	switch (test) {
 		case '1':
@@ -145,6 +175,24 @@ std::string Test::getTestName(char test) {
 
 		case '9':
 			return "Tabu Search (test z małych plików) (0.01s) x1";
+
+		case 'A':
+			return "Not yet implemented!";
+
+		case 'B':
+			return "Not yet implemented!";
+
+		case 'C':
+			return "Not yet implemented!";
+
+		case 'D':
+			return "Not yet implemented!";
+
+		case 'E':
+			return "Not yet implemented!";
+
+		case 'F':
+			return "Not yet implemented!";
 
 		default:
 			return "";
