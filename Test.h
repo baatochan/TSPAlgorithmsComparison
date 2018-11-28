@@ -41,7 +41,11 @@ public:
 	std::string getTestName(char test);
 
 private:
-	std::string testTemplate(int numberOfTests, int cityRange, char testNumber);
+	std::string exactTestTemplateOnRandomData(int numberOfTests, int cityRange, char testNumber);
+
+	std::string exactTestTemplateOnFiles(int cityRange);
+
+	std::string TSTestTemplateOnSmallFiles(int runDuration);
 
 	std::shared_ptr<TravellingSalesmanProblem> TSP;
 

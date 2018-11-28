@@ -36,7 +36,7 @@ std::string Test::test1() {
 
 	algorithm = new BruteForce(TSP);
 
-	std::string output = testTemplate(numberOfTests, maxCityNumber, testNumber);
+	std::string output = exactTestTemplateOnRandomData(numberOfTests, maxCityNumber, testNumber);
 
 	delete algorithm;
 
@@ -50,7 +50,7 @@ std::string Test::test2() {
 
 	algorithm = new BranchAndBound(TSP);
 
-	std::string output = testTemplate(numberOfTests, maxCityNumber, testNumber);
+	std::string output = exactTestTemplateOnRandomData(numberOfTests, maxCityNumber, testNumber);
 
 	delete algorithm;
 
@@ -64,7 +64,7 @@ std::string Test::test3() {
 
 	algorithm = new BruteForce(TSP);
 
-	std::string output = testTemplate(numberOfTests, maxCityNumber, testNumber);
+	std::string output = exactTestTemplateOnRandomData(numberOfTests, maxCityNumber, testNumber);
 
 	delete algorithm;
 
@@ -78,7 +78,7 @@ std::string Test::test4() {
 
 	algorithm = new BranchAndBound(TSP);
 
-	std::string output = testTemplate(numberOfTests, maxCityNumber, testNumber);
+	std::string output = exactTestTemplateOnRandomData(numberOfTests, maxCityNumber, testNumber);
 
 	delete algorithm;
 
@@ -86,46 +86,9 @@ std::string Test::test4() {
 }
 
 std::string Test::test5() {
-	std::vector<std::string> filePaths {"6-1.txt", "6-2.txt", "10.txt", "12.txt", "13.txt", "14.txt", "15.txt"};
-	std::string pathToDir = "../tests/small/";
-
-	std::vector<int> correctValues {132, 80, 212, 264, 269, 282, 291};
-
-	std::string output;
-
 	algorithm = new BruteForce(TSP);
 
-	auto startTime = std::chrono::high_resolution_clock::now();
-
-	for (int j = 0; j < 4; ++j) {
-		TSP->loadDataFromFile(pathToDir + filePaths[j]);
-
-		output += "\n";
-
-		std::string temp = algorithm->run();
-
-		int numberOfNewLines = 0;
-		int cutPosition = 0;
-		for (int k = 0; k < temp.size(); ++k) {
-			if (temp[k] == '\n') {
-				numberOfNewLines++;
-				if (numberOfNewLines == 3) {
-					cutPosition = k;
-				}
-			}
-		}
-
-		temp.erase(temp.begin(), temp.begin() + cutPosition + 1);
-
-		output += temp;
-
-		output += "POPRAWNY WYNIK:           " + std::to_string(correctValues[j]) + "\n";
-	}
-
-	auto endTime = std::chrono::high_resolution_clock::now();
-	auto duration = std::chrono::duration_cast<std::chrono::microseconds>(endTime - startTime).count();
-
-	output += "\nIlość testów: 4, czas trwania: " + std::to_string(duration) + "\n";
+	std::string output = exactTestTemplateOnFiles(4);
 
 	delete algorithm;
 
@@ -133,46 +96,9 @@ std::string Test::test5() {
 }
 
 std::string Test::test6() {
-	std::vector<std::string> filePaths {"6-1.txt", "6-2.txt", "10.txt", "12.txt", "13.txt", "14.txt", "15.txt"};
-	std::string pathToDir = "../tests/small/";
-
-	std::vector<int> correctValues {132, 80, 212, 264, 269, 282, 291};
-
-	std::string output;
-
 	algorithm = new BranchAndBound(TSP);
 
-	auto startTime = std::chrono::high_resolution_clock::now();
-
-	for (int j = 0; j < 7; ++j) {
-		TSP->loadDataFromFile(pathToDir + filePaths[j]);
-
-		output += "\n";
-
-		std::string temp = algorithm->run();
-
-		int numberOfNewLines = 0;
-		int cutPosition = 0;
-		for (int k = 0; k < temp.size(); ++k) {
-			if (temp[k] == '\n') {
-				numberOfNewLines++;
-				if (numberOfNewLines == 3) {
-					cutPosition = k;
-				}
-			}
-		}
-
-		temp.erase(temp.begin(), temp.begin() + cutPosition + 1);
-
-		output += temp;
-
-		output += "POPRAWNY WYNIK:           " + std::to_string(correctValues[j]) + "\n";
-	}
-
-	auto endTime = std::chrono::high_resolution_clock::now();
-	auto duration = std::chrono::duration_cast<std::chrono::microseconds>(endTime - startTime).count();
-
-	output += "\nIlość testów: 7, czas trwania: " + std::to_string(duration) + "\n";
+	std::string output = exactTestTemplateOnFiles(7);
 
 	delete algorithm;
 
@@ -362,7 +288,7 @@ std::string Test::getTestName(char test) {
 	}
 }
 
-std::string Test::testTemplate(int numberOfTests, int cityRange, char testNumber) {
+std::string Test::exactTestTemplateOnRandomData(int numberOfTests, int cityRange, char testNumber) {
 	std::stringstream outputConsole;
 	outputConsole.setf(std::ios::fixed);
 
@@ -405,4 +331,51 @@ std::string Test::testTemplate(int numberOfTests, int cityRange, char testNumber
 
 	std::string output = outputConsole.str();
 	return output;
+}
+
+std::string Test::exactTestTemplateOnFiles(int cityRange) {
+	std::vector<std::string> filePaths {"6-1.txt", "6-2.txt", "10.txt", "12.txt", "13.txt", "14.txt", "15.txt"};
+	std::string pathToDir = "../tests/small/";
+
+	std::vector<int> correctValues {132, 80, 212, 264, 269, 282, 291};
+
+	std::string output;
+
+	auto startTime = std::chrono::high_resolution_clock::now();
+
+	for (int j = 0; j < cityRange; ++j) {
+		TSP->loadDataFromFile(pathToDir + filePaths[j]);
+
+		output += "\n";
+
+		std::string temp = algorithm->run();
+
+		int numberOfNewLines = 0;
+		int cutPosition = 0;
+		for (int k = 0; k < temp.size(); ++k) {
+			if (temp[k] == '\n') {
+				numberOfNewLines++;
+				if (numberOfNewLines == 3) {
+					cutPosition = k;
+				}
+			}
+		}
+
+		temp.erase(temp.begin(), temp.begin() + cutPosition + 1);
+
+		output += temp;
+
+		output += "POPRAWNY WYNIK:           " + std::to_string(correctValues[j]) + "\n";
+	}
+
+	auto endTime = std::chrono::high_resolution_clock::now();
+	auto duration = std::chrono::duration_cast<std::chrono::microseconds>(endTime - startTime).count();
+
+	output += "\nIlość testów: " + std::to_string(cityRange) + ", czas trwania: " + std::to_string(duration) + "\n";
+
+	return output;
+}
+
+std::string Test::TSTestTemplateOnSmallFiles(int runDuration) {
+	return std::__cxx11::string();
 }
