@@ -59,6 +59,8 @@ private:
 
 	std::string TSTestTemplateOnSmallFiles(double runDuration);
 
+	std::string TSTestTemplateOnBigFiles(std::string fileName, char testNumber);
+
 	std::shared_ptr<TravellingSalesmanProblem> TSP;
 
 	Algorithm* algorithm;

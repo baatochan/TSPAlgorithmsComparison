@@ -7,6 +7,7 @@
 
 #include <sstream>
 #include <chrono>
+#include <utility>
 
 Test::Test() : TSP(std::make_shared<TravellingSalesmanProblem>()) {}
 
@@ -157,28 +158,45 @@ std::string Test::testA() {
 }
 
 std::string Test::testB() {
-	// TODO: Not yet implemented!
-	throw std::runtime_error("Not yet implemented!");
+	return TSTestTemplateOnBigFiles("../tests/atsp/data34.txt", 'B');
 }
 
 std::string Test::testC() {
-	// TODO: Not yet implemented!
-	throw std::runtime_error("Not yet implemented!");
+	return TSTestTemplateOnBigFiles("../tests/tsp/data58.txt", 'C');
 }
 
 std::string Test::testD() {
-	// TODO: Not yet implemented!
-	throw std::runtime_error("Not yet implemented!");
+	return TSTestTemplateOnBigFiles("../tests/atsp/data171.txt", 'D');
 }
 
 std::string Test::testE() {
-	// TODO: Not yet implemented!
-	throw std::runtime_error("Not yet implemented!");
+	return TSTestTemplateOnBigFiles("../tests/atsp/data443.txt", 'E');
 }
 
 std::string Test::testF() {
-	// TODO: Not yet implemented!
-	throw std::runtime_error("Not yet implemented!");
+	std::string output;
+
+	auto startTime = std::chrono::high_resolution_clock::now();
+
+	output += testB();
+	output += "\n";
+
+	output += testC();
+	output += "\n";
+
+	output += testD();
+	output += "\n";
+
+	output += testE();
+	output += "\n";
+
+	auto endTime = std::chrono::high_resolution_clock::now();
+	auto duration = std::chrono::duration_cast<std::chrono::minutes>(endTime - startTime).count();
+
+	output += "\nCZAS PRACY CAŁOŚCI: " + std::to_string(duration) + "\n";
+	outputFile << std::endl << "CZAS PRACY CAŁOŚCI: " << duration << std::endl;
+
+	return output;
 }
 
 std::string Test::getTestName(char test) {
@@ -214,19 +232,19 @@ std::string Test::getTestName(char test) {
 			return "(Branch and bound (test z plików) x1) vs (Tabu Search (test z małych plików) (0.01s) x1) x10";
 
 		case 'B':
-			return "Not yet implemented!";
+			return "Tabu Search - porównanie parametrów dla ATSP34";
 
 		case 'C':
-			return "Not yet implemented!";
+			return "Tabu Search - porównanie parametrów dla STSP58";
 
 		case 'D':
-			return "Not yet implemented!";
+			return "Tabu Search - porównanie parametrów dla ATSP171";
 
 		case 'E':
-			return "Not yet implemented!";
+			return "Tabu Search - porównanie parametrów dla ATSP443";
 
 		case 'F':
-			return "Not yet implemented!";
+			return "Testy B, C, D i E po kolei";
 
 		default:
 			return "";
@@ -302,6 +320,7 @@ std::string Test::exactTestTemplateOnFiles(int cityRange) {
 				numberOfNewLines++;
 				if (numberOfNewLines == 3) {
 					cutPosition = k;
+					break;
 				}
 			}
 		}
@@ -350,6 +369,7 @@ std::string Test::TSTestTemplateOnSmallFiles(double runDuration) {
 				numberOfNewLines++;
 				if (numberOfNewLines == 3) {
 					cutPosition = k;
+					break;
 				}
 			}
 		}
@@ -368,5 +388,206 @@ std::string Test::TSTestTemplateOnSmallFiles(double runDuration) {
 
 	delete TS;
 
+	return output;
+}
+
+std::string Test::TSTestTemplateOnBigFiles(std::string fileName, char testNumber) {
+	std::vector<double> cadencyToTest {0.25, 0.5, 1, 2};
+	std::vector<int> timeToTest {1, 5, 10, 15};
+	std::vector<int> iterationsToTest {1000, 5000, 10000, 15000};
+
+	std::stringstream outputConsole;
+	outputConsole.setf(std::ios::fixed);
+
+	outputFile << "--- " << getTestName(testNumber) << " ---" << std::endl;
+	outputConsole << "--- " << getTestName(testNumber) << " ---" << std::endl;
+
+	TSP->loadDataFromFile(std::move(fileName));
+
+	TS = new TabuSearch(TSP);
+
+	for (double cadencyMultiplier : cadencyToTest) {
+		outputFile << "Kadencja: " << cadencyMultiplier << " * iloscMiast" << std::endl;
+		outputConsole << "Kadencja: " << cadencyMultiplier << " * iloscMiast" << std::endl;
+
+		TS->setDefaultParameters();
+		TS->setCadency(static_cast<int>(cadencyMultiplier * TSP->getNumberOfCities()));
+
+		for (int i = 0; i < 10; ++i) {
+			std::string temp = TS->run();
+
+			int numberOfNewLines = 0;
+			int numberOfSpaces = 0;
+			int cutPosition = 0;
+			for (int k = 0; k < temp.size(); ++k) {
+				if (temp[k] == '\n') {
+					numberOfNewLines++;
+				}
+				if (numberOfNewLines == 3) {
+					if (temp[k] == ' ') {
+						numberOfSpaces++;
+					}
+				}
+				if (numberOfSpaces == 3) {
+					cutPosition = k + 1;
+					break;
+				}
+			}
+
+			temp.erase(temp.begin(), temp.begin() + cutPosition);
+			temp.pop_back();
+
+			outputFile << temp << std::endl;
+			outputConsole << temp << std::endl;
+		}
+	}
+
+	for (int timeToStop : timeToTest) {
+		outputFile << "Czas pracy: " << timeToStop << std::endl;
+		outputConsole << "Czas pracy: " << timeToStop << std::endl;
+
+		TS->setDefaultParameters();
+		TS->setTimeToBreakSearch(timeToStop);
+
+		for (int i = 0; i < 10; ++i) {
+			std::string temp = TS->run();
+
+			int numberOfNewLines = 0;
+			int numberOfSpaces = 0;
+			int cutPosition = 0;
+			for (int k = 0; k < temp.size(); ++k) {
+				if (temp[k] == '\n') {
+					numberOfNewLines++;
+				}
+				if (numberOfNewLines == 3) {
+					if (temp[k] == ' ') {
+						numberOfSpaces++;
+					}
+				}
+				if (numberOfSpaces == 3) {
+					cutPosition = k + 1;
+					break;
+				}
+			}
+
+			temp.erase(temp.begin(), temp.begin() + cutPosition);
+			temp.pop_back();
+
+			outputFile << temp << std::endl;
+			outputConsole << temp << std::endl;
+		}
+	}
+
+	for (int i = 0; i < 2; ++i) {
+		outputFile << "Aspiracja: " << i << std::endl;
+		outputConsole << "Aspiracja: " << i << std::endl;
+
+		TS->setDefaultParameters();
+		TS->setAspiration(i);
+
+		for (int j = 0; j < 10; ++j) {
+			std::string temp = TS->run();
+
+			int numberOfNewLines = 0;
+			int numberOfSpaces = 0;
+			int cutPosition = 0;
+			for (int k = 0; k < temp.size(); ++k) {
+				if (temp[k] == '\n') {
+					numberOfNewLines++;
+				}
+				if (numberOfNewLines == 3) {
+					if (temp[k] == ' ') {
+						numberOfSpaces++;
+					}
+				}
+				if (numberOfSpaces == 3) {
+					cutPosition = k + 1;
+					break;
+				}
+			}
+
+			temp.erase(temp.begin(), temp.begin() + cutPosition);
+			temp.pop_back();
+
+			outputFile << temp << std::endl;
+			outputConsole << temp << std::endl;
+		}
+	}
+
+	for (int i = 0; i < 2; ++i) {
+		outputFile << "Dywersyfikacja: " << i << std::endl;
+		outputConsole << "Dywersyfikacja: " << i << std::endl;
+
+		TS->setDefaultParameters();
+		TS->setDiversification(i);
+
+		for (int j = 0; j < 10; ++j) {
+			std::string temp = TS->run();
+
+			int numberOfNewLines = 0;
+			int numberOfSpaces = 0;
+			int cutPosition = 0;
+			for (int k = 0; k < temp.size(); ++k) {
+				if (temp[k] == '\n') {
+					numberOfNewLines++;
+				}
+				if (numberOfNewLines == 3) {
+					if (temp[k] == ' ') {
+						numberOfSpaces++;
+					}
+				}
+				if (numberOfSpaces == 3) {
+					cutPosition = k + 1;
+					break;
+				}
+			}
+
+			temp.erase(temp.begin(), temp.begin() + cutPosition);
+			temp.pop_back();
+
+			outputFile << temp << std::endl;
+			outputConsole << temp << std::endl;
+		}
+	}
+
+	for (int numberOfIterations : iterationsToTest) {
+		outputFile << "Iteracje do zmiany: " << numberOfIterations << std::endl;
+		outputConsole << "Iteracje do zmiany: " << numberOfIterations << std::endl;
+
+		TS->setDefaultParameters();
+		TS->setIterationsToChangeNeighborhood(numberOfIterations);
+
+		for (int i = 0; i < 10; ++i) {
+			std::string temp = TS->run();
+
+			int numberOfNewLines = 0;
+			int numberOfSpaces = 0;
+			int cutPosition = 0;
+			for (int k = 0; k < temp.size(); ++k) {
+				if (temp[k] == '\n') {
+					numberOfNewLines++;
+				}
+				if (numberOfNewLines == 3) {
+					if (temp[k] == ' ') {
+						numberOfSpaces++;
+					}
+				}
+				if (numberOfSpaces == 3) {
+					cutPosition = k + 1;
+					break;
+				}
+			}
+
+			temp.erase(temp.begin(), temp.begin() + cutPosition);
+			temp.pop_back();
+
+			outputFile << temp << std::endl;
+			outputConsole << temp << std::endl;
+		}
+	}
+
+	delete TS;
+
+	std::string output = outputConsole.str();
 	return output;
 }
