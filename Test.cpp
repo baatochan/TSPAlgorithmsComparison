@@ -4,7 +4,6 @@
 
 #include "Test.h"
 #include "BranchAndBound.h"
-#include "TabuSearch.h"
 
 #include <sstream>
 #include <chrono>
@@ -37,7 +36,7 @@ std::string Test::test1() {
 
 	algorithm = new BruteForce(TSP);
 
-	std::string output = testTemplate(numberOfTests, maxCityNumber, testNumber);
+	std::string output = exactTestTemplateOnRandomData(numberOfTests, maxCityNumber, testNumber);
 
 	delete algorithm;
 
@@ -51,7 +50,7 @@ std::string Test::test2() {
 
 	algorithm = new BranchAndBound(TSP);
 
-	std::string output = testTemplate(numberOfTests, maxCityNumber, testNumber);
+	std::string output = exactTestTemplateOnRandomData(numberOfTests, maxCityNumber, testNumber);
 
 	delete algorithm;
 
@@ -65,7 +64,7 @@ std::string Test::test3() {
 
 	algorithm = new BruteForce(TSP);
 
-	std::string output = testTemplate(numberOfTests, maxCityNumber, testNumber);
+	std::string output = exactTestTemplateOnRandomData(numberOfTests, maxCityNumber, testNumber);
 
 	delete algorithm;
 
@@ -79,7 +78,7 @@ std::string Test::test4() {
 
 	algorithm = new BranchAndBound(TSP);
 
-	std::string output = testTemplate(numberOfTests, maxCityNumber, testNumber);
+	std::string output = exactTestTemplateOnRandomData(numberOfTests, maxCityNumber, testNumber);
 
 	delete algorithm;
 
@@ -87,42 +86,9 @@ std::string Test::test4() {
 }
 
 std::string Test::test5() {
-	std::vector<std::string> filePaths;
-
-	for (int i = 1; i <= 7; ++i) {
-		filePaths.emplace_back("../tests/exact/" + std::to_string(i) + ".txt");
-	}
-
-	std::vector<int> correctValues {132, 80, 212, 264, 269, 282, 291};
-
-	std::string output;
-
 	algorithm = new BruteForce(TSP);
 
-	for (int j = 0; j < 4; ++j) {
-		TSP->loadDataFromFile(filePaths[j]);
-
-		output += "\n";
-
-		std::string temp = algorithm->run();
-
-		int numberOfNewLines = 0;
-		int cutPosition = 0;
-		for (int k = 0; k < temp.size(); ++k) {
-			if (temp[k] == '\n') {
-				numberOfNewLines++;
-				if (numberOfNewLines == 3) {
-					cutPosition = k;
-				}
-			}
-		}
-
-		temp.erase(temp.begin(), temp.begin() + cutPosition + 1);
-
-		output += temp;
-
-		output += "POPRAWNY WYNIK:           " + std::to_string(correctValues[j]) + "\n";
-	}
+	std::string output = exactTestTemplateOnFiles(4);
 
 	delete algorithm;
 
@@ -130,42 +96,9 @@ std::string Test::test5() {
 }
 
 std::string Test::test6() {
-	std::vector<std::string> filePaths;
-
-	for (int i = 1; i <= 7; ++i) {
-		filePaths.emplace_back("../tests/exact/" + std::to_string(i) + ".txt");
-	}
-
-	std::vector<int> correctValues {132, 80, 212, 264, 269, 282, 291};
-
-	std::string output;
-
 	algorithm = new BranchAndBound(TSP);
 
-	for (int j = 0; j < 7; ++j) {
-		TSP->loadDataFromFile(filePaths[j]);
-
-		output += "\n";
-
-		std::string temp = algorithm->run();
-
-		int numberOfNewLines = 0;
-		int cutPosition = 0;
-		for (int k = 0; k < temp.size(); ++k) {
-			if (temp[k] == '\n') {
-				numberOfNewLines++;
-				if (numberOfNewLines == 3) {
-					cutPosition = k;
-				}
-			}
-		}
-
-		temp.erase(temp.begin(), temp.begin() + cutPosition + 1);
-
-		output += temp;
-
-		output += "POPRAWNY WYNIK:           " + std::to_string(correctValues[j]) + "\n";
-	}
+	std::string output = exactTestTemplateOnFiles(7);
 
 	delete algorithm;
 
@@ -173,56 +106,15 @@ std::string Test::test6() {
 }
 
 std::string Test::test7() {
-	std::vector<std::string> filePaths;
-
-	for (int i = 1; i <= 7; ++i) {
-		filePaths.emplace_back("../tests/exact/" + std::to_string(i) + ".txt");
-	}
-
-	std::vector<int> correctValues {132, 80, 212, 264, 269, 282, 291};
-
-	std::string output;
-
-	algorithm = new TabuSearch(TSP);
-
-	for (int j = 0; j < 7; ++j) {
-		TSP->loadDataFromFile(filePaths[j]);
-
-		output += "\n";
-
-		std::string temp = algorithm->run();
-
-		int numberOfNewLines = 0;
-		int cutPosition = 0;
-		for (int k = 0; k < temp.size(); ++k) {
-			if (temp[k] == '\n') {
-				numberOfNewLines++;
-				if (numberOfNewLines == 3) {
-					cutPosition = k;
-				}
-			}
-		}
-
-		temp.erase(temp.begin(), temp.begin() + cutPosition + 1);
-
-		output += temp;
-
-		output += "POPRAWNY WYNIK:           " + std::to_string(correctValues[j]) + "\n";
-	}
-
-	delete algorithm;
-
-	return output;
+	return TSTestTemplateOnSmallFiles(10);
 }
 
 std::string Test::test8() {
-	// TODO: Not yet implemented!
-	throw std::runtime_error("Not yet implemented!");
+	return TSTestTemplateOnSmallFiles(1);
 }
 
 std::string Test::test9() {
-	// TODO: Not yet implemented!
-	throw std::runtime_error("Not yet implemented!");
+	return TSTestTemplateOnSmallFiles(0.01);
 }
 
 std::string Test::getTestName(char test) {
@@ -246,20 +138,20 @@ std::string Test::getTestName(char test) {
 			return "Branch and bound (test z plików) x1";
 
 		case '7':
-			return "Tabu Search (test z plików) x1";
+			return "Tabu Search (test z małych plików) (10s) x1";
 
 		case '8':
-			return "Not yet implemented!";
+			return "Tabu Search (test z małych plików) (1s) x1";
 
 		case '9':
-			return "Not yet implemented!";
+			return "Tabu Search (test z małych plików) (0.01s) x1";
 
 		default:
 			return "";
 	}
 }
 
-std::string Test::testTemplate(int numberOfTests, int cityRange, char testNumber) {
+std::string Test::exactTestTemplateOnRandomData(int numberOfTests, int cityRange, char testNumber) {
 	std::stringstream outputConsole;
 	outputConsole.setf(std::ios::fixed);
 
@@ -301,5 +193,98 @@ std::string Test::testTemplate(int numberOfTests, int cityRange, char testNumber
 	}
 
 	std::string output = outputConsole.str();
+	return output;
+}
+
+std::string Test::exactTestTemplateOnFiles(int cityRange) {
+	std::vector<std::string> filePaths {"6-1.txt", "6-2.txt", "10.txt", "12.txt", "13.txt", "14.txt", "15.txt"};
+	std::string pathToDir = "../tests/small/";
+
+	std::vector<int> correctValues {132, 80, 212, 264, 269, 282, 291};
+
+	std::string output;
+
+	auto startTime = std::chrono::high_resolution_clock::now();
+
+	for (int j = 0; j < cityRange; ++j) {
+		TSP->loadDataFromFile(pathToDir + filePaths[j]);
+
+		output += "\n";
+
+		std::string temp = algorithm->run();
+
+		int numberOfNewLines = 0;
+		int cutPosition = 0;
+		for (int k = 0; k < temp.size(); ++k) {
+			if (temp[k] == '\n') {
+				numberOfNewLines++;
+				if (numberOfNewLines == 3) {
+					cutPosition = k;
+				}
+			}
+		}
+
+		temp.erase(temp.begin(), temp.begin() + cutPosition + 1);
+
+		output += temp;
+
+		output += "POPRAWNY WYNIK:           " + std::to_string(correctValues[j]) + "\n";
+	}
+
+	auto endTime = std::chrono::high_resolution_clock::now();
+	auto duration = std::chrono::duration_cast<std::chrono::microseconds>(endTime - startTime).count();
+
+	output += "\nIlość testów: " + std::to_string(cityRange) + ", czas trwania: " + std::to_string(duration) + "\n";
+
+	return output;
+}
+
+std::string Test::TSTestTemplateOnSmallFiles(double runDuration) {
+	std::vector<std::string> filePaths {"6-1.txt", "6-2.txt", "10.txt", "12.txt", "13.txt", "14.txt", "15.txt"};
+	std::string pathToDir = "../tests/small/";
+
+	std::vector<int> correctValues {132, 80, 212, 264, 269, 282, 291};
+
+	std::string output;
+
+	TS = new TabuSearch(TSP);
+
+	auto startTime = std::chrono::high_resolution_clock::now();
+
+	for (int j = 0; j < 7; ++j) {
+		TSP->loadDataFromFile(pathToDir + filePaths[j]);
+
+		TS->setDefaultParameters();
+		TS->setTimeToBreakSearch(runDuration);
+
+		output += "\n";
+
+		std::string temp = TS->run();
+
+		int numberOfNewLines = 0;
+		int cutPosition = 0;
+		for (int k = 0; k < temp.size(); ++k) {
+			if (temp[k] == '\n') {
+				numberOfNewLines++;
+				if (numberOfNewLines == 3) {
+					cutPosition = k;
+				}
+			}
+		}
+
+		temp.erase(temp.begin(), temp.begin() + cutPosition + 1);
+
+		output += temp;
+
+		output += "POPRAWNY WYNIK:           " + std::to_string(correctValues[j]) + "\n";
+	}
+
+	auto endTime = std::chrono::high_resolution_clock::now();
+	auto duration = std::chrono::duration_cast<std::chrono::microseconds>(endTime - startTime).count();
+
+	output += "\nIlość testów: 7, czas trwania: " + std::to_string(duration) + "\n";
+
+	delete TS;
+
 	return output;
 }

@@ -1,0 +1,8 @@
+file -> best solution
+6-1.txt -> 132
+6-2.txt -> 80
+10.txt -> 212
+12.txt -> 264
+13.txt -> 269
+14.txt -> 282
+15.txt -> 291
