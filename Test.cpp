@@ -106,152 +106,15 @@ std::string Test::test6() {
 }
 
 std::string Test::test7() {
-	std::vector<std::string> filePaths {"6-1.txt", "6-2.txt", "10.txt", "12.txt", "13.txt", "14.txt", "15.txt"};
-	std::string pathToDir = "../tests/small/";
-
-	std::vector<int> correctValues {132, 80, 212, 264, 269, 282, 291};
-
-	std::string output;
-
-	TS = new TabuSearch(TSP);
-
-	auto startTime = std::chrono::high_resolution_clock::now();
-
-	for (int j = 0; j < 7; ++j) {
-		TSP->loadDataFromFile(pathToDir + filePaths[j]);
-		TS->setDefaultParameters();
-
-		output += "\n";
-
-		std::string temp = TS->run();
-
-		int numberOfNewLines = 0;
-		int cutPosition = 0;
-		for (int k = 0; k < temp.size(); ++k) {
-			if (temp[k] == '\n') {
-				numberOfNewLines++;
-				if (numberOfNewLines == 3) {
-					cutPosition = k;
-				}
-			}
-		}
-
-		temp.erase(temp.begin(), temp.begin() + cutPosition + 1);
-
-		output += temp;
-
-		output += "POPRAWNY WYNIK:           " + std::to_string(correctValues[j]) + "\n";
-	}
-
-	auto endTime = std::chrono::high_resolution_clock::now();
-	auto duration = std::chrono::duration_cast<std::chrono::microseconds>(endTime - startTime).count();
-
-	output += "\nIlość testów: 7, czas trwania: " + std::to_string(duration) + "\n";
-
-	delete TS;
-
-	return output;
+	return TSTestTemplateOnSmallFiles(10);
 }
 
 std::string Test::test8() {
-	std::vector<std::string> filePaths {"6-1.txt", "6-2.txt", "10.txt", "12.txt", "13.txt", "14.txt", "15.txt"};
-	std::string pathToDir = "../tests/small/";
-
-	std::vector<int> correctValues {132, 80, 212, 264, 269, 282, 291};
-
-	std::string output;
-
-	TS = new TabuSearch(TSP);
-
-	auto startTime = std::chrono::high_resolution_clock::now();
-
-	for (int j = 0; j < 7; ++j) {
-		TSP->loadDataFromFile(pathToDir + filePaths[j]);
-
-		TS->setDefaultParameters();
-		TS->setTimeToBreakSearch(1);
-
-		output += "\n";
-
-		std::string temp = TS->run();
-
-		int numberOfNewLines = 0;
-		int cutPosition = 0;
-		for (int k = 0; k < temp.size(); ++k) {
-			if (temp[k] == '\n') {
-				numberOfNewLines++;
-				if (numberOfNewLines == 3) {
-					cutPosition = k;
-				}
-			}
-		}
-
-		temp.erase(temp.begin(), temp.begin() + cutPosition + 1);
-
-		output += temp;
-
-		output += "POPRAWNY WYNIK:           " + std::to_string(correctValues[j]) + "\n";
-	}
-
-	auto endTime = std::chrono::high_resolution_clock::now();
-	auto duration = std::chrono::duration_cast<std::chrono::microseconds>(endTime - startTime).count();
-
-	output += "\nIlość testów: 7, czas trwania: " + std::to_string(duration) + "\n";
-
-	delete TS;
-
-	return output;
+	return TSTestTemplateOnSmallFiles(1);
 }
 
 std::string Test::test9() {
-
-	std::vector<std::string> filePaths {"6-1.txt", "6-2.txt", "10.txt", "12.txt", "13.txt", "14.txt", "15.txt"};
-	std::string pathToDir = "../tests/small/";
-
-	std::vector<int> correctValues {132, 80, 212, 264, 269, 282, 291};
-
-	std::string output;
-
-	TS = new TabuSearch(TSP);
-
-	auto startTime = std::chrono::high_resolution_clock::now();
-
-	for (int j = 0; j < 7; ++j) {
-		TSP->loadDataFromFile(pathToDir + filePaths[j]);
-
-		TS->setDefaultParameters();
-		TS->setTimeToBreakSearch(0.01);
-
-		output += "\n";
-
-		std::string temp = TS->run();
-
-		int numberOfNewLines = 0;
-		int cutPosition = 0;
-		for (int k = 0; k < temp.size(); ++k) {
-			if (temp[k] == '\n') {
-				numberOfNewLines++;
-				if (numberOfNewLines == 3) {
-					cutPosition = k;
-				}
-			}
-		}
-
-		temp.erase(temp.begin(), temp.begin() + cutPosition + 1);
-
-		output += temp;
-
-		output += "POPRAWNY WYNIK:           " + std::to_string(correctValues[j]) + "\n";
-	}
-
-	auto endTime = std::chrono::high_resolution_clock::now();
-	auto duration = std::chrono::duration_cast<std::chrono::microseconds>(endTime - startTime).count();
-
-	output += "\nIlość testów: 7, czas trwania: " + std::to_string(duration) + "\n";
-
-	delete TS;
-
-	return output;
+	return TSTestTemplateOnSmallFiles(0.01);
 }
 
 std::string Test::getTestName(char test) {
@@ -376,6 +239,52 @@ std::string Test::exactTestTemplateOnFiles(int cityRange) {
 	return output;
 }
 
-std::string Test::TSTestTemplateOnSmallFiles(int runDuration) {
-	return std::__cxx11::string();
+std::string Test::TSTestTemplateOnSmallFiles(double runDuration) {
+	std::vector<std::string> filePaths {"6-1.txt", "6-2.txt", "10.txt", "12.txt", "13.txt", "14.txt", "15.txt"};
+	std::string pathToDir = "../tests/small/";
+
+	std::vector<int> correctValues {132, 80, 212, 264, 269, 282, 291};
+
+	std::string output;
+
+	TS = new TabuSearch(TSP);
+
+	auto startTime = std::chrono::high_resolution_clock::now();
+
+	for (int j = 0; j < 7; ++j) {
+		TSP->loadDataFromFile(pathToDir + filePaths[j]);
+
+		TS->setDefaultParameters();
+		TS->setTimeToBreakSearch(runDuration);
+
+		output += "\n";
+
+		std::string temp = TS->run();
+
+		int numberOfNewLines = 0;
+		int cutPosition = 0;
+		for (int k = 0; k < temp.size(); ++k) {
+			if (temp[k] == '\n') {
+				numberOfNewLines++;
+				if (numberOfNewLines == 3) {
+					cutPosition = k;
+				}
+			}
+		}
+
+		temp.erase(temp.begin(), temp.begin() + cutPosition + 1);
+
+		output += temp;
+
+		output += "POPRAWNY WYNIK:           " + std::to_string(correctValues[j]) + "\n";
+	}
+
+	auto endTime = std::chrono::high_resolution_clock::now();
+	auto duration = std::chrono::duration_cast<std::chrono::microseconds>(endTime - startTime).count();
+
+	output += "\nIlość testów: 7, czas trwania: " + std::to_string(duration) + "\n";
+
+	delete TS;
+
+	return output;
 }

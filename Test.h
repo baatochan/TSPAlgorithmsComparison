@@ -45,7 +45,7 @@ private:
 
 	std::string exactTestTemplateOnFiles(int cityRange);
 
-	std::string TSTestTemplateOnSmallFiles(int runDuration);
+	std::string TSTestTemplateOnSmallFiles(double runDuration);
 
 	std::shared_ptr<TravellingSalesmanProblem> TSP;
 
