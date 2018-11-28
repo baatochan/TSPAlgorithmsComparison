@@ -8,6 +8,7 @@
 
 #include "TravellingSalesmanProblem.h"
 #include "Algorithm.h"
+#include "TabuSearch.h"
 
 #include <fstream>
 
@@ -45,6 +46,7 @@ private:
 	std::shared_ptr<TravellingSalesmanProblem> TSP;
 
 	Algorithm* algorithm;
+	TabuSearch* TS;
 
 	std::fstream outputFile;
 };
