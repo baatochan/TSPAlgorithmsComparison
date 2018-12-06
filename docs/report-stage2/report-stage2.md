@@ -47,10 +47,39 @@ Moja implementacja bazuje na następujących cechach:
 * Początkowe rozwiązanie znajdywane jest za pomocą zachłannego algorytmu najbliższego sąsiada (nearest neighbor algorithm). _Statystycznie algorytm ten znajduje rozwiązanie o 25% dłuższe niż najlepsze rozwiązanie przy całkowicie losowym rozłożeniu miast._
 * Ruchem w moim algorytmie jest wymiana dwóch miast ze sobą w trasie (algorytm zakłada spójność grafu (asymetryczność jest dozwolona)).
 * Otoczeniem rozwiązania (otoczenie typu swap) jest więc każde rozwiązanie różniące się od obecnego pozycją dwóch miast (złożoność obliczeniowa jednej iteracji to `O(n^2)`).
-* Na liście tabu przechowywane są pary wierzchołków zakazując ich ponownej wymiany przez ustalony przez użytkownika okres czasu (domyślnie `0.5 * ilośćWierzchołków`).
+* Na liście tabu przechowywane są pary wierzchołków zakazując ich ponownej wymiany przez ustaloną przez użytkownika ilość iteracji (domyślnie `0.5 * ilośćWierzchołków`).
 * Zaimplementowane kryterium aspiracji (opcjonalne, domyślnie włączone) pozwala na wykonanie ruchu znajdujące się na liście tabu jeśli prowadzi ono do poprawienia najlepszego rozwiązania dotychczas znalezionego.
 * Strategią dywersyfikacji (opcjonalną, domyślnie włączoną) jest wyznaczenie nowego, całkowicie losowego, rozwiązania po określonej liczbie iteracji (domyślnie 10 tys.) bez poprawy najlepszego znalezionego rozwiązania.
 * Kryterium satysfakcji jest czas pracy algorytmu po którym następuje przerwanie pracy algorytmu (domyślnie 10(s)). _Czas pracy algorytmu sprawdzany jest po każdym przeszukaniu sąsiedztwa, więc nie jest całkowicie dokładny. Średnio algorytm wykonuje się 10% dłużej niż podany przez użytkownika czas._
 
 Ponieważ algorytm oparty na metodzie Tabu Search jest algorytmem niedeterministycznym, nie można dla niego w całości określić czasowej złożoności obliczeniowej. Można jednak podać złożoność obliczeniową pojedynczego przeglądu całego sąsiedztwa, która dla sąsiedztwa typu swap
 wynosi `O(n^2)`.
+
+### Metoda testowania i plan eksperymentu
+Wykonane przeze mnie testy można podzielić na dwa etapy. 
+
+Pierwszym było porównanie algorytmu Tabu Search do algorytmu Branch and Bound. Porównanie to polegało na porównaniu czasu pracy dla 7 gotowych instancji ze strony prowadzącego i najkrótszego wywołania algorytmu Tabu Search. Z powodu błędu w mojej implementacji algorytmu Tabu Search nie jest możliwe wywołanie algorytmu na czas krótszy niż 1s.
+
+Drugim był właściwy test wpływu różnych parametrów Tabu Search na jego dokładność przy czterech instancjach problemu o różnych rozmiarach.
+
+Za każdym razem testowany był jeden parametr zostawiając inne na ustawieniu domyślnym.
+
+Po kolei testowane były następujące parametry:
+* Czas obecności elementów na liście tabu: [0.25\*n, 0.5\*n, n, 2\*n], gdzie n to ilość miast w danej instancji
+* Czas pracy algorytmu: [1s, 5s, 10s, 15s]
+* Kryterium aspiracji: [tak, nie]
+* Kryterium dywersyfikacji: [tak, nie]
+* Ilość iteracji do zmiany otoczenia dla dywersyfikacji: [1 tys, 5 tys, 10 tys, 15 tys]
+
+Wybrane do testu instancje problemu to:
+* `ftv33` - 34 miasta, instancja asymetryczna, trasa optymalna: 1286
+* `brazil58` - 58 miasta, instancja symetryczna, trasa optymalna: 25395
+* `ftv170` - 171 miasta, instancja asymetryczna, trasa optymalna: 2755
+* `rbg443` - 443 miasta, instancja asymetryczna, trasa optymalna: 2720
+
+Pomiar czasu wykonywany był za pomocą `std::chrono::high_resolution_clock`, dostępnego w bibliotece standardowej C++11.
+
+**Wyniki pomiarów podane są w mikrosekundach, chyba że zaznaczone inaczej.**
+
+### Wyniki pomiarów
+#### Tabu Search vs Branch and Bound
