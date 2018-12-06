@@ -474,6 +474,6 @@ void Program::printTSSettingsMenu() {
 	std::cout << "4. Zmień ustawienie aspiracji" << std::endl;
 	std::cout << "5. Zmień ustawienie dywersyfikacji" << std::endl;
 	std::cout << "6. Zmień ilość iteracji do zmiany otoczenia" << std::endl;
-	std::cout << "0. Wyjście" << std::endl;
+	std::cout << "0. Powrót" << std::endl;
 	std::cout << "Wybór: ";
 }
