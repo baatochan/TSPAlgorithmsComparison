@@ -130,7 +130,7 @@ Ten test mógłbym całkowicie pominąć, ponieważ każdy test zwrócił jeden,
 ![atsp171 - ilosc iteracji](charts/image031.png)
 
 ##### Instancja `rbg443` - ATSP443
-Dla tej instancji wyniki też nie są zbyt ciekawe i mógłbym je pominąć poza jednym. Jest nim drugi wykres, czyli czas pracy algorytmu, który bardzo ładnie pokazuje, że zwiększając czas poprawia się znalezione rozwiązanie, a przy tak sporej instancji problemu ma to już duże znaczenie.
+Dla tej instancji wyniki też nie są zbyt ciekawe i mógłbym je pominąć poza jednym. Jest nim wykres czasu pracy algorytmu, który bardzo ładnie pokazuje, że zwiększając czas poprawia się znalezione rozwiązanie, a przy tak sporej instancji problemu ma to już duże znaczenie.
 
 ![atsp443 - lista tabu](charts/image033.png)
 ![atsp443 - czas](charts/image035.png)
@@ -139,7 +139,7 @@ Dla tej instancji wyniki też nie są zbyt ciekawe i mógłbym je pominąć poza
 ![atsp443 - ilosc iteracji](charts/image041.png)
 
 ### Wnioski
-* Gdy rozpoczynałem pracę nad tym algorytmem długość listy tabu/czas obecności elementu na niej wydawał mi się bardzo mało istotnym parametrem tego algorytmu. Testy pokazały jednak, że (zaraz po czasie) jest on drugim najistotniejszym parametrem w mojej implementacji.
+* Gdy rozpoczynałem pracę nad tym algorytmem długość listy tabu/czas obecności elementu na niej wydawał mi się bardzo mało istotnym parametrem. Testy pokazały jednak, że (zaraz po czasie) jest on drugim najistotniejszym parametrem w mojej implementacji.
 * Zaimplementowane przeze mnie kryterium dywersyfikacji, wydaje się być zbyt losowe, przez co nie poprawia znacząco wyniku algorytmu.
 * Zaimplementowane przeze mnie kryterium aspiracji jest mocno rygorystyczne, przez co nie ma dużego wpływu na wynik algorytmu.
 * Gdy używany rozważnie (czas pracy dobrany do instancji) algorytm Tabu Search pozwala znaleźć bardzo dobre wyniki w relatywnie krótkim czasie.
