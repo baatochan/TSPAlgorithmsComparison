@@ -139,3 +139,7 @@ Dla tej instancji wyniki też nie są zbyt ciekawe i mógłbym je pominąć poza
 ![atsp443 - ilosc iteracji](charts/image041.png)
 
 ### Wnioski
+* Gdy rozpoczynałem pracę nad tym algorytmem długość listy tabu/czas obecności elementu na niej wydawał mi się bardzo mało istotnym parametrem tego algorytmu. Testy pokazały jednak, że (zaraz po czasie) jest on drugim najistotniejszym parametrem w mojej implementacji.
+* Zaimplementowane przeze mnie kryterium dywersyfikacji, wydaje się być zbyt losowe, przez co nie poprawia znacząco wyniku algorytmu.
+* Zaimplementowane przeze mnie kryterium aspiracji jest mocno rygorystyczne, przez co nie ma dużego wpływu na wynik algorytmu.
+* Gdy używany rozważnie (czas pracy dobrany do instancji) algorytm Tabu Search pozwala znaleźć bardzo dobre wyniki w relatywnie krótkim czasie.
