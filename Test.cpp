@@ -378,7 +378,7 @@ std::string Test::TSTestTemplateOnSmallFiles(double runDuration) {
 
 		output += temp;
 
-		output += "POPRAWNY WYNIK:           " + std::to_string(correctValues[j]) + "\n";
+		output += "POPRAWNY WYNIK:                       " + std::to_string(correctValues[j]) + "\n";
 	}
 
 	auto endTime = std::chrono::high_resolution_clock::now();
