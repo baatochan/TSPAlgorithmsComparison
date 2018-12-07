@@ -310,7 +310,7 @@ std::string TabuSearch::generateOutput() {
 	if (bestRoute.empty()) {
 		output += "Nie znaleziono żadnej trasy!\n";
 	} else {
-		output += "Najlepsza droga: ";
+		output += "Najlepsza znaleziona droga: ";
 
 		for (auto city : bestRoute) {
 			output += std::to_string(city);
@@ -320,7 +320,7 @@ std::string TabuSearch::generateOutput() {
 		output += std::to_string(bestRoute[0]);
 		output += "\n";
 
-		output += "Długość najlepszej drogi: ";
+		output += "Długość najlepszej znalezionej drogi: ";
 		output += std::to_string(bestDistance);
 		output += "\n";
 	}
