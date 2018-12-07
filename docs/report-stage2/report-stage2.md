@@ -95,6 +95,8 @@ Pierwszym testowanym parametrem była ilość iteracji obecności na liście tab
 
 ![atsp34 - lista tabu](charts/image003.png)
 
+<div class="page-break">
+
 Kolejnym testowanym parametrem była długość pracy algorytmu. Wykres pokazuje, że dla tak małej instancji nie ma on za dużego wpływu, już przy bardzo krótkim wywołaniu algorytm znajduje bardzo optymalny wynik (błąd względny na poziomie 6%), a znalezienie bardziej dokładnego czasu wymagałoby sporo dłuższej pracy algorytmu. Zakrzywienie dla 15s wynika z jednorazowego "szczęścia" z uwagi na kryterium dywersyfikacji.
 
 ![atsp34 - czas](charts/image005.png)
@@ -102,6 +104,8 @@ Kolejnym testowanym parametrem była długość pracy algorytmu. Wykres pokazuje
 Kolejny parametr jest chyba najbardziej oczywistym i jego testowanie nie było konieczne. Zaimplementowane przeze mnie kryterium aspiracji pozwalające na zakazany ruch tylko, gdy poprawia on najlepsze dotychczasowe rozwiązanie jest bardzo restrykcyjnym kryterium, które nie może pogorszyć w żaden sposób wyniku. Ilość obliczeń troszkę się zwiększa, jednak jak pokazuje poniższy test wpływa ono pozytywnie na ogólną pracę algorytmu.
 
 ![atsp34 - aspiracja](charts/image007.png)
+
+<div class="page-break">
 
 Ciekawym wynikiem, który nie do końca jestem w stanie wyjaśnić jest wpływ kryterium dywersyfikacji na pracę algorytmu. Wydaje mi się, że jest to związane z tym, że wynik, który algorytm zwracał najczęściej (droga długości 1361), znajduje się w sąsiedztwie rozwiązania początkowego, a wybrane przeze mnie kryterium dywersyfikacji (losowe rozwiązania) jest mocno zależne od szczęścia i najczęściej zwraca gorsze rozwiązania z nieciekawym otoczeniem. Jest to kwestia, którą mógłbym rozwiązań lepiej.
 
@@ -111,32 +115,41 @@ Ostatnim testowanym przeze mnie parametrem jest ilość iteracji do zmiany otocz
 
 ![atsp34 - ilosc iteracji](charts/image011.png)
 
+<div class="page-break">
+
 ##### Instancja `brazil58` - STSP58
 Wyniki w przypadku tej instancji mocno pokrywają się z poprzednią. Również zauważamy tendencję przy długości listy tabu i widzimy, że długość n wypada najlepiej. Z uwagi, że jest to większa instancja czas zaczyna odgrywać tu większą rolę i 1s wykonanie algorytmu zwraca znacząco gorsze wyniki niż dłuższe wykonania. Inne parametry mają znikomy wpływ.
 
-![stsp58 - lista tabu](charts/image013.png)
-![stsp58 - czas](charts/image015.png)
-![stsp58 - aspiracja](charts/image017.png)
-![stsp58 - dywersyfikacja](charts/image018.png)
-![stsp58 - ilosc iteracji](charts/image021.png)
+![stsp58 - lista tabu](charts/image013.png =500x0)
+
+![stsp58 - czas](charts/image015.png =500x0)
+
+![stsp58 - aspiracja](charts/image017.png =340x0)
+![stsp58 - dywersyfikacja](charts/image018.png =340x0)
+![stsp58 - ilosc iteracji](charts/image021.png =340x0)
+
+<div class="page-break">
 
 ##### Instancja `ftv170` - ATSP171
 Ten test mógłbym całkowicie pominąć, ponieważ każdy test zwrócił jeden, tak samo niedokładny (aż 37% błędu) wynik. Po przejrzeniu tych wyników bardzo mnie one zaciekawiły i okazało się, że ten zwracany wynik znajduje się w bliskim otoczeniu rozwiązania początkowego. Dodatkowo z uwagi na już dość spory rozmiar problemu algorytm nie jest w stanie niczego ciekawego znaleźć w tak krótkim czasie. Jednak już zwiększenie czasu do 30s powoduje spadek błędu do okolic 30%.
 
-![atsp171 - lista tabu](charts/image023.png)
-![atsp171 - czas](charts/image025.png)
-![atsp171 - aspiracja](charts/image027.png)
-![atsp171 - dywersyfikacja](charts/image028.png)
-![atsp171 - ilosc iteracji](charts/image031.png)
+![atsp171 - lista tabu](charts/image023.png =340x0)
+![atsp171 - czas](charts/image025.png =340x0)
+![atsp171 - aspiracja](charts/image027.png =340x0)
+![atsp171 - dywersyfikacja](charts/image028.png =340x0)
+![atsp171 - ilosc iteracji](charts/image031.png =340x0)
+
+<div class="page-break">
 
 ##### Instancja `rbg443` - ATSP443
 Dla tej instancji wyniki też nie są zbyt ciekawe i mógłbym je pominąć poza jednym. Jest nim wykres czasu pracy algorytmu, który bardzo ładnie pokazuje, że zwiększając czas poprawia się znalezione rozwiązanie, a przy tak sporej instancji problemu ma to już duże znaczenie.
 
-![atsp443 - lista tabu](charts/image033.png)
 ![atsp443 - czas](charts/image035.png)
-![atsp443 - aspiracja](charts/image037.png)
-![atsp443 - dywersyfikacja](charts/image038.png)
-![atsp443 - ilosc iteracji](charts/image041.png)
+
+![atsp443 - lista tabu](charts/image033.png =340x0)
+![atsp443 - aspiracja](charts/image037.png =340x0)
+![atsp443 - dywersyfikacja](charts/image038.png =340x0)
+![atsp443 - ilosc iteracji](charts/image041.png =340x0)
 
 ### Wnioski
 * Gdy rozpoczynałem pracę nad tym algorytmem długość listy tabu/czas obecności elementu na niej wydawał mi się bardzo mało istotnym parametrem. Testy pokazały jednak, że (zaraz po czasie) jest on drugim najistotniejszym parametrem w mojej implementacji.
