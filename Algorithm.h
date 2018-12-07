@@ -24,13 +24,29 @@ public:
 	virtual std::string run() = 0;
 
 protected:
+	virtual void prepareToRun();
+
+	virtual std::string generateOutput() = 0;
+
 	std::shared_ptr<TravellingSalesmanProblem> TSP;
 
 	std::chrono::high_resolution_clock::time_point startTime;
 	std::chrono::high_resolution_clock::time_point endTime;
 
+	int numberOfChecks;
+
+	unsigned long numberOfCities;
+
+	int startVertex;
+
+	std::vector<int> currentRoute;
+	int currentDistance;
+
+	std::vector<int> bestRoute;
+	int bestDistance;
+
 private:
-	Algorithm() = default;
+	Algorithm() = default; //TODO: hide default contructors in classes that inherit from this one
 
 };
 

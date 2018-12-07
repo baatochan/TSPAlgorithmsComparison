@@ -19,7 +19,7 @@ public:
 	std::string run() override;
 
 protected:
-	virtual void prepareToRun();
+	void prepareToRun() override;
 
 	virtual void enumerateSolutions(int vertex);
 
@@ -27,21 +27,9 @@ protected:
 
 	virtual void takeCareOfLeaf(int currentVertex);
 
-	virtual std::string generateOutput();
-
-	int numberOfChecks;
-
-	unsigned long numberOfCities;
+	std::string generateOutput() override;
 
 	std::vector<bool> visitedVertices;
-
-	int startVertex;
-
-	std::vector<int> currentRoute;
-	int currentDistance;
-
-	std::vector<int> bestRoute;
-	int bestDistance;
 
 };
 
