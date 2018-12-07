@@ -56,7 +56,7 @@ Ponieważ algorytm oparty na metodzie Tabu Search jest algorytmem niedeterminist
 wynosi `O(n^2)`.
 
 ### Metoda testowania i plan eksperymentu
-Wykonane przeze mnie testy można podzielić na dwa etapy. 
+Wykonane przeze mnie testy można podzielić na dwa etapy.
 
 Pierwszym było porównanie algorytmu Tabu Search do algorytmu Branch and Bound. Porównanie to polegało na porównaniu czasu pracy dla 7 gotowych instancji ze strony prowadzącego i najkrótszego wywołania algorytmu Tabu Search. Z powodu błędu w mojej implementacji algorytmu Tabu Search nie jest możliwe wywołanie algorytmu na czas krótszy niż 1s.
 
@@ -71,6 +71,8 @@ Po kolei testowane były następujące parametry:
 * Kryterium dywersyfikacji: [tak, nie]
 * Ilość iteracji do zmiany otoczenia dla dywersyfikacji: [1 tys, 5 tys, 10 tys, 15 tys]
 
+Każdy parametr był testowany 10-cio krotnie i analizowane są znalezione wyniki. Na wykresie przedstawiona jest wartość błędu względnego znalezionego rozwiązania od rozwiązania optymalnego. Zamieszczone są trzy wartości - wartość błędu najgorszej wartości, średniej i najlepszej znalezionej w tych 10-ciu wywołaniach algorytmu.
+
 Wybrane do testu instancje problemu to:
 * `ftv33` - 34 miasta, instancja asymetryczna, trasa optymalna: 1286
 * `brazil58` - 58 miasta, instancja symetryczna, trasa optymalna: 25395
@@ -83,3 +85,57 @@ Pomiar czasu wykonywany był za pomocą `std::chrono::high_resolution_clock`, do
 
 ### Wyniki pomiarów
 #### Tabu Search vs Branch and Bound
+Jako pierwszy test uruchomiłem oba algorytmy dla wszystkich 7 małych instancji, jedna po drugiej. Tabu Search ustawiłem na najkrótsze wykonanie, na jakie pozwoliła mi moja implementacja (okazuje się, że jest to 1s). W takiej konfiguracji Tabu Search znalazł optymalne wyniki, jednak wykonywał się około 50 razy dłużej niż Branch and Bound.
+
+![BnB vs TS](charts/image001.png)
+
+#### Wpływ parametrów algorytmu na jego dokładność
+##### Instancja `ftv33` - ATSP34
+Pierwszym testowanym parametrem była ilość iteracji obecności na liście tabu. Domyślną wybraną przeze mnie wartością jest `0.5 * n`, jednak test pokazuje, że nie do końca tak musi być. Co prawda wartość średnia utrzymuje się podobnie dla `0.5*n` i `n`, jednak najlepszy znaleziony wynik był dla długości `n`.
+
+![atsp34 - lista tabu](charts/image003.png)
+
+Kolejnym testowanym parametrem była długość pracy algorytmu. Wykres pokazuje, że dla tak małej instancji nie ma on za dużego wpływu, już przy bardzo krótkim wywołaniu algorytm znajduje bardzo optymalny wynik (błąd względny na poziomie 6%), a znalezienie bardziej dokładnego czasu wymagałoby sporo dłuższej pracy algorytmu. Zakrzywienie dla 15s wynika z jednorazowego "szczęścia" z uwagi na kryterium dywersyfikacji.
+
+![atsp34 - czas](charts/image005.png)
+
+Kolejny parametr jest chyba najbardziej oczywistym i jego testowanie nie było konieczne. Zaimplementowane przeze mnie kryterium aspiracji pozwalające na zakazany ruch tylko, gdy poprawia on najlepsze dotychczasowe rozwiązanie jest bardzo restrykcyjnym kryterium, które nie może pogorszyć w żaden sposób wyniku. Ilość obliczeń troszkę się zwiększa, jednak jak pokazuje poniższy test wpływa ono pozytywnie na ogólną pracę algorytmu.
+
+![atsp34 - aspiracja](charts/image007.png)
+
+Ciekawym wynikiem, który nie do końca jestem w stanie wyjaśnić jest wpływ kryterium dywersyfikacji na pracę algorytmu. Wydaje mi się, że jest to związane z tym, że wynik, który algorytm zwracał najczęściej (droga długości 1361), znajduje się w sąsiedztwie rozwiązania początkowego, a wybrane przeze mnie kryterium dywersyfikacji (losowe rozwiązania) jest mocno zależne od szczęścia i najczęściej zwraca gorsze rozwiązania z nieciekawym otoczeniem. Jest to kwestia, którą mógłbym rozwiązań lepiej.
+
+![atsp34 - dywersyfikacja](charts/image008.png)
+
+Ostatnim testowanym przeze mnie parametrem jest ilość iteracji do zmiany otoczenia i wynik pokazuje, że wybrana przeze mnie wartość domyślna jest optymalna. Dzięki obecności dywersyfikacji, w tym teście jedno z wykonań algorytmu zwróciło wynik o błędzie lekko powyżej 1%.
+
+![atsp34 - ilosc iteracji](charts/image011.png)
+
+##### Instancja `brazil58` - STSP58
+Wyniki w przypadku tej instancji mocno pokrywają się z poprzednią. Również zauważamy tendencję przy długości listy tabu i widzimy, że długość n wypada najlepiej. Z uwagi, że jest to większa instancja czas zaczyna odgrywać tu większą rolę i 1s wykonanie algorytmu zwraca znacząco gorsze wyniki niż dłuższe wykonania. Inne parametry mają znikomy wpływ.
+
+![stsp58 - lista tabu](charts/image013.png)
+![stsp58 - czas](charts/image015.png)
+![stsp58 - aspiracja](charts/image017.png)
+![stsp58 - dywersyfikacja](charts/image018.png)
+![stsp58 - ilosc iteracji](charts/image021.png)
+
+##### Instancja `ftv170` - ATSP171
+Ten test mógłbym całkowicie pominąć, ponieważ każdy test zwrócił jeden, tak samo niedokładny (aż 37% błędu) wynik. Po przejrzeniu tych wyników bardzo mnie one zaciekawiły i okazało się, że ten zwracany wynik znajduje się w bliskim otoczeniu rozwiązania początkowego. Dodatkowo z uwagi na już dość spory rozmiar problemu algorytm nie jest w stanie niczego ciekawego znaleźć w tak krótkim czasie. Jednak już zwiększenie czasu do 30s powoduje spadek błędu do okolic 30%.
+
+![atsp171 - lista tabu](charts/image023.png)
+![atsp171 - czas](charts/image025.png)
+![atsp171 - aspiracja](charts/image027.png)
+![atsp171 - dywersyfikacja](charts/image028.png)
+![atsp171 - ilosc iteracji](charts/image031.png)
+
+##### Instancja `rbg443` - ATSP443
+Dla tej instancji wyniki też nie są zbyt ciekawe i mógłbym je pominąć poza jednym. Jest nim drugi wykres, czyli czas pracy algorytmu, który bardzo ładnie pokazuje, że zwiększając czas poprawia się znalezione rozwiązanie, a przy tak sporej instancji problemu ma to już duże znaczenie.
+
+![atsp443 - lista tabu](charts/image033.png)
+![atsp443 - czas](charts/image035.png)
+![atsp443 - aspiracja](charts/image037.png)
+![atsp443 - dywersyfikacja](charts/image038.png)
+![atsp443 - ilosc iteracji](charts/image041.png)
+
+### Wnioski
