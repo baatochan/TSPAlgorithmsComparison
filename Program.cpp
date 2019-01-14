@@ -6,7 +6,7 @@
 
 #include <limits>
 
-Program::Program() : TSP(std::make_shared<TravellingSalesmanProblem>()), BF(TSP), BnB(TSP), TS(TSP) {}
+Program::Program() : TSP(std::make_shared<TravellingSalesmanProblem>()), BF(TSP), BnB(TSP), TS(TSP), Gen(TSP) {}
 
 void Program::start() {
 	char selection = 0;
@@ -408,7 +408,7 @@ void Program::runTSSettingsMenu() {
 						std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 					} while (!(std::cin >> tempChar));
 				} while (tempChar == 'y' || tempChar == 'Y' || tempChar == 't' || tempChar == 'T' || tempChar == 'n' ||
-				         tempChar == 'N');
+				         tempChar == 'N');//TODO: XD fix it !=
 
 				if (tempChar == 'y' || tempChar == 'Y' || tempChar == 't' || tempChar == 'T') {
 					TS.setAspiration(true);
@@ -563,7 +563,7 @@ void Program::runGenSettingsMenu() {
 						std::cin.clear();
 						std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 					} while (!(std::cin >> tempChar));
-				} while (tempChar == 'w' || tempChar == 'W' || tempChar == 'k' || tempChar == 'K');
+				} while (tempChar != 'w' && tempChar != 'W' && tempChar != 'k' && tempChar != 'K');
 
 				if (tempChar == 'k' || tempChar == 'K') {
 					Gen.setUseEdgeMutation(true);
@@ -617,7 +617,7 @@ void Program::printGenSettingsMenu() {
 	std::cout << std::endl;
 	std::cout << "1. Wczytaj domyślne ustawienia" << std::endl;
 	std::cout << "2. Zmień czas wykonywania algorytmu" << std::endl;
-	std::cout << "2. Zmień wielkość populacji" << std::endl;
+	std::cout << "3. Zmień wielkość populacji" << std::endl;
 	std::cout << "4. Zmień współczynnik krzyżowania" << std::endl;
 	std::cout << "5. Zmień współczynnik mutacji" << std::endl;
 	std::cout << "6. Zmień rodzaj mutacji" << std::endl;
