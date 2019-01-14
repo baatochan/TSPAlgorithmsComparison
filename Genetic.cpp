@@ -109,4 +109,10 @@ std::string Genetic::generateOutput() {
 }
 
 void Genetic::generateStartPopulation() {
+	for (int i = 0; i < populationSize; ++i) {
+		std::vector<int> route = generateRandomRoute();
+		int distance = calculateRouteDistance(route);
+
+		currentPopulation.emplace_back(distance, route);
+	}
 }
