@@ -25,6 +25,16 @@ private:
 	void prepareToRun() override;
 
 	std::string generateOutput() override;
+
+	std::vector<std::pair<int, std::vector<int>>> currentPopulation;
+	std::vector<std::pair<int, std::vector<int>>> nextPopulation;
+	std::vector<std::pair<int, std::vector<int>>> nextGeneration;
+
+	double timeToBreakSearch;
+	unsigned populationSize;
+	float crossoverCoeficcient;
+	float mutationCoeficcient;
+	bool useEdgeMutation;
 };
 
 
