@@ -28,6 +28,10 @@ protected:
 
 	virtual std::string generateOutput() = 0;
 
+	int calculateRouteDistance(std::vector<int> &route);
+
+	std::vector<int> generateRandomRoute();
+
 	std::shared_ptr<TravellingSalesmanProblem> TSP;
 
 	std::chrono::high_resolution_clock::time_point startTime;
