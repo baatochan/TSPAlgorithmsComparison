@@ -21,9 +21,49 @@ std::string Genetic::run() {
 void Genetic::setDefaultParameters() {
 	timeToBreakSearch = 30;
 	populationSize = 50;
-	crossoverCoeficcient = 0.8;
-	mutationCoeficcient = 0.01;
+	crossoverCoefficient = 0.8;
+	mutationCoefficient = 0.01;
 	useEdgeMutation = false;
+}
+
+double Genetic::getTimeToBreakSearch() const {
+	return timeToBreakSearch;
+}
+
+int Genetic::getPopulationSize() const {
+	return populationSize;
+}
+
+double Genetic::getCrossoverCoefficient() const {
+	return crossoverCoefficient;
+}
+
+double Genetic::getMutationCoefficient() const {
+	return mutationCoefficient;
+}
+
+bool Genetic::isUseEdgeMutation() const {
+	return useEdgeMutation;
+}
+
+void Genetic::setTimeToBreakSearch(double timeToBreakSearch) {
+	Genetic::timeToBreakSearch = timeToBreakSearch;
+}
+
+void Genetic::setPopulationSize(int populationSize) {
+	Genetic::populationSize = populationSize;
+}
+
+void Genetic::setCrossoverCoefficient(double crossoverCoefficient) {
+	Genetic::crossoverCoefficient = crossoverCoefficient;
+}
+
+void Genetic::setMutationCoefficient(double mutationCoefficient) {
+	Genetic::mutationCoefficient = mutationCoefficient;
+}
+
+void Genetic::setUseEdgeMutation(bool useEdgeMutation) {
+	Genetic::useEdgeMutation = useEdgeMutation;
 }
 
 void Genetic::prepareToRun() {

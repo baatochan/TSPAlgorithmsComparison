@@ -20,6 +20,26 @@ public:
 
 	void setDefaultParameters();
 
+	double getTimeToBreakSearch() const;
+
+	int getPopulationSize() const;
+
+	double getCrossoverCoefficient() const;
+
+	double getMutationCoefficient() const;
+
+	bool isUseEdgeMutation() const;
+
+	void setTimeToBreakSearch(double timeToBreakSearch);
+
+	void setPopulationSize(int populationSize);
+
+	void setCrossoverCoefficient(double crossoverCoefficient);
+
+	void setMutationCoefficient(double mutationCoefficient);
+
+	void setUseEdgeMutation(bool useEdgeMutation);
+
 private:
 
 	void prepareToRun() override;
@@ -31,9 +51,9 @@ private:
 	std::vector<std::pair<int, std::vector<int>>> nextGeneration;
 
 	double timeToBreakSearch;
-	unsigned populationSize;
-	float crossoverCoeficcient;
-	float mutationCoeficcient;
+	int populationSize;
+	double crossoverCoefficient;
+	double mutationCoefficient;
 	bool useEdgeMutation;
 };
 
