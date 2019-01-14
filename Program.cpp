@@ -105,7 +105,29 @@ void Program::start() {
 				}
 				break;
 
+
+			case '8':
+				try {
+					runGenSettingsMenu();
+				} catch (const std::runtime_error &e) {
+					std::cerr << e.what() << std::endl;
+				}
+				break;
+
 			case '9':
+				try {
+					output = Gen.showInfoBeforeRunning();
+					std::cout << output << std::endl;
+
+					output = Gen.run();
+					std::cout << output << std::endl;
+				} catch (const std::runtime_error &e) {
+					std::cerr << e.what() << std::endl;
+				}
+				break;
+
+			case 'F':
+			case 'f':
 				try {
 					runTestMenu();
 				} catch (const std::runtime_error &e) {
@@ -134,7 +156,9 @@ void Program::printMenu() {
 	std::cout << "5. Uruchom algorytm Branch and bound" << std::endl;
 	std::cout << "6. Zmień ustawienia algorytmu Tabu Search" << std::endl;
 	std::cout << "7. Uruchom algorytm Tabu Search" << std::endl;
-	std::cout << "9. Testy" << std::endl;
+	std::cout << "8. Zmień ustawienia algorytmu Genetic" << std::endl;
+	std::cout << "9. Uruchom algorytm Genetic" << std::endl;
+	std::cout << "F. Testy" << std::endl;
 	std::cout << "0. Wyjście" << std::endl;
 	std::cout << "Wybór: ";
 }
@@ -437,7 +461,7 @@ void Program::printTSSettingsMenu() {
 	std::cout
 			<< "* Długość kadencji ruchu na liście tabu (przez taką ilość operacji ruch jest zabroniony); domyślnie 0.5 * ilosc_miast"
 			<< std::endl;
-	std::cout
+	std::cout//TODO: pozamykac nawiasy
 			<< "* Czas wykonywania algorytmu (po takim czasie algorytm zostanie przerwany i zwróci najlepsze dotąd znalezione rozwiązanie; domyślnie 10s"
 			<< std::endl;
 	std::cout
@@ -474,6 +498,129 @@ void Program::printTSSettingsMenu() {
 	std::cout << "4. Zmień ustawienie aspiracji" << std::endl;
 	std::cout << "5. Zmień ustawienie dywersyfikacji" << std::endl;
 	std::cout << "6. Zmień ilość iteracji do zmiany otoczenia" << std::endl;
+	std::cout << "0. Powrót" << std::endl;
+	std::cout << "Wybór: ";
+}
+
+void Program::runGenSettingsMenu() {
+	char selection = 0;
+	std::string output;
+	double tempDouble = 0;
+	char tempChar;
+	int tempInt = 0;
+
+	do {
+		printGenSettingsMenu();
+
+		std::cin >> selection;
+		std::cout << std::endl;
+
+		switch (selection) {
+			case '1':
+				Gen.setDefaultParameters();
+				break;
+
+			case '2':
+				do {
+					std::cout << "Podaj czas wykonywania algorytmu w sekundach (liczba wymierna): ";
+					std::cin.clear();
+					std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+				} while (!(std::cin >> tempDouble));
+				Gen.setTimeToBreakSearch(tempDouble);
+				break;
+
+			case '3':
+				do {
+					std::cout << "Podaj wielkość populacji: ";
+					std::cin.clear();
+					std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+				} while (!(std::cin >> tempInt));
+				Gen.setPopulationSize(tempInt);
+				break;
+
+			case '4':
+				do {//TODO: zabezpieczyc wspolczynniki w przedziale [0,1]
+					std::cout << "Podaj współczynnik krzyżowania (liczba wymierna): ";
+					std::cin.clear();
+					std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+				} while (!(std::cin >> tempDouble));
+				Gen.setCrossoverCoefficient(tempDouble);
+				break;
+
+			case '5':
+				do {
+					std::cout << "Podaj współczynnik mutacji (liczba wymierna): ";
+					std::cin.clear();
+					std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+				} while (!(std::cin >> tempDouble));
+				Gen.setMutationCoefficient(tempDouble);
+				break;
+
+			case '6':
+				do {
+					do {
+						std::cout << "Podaj rodzaj mutacji - zamiana wierzchołków LUB krawędzi [w/k]: ";
+						std::cin.clear();
+						std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+					} while (!(std::cin >> tempChar));
+				} while (tempChar == 'w' || tempChar == 'W' || tempChar == 'k' || tempChar == 'K');
+
+				if (tempChar == 'k' || tempChar == 'K') {
+					Gen.setUseEdgeMutation(true);
+				} else {
+					Gen.setUseEdgeMutation(false);
+				}
+				break;
+
+			case '0':
+				break;
+
+			default:
+				std::cerr << "Wybrana opcja nie istnieje!" << std::endl;
+				break;
+
+		}
+
+	} while (selection != '0');
+}
+
+void Program::printGenSettingsMenu() {
+	std::cout << "--- Ustawienia algorytmu Genetic ---" << std::endl;
+	std::cout << "Algorytm Genetic posiada kilka ustawień, które możesz tutaj zmienić:" << std::endl;
+	std::cout
+			<< "* Czas wykonywania algorytmu (po takim czasie algorytm zostanie przerwany i zwróci najlepsze dotąd znalezione rozwiązanie; domyślnie 30s)"
+			<< std::endl;
+	std::cout
+			<< "* Wielkość populacji (domyślnie 50 osobników)"
+			<< std::endl;
+	std::cout
+			<< "* Współczynnik krzyżowania (domyślnie 0.8)"
+			<< std::endl;
+	std::cout
+			<< "* Współczynnik mutacji (domyślnie 0.01)"
+			<< std::endl;
+	std::cout
+			<< "* Rodzaj mutacji - zamiana wierzchołków LUB krawędzi (domyślnie wierzchołków)"
+			<< std::endl;
+	std::cout << std::endl;
+	std::cout << "Aktualne ustawienia:" << std::endl;
+	std::cout << "* Czas wykonywania algorytmu: " << Gen.getTimeToBreakSearch() << " (s)" << std::endl;
+	std::cout << "* Wielkość populacji: " << Gen.getPopulationSize() << std::endl;
+	std::cout << "* Współczynnik krzyżowania: " << Gen.getCrossoverCoefficient() << std::endl;
+	std::cout << "* Współczynnik mutacji: " << Gen.getMutationCoefficient() << std::endl;
+	std::cout << "* Rodzaj mutacji: ";
+	if (Gen.isUseEdgeMutation()) {
+		std::cout << "zamiana krawędzi" << std::endl;
+	} else {
+		std::cout << "zamiana wierzchołków" << std::endl;
+	}
+	std::cout << std::endl;
+	std::cout << "1. Wczytaj domyślne ustawienia" << std::endl;
+	std::cout << "2. Zmień czas wykonywania algorytmu" << std::endl;
+	std::cout << "2. Zmień wielkość populacji" << std::endl;
+	std::cout << "4. Zmień współczynnik krzyżowania" << std::endl;
+	std::cout << "5. Zmień współczynnik mutacji" << std::endl;
+	std::cout << "6. Zmień rodzaj mutacji" << std::endl;
 	std::cout << "0. Powrót" << std::endl;
 	std::cout << "Wybór: ";
 }
