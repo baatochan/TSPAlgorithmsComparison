@@ -19,7 +19,11 @@ std::string Genetic::run() {
 }
 
 void Genetic::setDefaultParameters() {
-
+	timeToBreakSearch = 30;
+	populationSize = 50;
+	crossoverCoeficcient = 0.8;
+	mutationCoeficcient = 0.01;
+	useEdgeMutation = false;
 }
 
 void Genetic::prepareToRun() {
