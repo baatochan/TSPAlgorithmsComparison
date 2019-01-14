@@ -11,7 +11,21 @@ Genetic::Genetic(std::shared_ptr<TravellingSalesmanProblem> TSP) : Algorithm(std
 Genetic::~Genetic() = default;
 
 std::string Genetic::showInfoBeforeRunning() {
-	return std::__cxx11::string();
+	std::string output;
+
+	output += "Algoryt został uruchomiony z następującymi parametrami:\n";
+	output +="* Czas wykonywania algorytmu: " + std::to_string(timeToBreakSearch) + " (s)\n";
+	output +="* Wielkość populacji: " + std::to_string(populationSize) + "\n";
+	output +="* Współczynnik krzyżowania: " + std::to_string(crossoverCoefficient) + "\n";
+	output +="* Współczynnik mutacji: " + std::to_string(mutationCoefficient) + "\n";
+	output +="* Rodzaj mutacji: ";
+	if (useEdgeMutation) {
+		output +="zamiana krawędzi\n";
+	} else {
+		output +="zamiana wierzchołków\n";
+	}
+
+	return output;
 }
 
 std::string Genetic::run() {

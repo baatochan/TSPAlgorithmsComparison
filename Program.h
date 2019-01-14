@@ -11,6 +11,7 @@
 #include "BranchAndBound.h"
 #include "Test.h"
 #include "TabuSearch.h"
+#include "Genetic.h"
 
 #include <iostream>
 #include <memory>
@@ -34,11 +35,16 @@ private:
 
 	void printTSSettingsMenu();
 
+	void runGenSettingsMenu();
+
+	void printGenSettingsMenu();
+
 	std::shared_ptr<TravellingSalesmanProblem> TSP;
 
 	BruteForce BF;
 	BranchAndBound BnB;
 	TabuSearch TS;
+	Genetic Gen;
 
 	Test test;
 };
