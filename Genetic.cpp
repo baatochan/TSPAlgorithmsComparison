@@ -29,7 +29,21 @@ std::string Genetic::showInfoBeforeRunning() {
 }
 
 std::string Genetic::run() {
-	return std::__cxx11::string();
+	startTime = std::chrono::high_resolution_clock::now();
+
+	prepareToRun();
+
+	bool timeNotExceeded = true;
+
+	throw std::runtime_error("Not yet implemented!");
+
+	while (timeNotExceeded) {
+
+	}
+
+	endTime = std::chrono::high_resolution_clock::now();
+
+	return generateOutput();
 }
 
 void Genetic::setDefaultParameters() {
@@ -82,8 +96,17 @@ void Genetic::setUseEdgeMutation(bool useEdgeMutation) {
 
 void Genetic::prepareToRun() {
 	Algorithm::prepareToRun();
+
+	currentPopulation.clear();
+	nextPopulation.clear();
+	nextGeneration.clear();
+
+	generateStartPopulation();
 }
 
 std::string Genetic::generateOutput() {
-	return std::__cxx11::string();
+	throw std::runtime_error("Not yet implemented!");
+}
+
+void Genetic::generateStartPopulation() {
 }
