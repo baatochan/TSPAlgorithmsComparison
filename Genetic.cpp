@@ -2,10 +2,12 @@
 // Created by barto on 14.01.19.
 //
 
+#include <algorithm>
 #include "Genetic.h"
 
 Genetic::Genetic(std::shared_ptr<TravellingSalesmanProblem> TSP) : Algorithm(std::move(TSP)) {
 	setDefaultParameters();
+	this->TSP->generateRandomData(20,40);
 }
 
 Genetic::~Genetic() = default;
@@ -35,13 +37,32 @@ std::string Genetic::run() {
 
 	bool timeNotExceeded = true;
 
-	throw std::runtime_error("Not yet implemented!");
-
 	while (timeNotExceeded) {
+		enumerateAllPossiblePairs();
 
+		enumerateNextGenerationForPossibleMutations();
+
+		for (auto &descendant : nextGeneration) {
+			int distance = calculateRouteDistance(descendant);
+			currentPopulation.emplace_back(distance, descendant);
+		}
+
+		std::sort(currentPopulation.begin(), currentPopulation.end());
+
+		if(currentPopulation[0].first < bestDistance) {
+			bestDistance = currentPopulation[0].first;
+			bestRoute = currentPopulation[0].second;
+		}
+
+		currentPopulation.resize(populationSize);
+
+		endTime = std::chrono::high_resolution_clock::now();
+		auto duration = std::chrono::duration_cast<std::chrono::seconds>(endTime - startTime).count();
+
+		if (duration > timeToBreakSearch) {
+			timeNotExceeded = false;
+		}
 	}
-
-	endTime = std::chrono::high_resolution_clock::now();
 
 	return generateOutput();
 }
@@ -115,4 +136,12 @@ void Genetic::generateStartPopulation() {
 
 		currentPopulation.emplace_back(distance, route);
 	}
+}
+
+void Genetic::enumerateAllPossiblePairs() {
+
+}
+
+void Genetic::enumerateNextGenerationForPossibleMutations() {
+
 }

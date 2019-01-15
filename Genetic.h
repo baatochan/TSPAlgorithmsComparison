@@ -48,9 +48,13 @@ private:
 
 	void generateStartPopulation();
 
+	void enumerateAllPossiblePairs();
+
+	void enumerateNextGenerationForPossibleMutations();
+
 	std::vector<std::pair<int, std::vector<int>>> currentPopulation;
 	std::vector<std::pair<int, std::vector<int>>> nextPopulation;
-	std::vector<std::pair<int, std::vector<int>>> nextGeneration;
+	std::vector<std::vector<int>> nextGeneration;
 
 	double timeToBreakSearch;
 	int populationSize;
