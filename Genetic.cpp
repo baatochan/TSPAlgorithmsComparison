@@ -8,7 +8,6 @@
 
 Genetic::Genetic(std::shared_ptr<TravellingSalesmanProblem> TSP) : Algorithm(std::move(TSP)) {
 	setDefaultParameters();
-	this->TSP->generateRandomData(20,40);
 }
 
 Genetic::~Genetic() = default;
