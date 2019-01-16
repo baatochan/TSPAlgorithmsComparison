@@ -9,6 +9,7 @@
 #include "TravellingSalesmanProblem.h"
 #include "Algorithm.h"
 #include "TabuSearch.h"
+#include "Genetic.h"
 
 #include <fstream>
 
@@ -50,6 +51,16 @@ public:
 
 	std::string testF();
 
+	std::string testG();
+
+	std::string testH();
+
+	std::string testI();
+
+	std::string testJ();
+
+	std::string testK();
+
 	std::string getTestName(char test);
 
 private:
@@ -61,10 +72,13 @@ private:
 
 	std::string TSTestTemplateOnBigFiles(std::string fileName, char testNumber);
 
+	std::string GenTestTemplateOnBigFiles(std::string fileName, char testNumber);
+
 	std::shared_ptr<TravellingSalesmanProblem> TSP;
 
 	Algorithm* algorithm;
 	TabuSearch* TS;
+	Genetic* Gen;
 
 	std::fstream outputFile;
 };
