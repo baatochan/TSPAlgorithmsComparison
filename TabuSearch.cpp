@@ -61,7 +61,7 @@ std::string TabuSearch::run() {
 		tabuList.push_back(nextTabuElement);
 
 		if (diversification && iterationWithoutImprovement >= iterationsToChangeNeighborhood) {
-			generateRandomRoute();
+			currentRoute = generateRandomRoute();
 			currentDistance = calculateRouteDistance(currentRoute);
 			iterationWithoutImprovement = 0;
 		}
@@ -179,26 +179,6 @@ void TabuSearch::generateStartRoute() {
 	}
 }
 
-int TabuSearch::calculateRouteDistance(std::vector<int> &route) {
-	int currentVertex = -1;
-	int nextVertex = -1;
-
-	int distance = 0;
-
-	for (int i = 0; i < route.size(); ++i) {
-		currentVertex = route[i];
-		if (i != route.size() - 1) {
-			nextVertex = route[i + 1];
-		} else {
-			nextVertex = route[0];
-		}
-
-		distance += TSP->getDistance(currentVertex, nextVertex);
-	}
-
-	return distance;
-}
-
 std::tuple<int, int, int> TabuSearch::enumerateNeighbourSolutions() {
 	std::vector<int> nextRoute;
 	int nextRouteDistance = INT32_MAX;
@@ -261,37 +241,6 @@ void TabuSearch::updateTabuList() {
 		                              return std::get<2>(element) <= 0;
 	                              }),
 	               tabuList.end());
-}
-
-void TabuSearch::generateRandomRoute() {
-	std::vector<bool> visitedVertices;
-
-	visitedVertices.clear();
-	visitedVertices.resize(numberOfCities);
-
-	currentRoute.clear();
-
-	int currentVertex = startVertex;
-	currentRoute.push_back(currentVertex);
-	visitedVertices[currentVertex] = true;
-
-	int nextVertex = -1;
-
-	std::random_device seed;
-	std::mt19937 randomGenerator(seed());
-	std::uniform_int_distribution<> rangeTransformer(0, numberOfCities - 1);
-
-	for (int i = 0; i < numberOfCities - 1; ++i) {
-		do {
-			nextVertex = rangeTransformer(randomGenerator);
-		} while (visitedVertices[nextVertex]);
-
-		currentVertex = nextVertex;
-
-		currentRoute.push_back(currentVertex);
-		visitedVertices[currentVertex] = true;
-	}
-
 }
 
 std::string TabuSearch::generateOutput() {
