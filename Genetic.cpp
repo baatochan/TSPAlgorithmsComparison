@@ -127,7 +127,37 @@ void Genetic::prepareToRun() {
 }
 
 std::string Genetic::generateOutput() {
-	throw std::runtime_error("Not yet implemented!");
+	std::string output;
+
+	output += "Ilość sprawdzonych rozwiązań: ";
+	output += std::to_string(numberOfChecks);
+	output += "\n";
+
+	output += "Długość pracy algorytmu: ";
+	auto duration = std::chrono::duration_cast<std::chrono::microseconds>(endTime - startTime).count();
+	output += std::to_string(duration);
+	output += "µs";
+	output += "\n";
+
+	if (bestRoute.empty()) {
+		output += "Nie znaleziono żadnej trasy!\n";
+	} else {
+		output += "Najlepsza znaleziona droga: ";
+
+		for (auto city : bestRoute) {
+			output += std::to_string(city);
+			output += " - ";
+		}
+
+		output += std::to_string(bestRoute[0]);
+		output += "\n";
+
+		output += "Długość najlepszej znalezionej drogi: ";
+		output += std::to_string(bestDistance);
+		output += "\n";
+	}
+
+	return output;
 }
 
 void Genetic::generateStartPopulation() {
