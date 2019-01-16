@@ -54,6 +54,10 @@ private:
 
 	void enumerateNextGenerationForPossibleMutations();
 
+	void doEdgeMutation(int position);
+
+	void doVertexMutation(int position);
+
 	void restoreStartVertexForBestSolution();
 
 	std::vector<std::pair<int, std::vector<int>>> currentPopulation;

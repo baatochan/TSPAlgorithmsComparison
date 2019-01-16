@@ -237,6 +237,55 @@ void Genetic::findMissingCitiesInOffsprings(int populationPosition, std::vector<
 }
 
 void Genetic::enumerateNextGenerationForPossibleMutations() {
+	std::random_device seed;
+	std::mt19937 randomGenerator(seed());
+	std::uniform_int_distribution<> rangeTransformer(0, 99);
+
+	int mutationLimit = static_cast<int>(mutationCoefficient * 100);
+	int random;
+
+	for (int i = 0; i < nextGeneration.size(); ++i) {
+		random = rangeTransformer(randomGenerator);
+
+		if (random < mutationLimit) {
+			if (useEdgeMutation) {
+				doEdgeMutation(i);
+			} else {
+				doVertexMutation(i);
+			}
+		}
+	}
+}
+
+void Genetic::doEdgeMutation(int position) {
+	std::random_device seed;
+	std::mt19937 randomGenerator(seed());
+	std::uniform_int_distribution<> firstVertexRangeTransformer(0, numberOfCities - 2);
+	std::uniform_int_distribution<> secondVertexRangeTransformer(1, numberOfCities - 1);
+
+	int firstVertex = firstVertexRangeTransformer(randomGenerator);
+
+	int secondVertex;
+	do {
+		secondVertex = secondVertexRangeTransformer(randomGenerator);
+	} while (secondVertex <= firstVertex);
+
+	std::reverse(nextGeneration[position].begin() + firstVertex, nextGeneration[position].begin() + secondVertex + 1);
+}
+
+void Genetic::doVertexMutation(int position) {
+	std::random_device seed;
+	std::mt19937 randomGenerator(seed());
+	std::uniform_int_distribution<> vertexRangeTransformer(0, numberOfCities - 1);
+
+	int firstVertex = vertexRangeTransformer(randomGenerator);
+
+	int secondVertex;
+	do {
+		secondVertex = vertexRangeTransformer(randomGenerator);
+	} while (secondVertex == firstVertex);
+
+	std::swap(nextGeneration[position][firstVertex], nextGeneration[position][secondVertex]);
 }
 
 void Genetic::restoreStartVertexForBestSolution() {
