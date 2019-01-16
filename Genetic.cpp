@@ -65,6 +65,8 @@ std::string Genetic::run() {
 		}
 	}
 
+	restoreStartVertexForBestSolution();
+
 	return generateOutput();
 }
 
@@ -235,5 +237,16 @@ void Genetic::findMissingCitiesInOffsprings(int populationPosition, std::vector<
 }
 
 void Genetic::enumerateNextGenerationForPossibleMutations() {
+}
 
+void Genetic::restoreStartVertexForBestSolution() {
+	auto startVertexPosition = std::find(bestRoute.begin(), bestRoute.end(), startVertex);
+
+	std::vector<int> temp(startVertexPosition, bestRoute.end());
+
+	for (auto it = bestRoute.begin(); it < startVertexPosition; ++it) {
+		temp.push_back(*it);
+	}
+
+	bestRoute.assign(temp.begin(), temp.end());
 }

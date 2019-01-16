@@ -54,6 +54,8 @@ private:
 
 	void enumerateNextGenerationForPossibleMutations();
 
+	void restoreStartVertexForBestSolution();
+
 	std::vector<std::pair<int, std::vector<int>>> currentPopulation;
 	std::vector<std::pair<int, std::vector<int>>> nextPopulation;
 	std::vector<std::vector<int>> nextGeneration;
