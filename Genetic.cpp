@@ -204,6 +204,8 @@ void Genetic::enumerateAllPossiblePairs() {
 
 				nextGeneration.push_back(firstOffspring);
 				nextGeneration.push_back(secondOffspring);
+
+				numberOfChecks += 2;
 			}
 		}
 	}
