@@ -50,6 +50,8 @@ private:
 
 	void enumerateAllPossiblePairs();
 
+	void findMissingCitiesInOffsprings(int populationPosition, std::vector<int>& offspring, int startingVertex);
+
 	void enumerateNextGenerationForPossibleMutations();
 
 	std::vector<std::pair<int, std::vector<int>>> currentPopulation;

@@ -3,6 +3,7 @@
 //
 
 #include <algorithm>
+#include <random>
 #include "Genetic.h"
 
 Genetic::Genetic(std::shared_ptr<TravellingSalesmanProblem> TSP) : Algorithm(std::move(TSP)) {
@@ -42,9 +43,9 @@ std::string Genetic::run() {
 
 		enumerateNextGenerationForPossibleMutations();
 
-		for (auto &descendant : nextGeneration) {
-			int distance = calculateRouteDistance(descendant);
-			currentPopulation.emplace_back(distance, descendant);
+		for (auto &offspring : nextGeneration) {
+			int distance = calculateRouteDistance(offspring);
+			currentPopulation.emplace_back(distance, offspring);
 		}
 
 		std::sort(currentPopulation.begin(), currentPopulation.end());
@@ -139,7 +140,66 @@ void Genetic::generateStartPopulation() {
 }
 
 void Genetic::enumerateAllPossiblePairs() {
+	std::random_device seed;
+	std::mt19937 randomGenerator(seed());
+	std::uniform_int_distribution<> crossoverRangeTransformer(0, 99);
+	std::uniform_int_distribution<> vertexRangeTransformer(1, numberOfCities - 2);
 
+	int crossoverLimit = static_cast<int>(crossoverCoefficient * 100);
+	int random;
+
+	for (int i = 0; i < currentPopulation.size(); ++i) {
+		for (int j = i + 1; j < currentPopulation.size(); ++j) {
+			random = crossoverRangeTransformer(randomGenerator);
+			if (random < crossoverLimit) {
+				int firstRandomVertex = vertexRangeTransformer(randomGenerator);
+
+				int secondRandomVertex;
+				do {
+					secondRandomVertex = vertexRangeTransformer(randomGenerator);
+				} while (secondRandomVertex < firstRandomVertex);
+
+				std::vector<int> firstOffspring = currentPopulation[i].second;
+				std::vector<int> secondOffspring = currentPopulation[j].second;
+
+				for (int k = 0; k < numberOfCities; ++k) {
+					if (k < firstRandomVertex || k > secondRandomVertex) {
+						firstOffspring[k] = -1;
+						secondOffspring[k] = -1;
+					}
+				}
+
+				findMissingCitiesInOffsprings(j, firstOffspring, secondRandomVertex + 1);
+				findMissingCitiesInOffsprings(i, secondOffspring, secondRandomVertex + 1);
+
+				nextGeneration.push_back(firstOffspring);
+				nextGeneration.push_back(secondOffspring);
+			}
+		}
+	}
+}
+
+void Genetic::findMissingCitiesInOffsprings(int populationPosition, std::vector<int>& offspring, int startingVertex) {
+	int offspringPosition = startingVertex;
+	int parentPosition = startingVertex;
+
+	for (int k = 0; k < numberOfCities; ++k) {
+		if (std::find(offspring.begin(), offspring.end(), currentPopulation[populationPosition].second[parentPosition]) == offspring.end()) {
+			offspring[offspringPosition] = currentPopulation[populationPosition].second[parentPosition];
+			offspringPosition++;
+		}
+		parentPosition++;
+
+		if (parentPosition == numberOfCities) {
+			parentPosition = 0;
+		}
+		if (offspringPosition == numberOfCities) {
+			offspringPosition = 0;
+		}
+	}
+
+	int x = 0;
+	x++;
 }
 
 void Genetic::enumerateNextGenerationForPossibleMutations() {
