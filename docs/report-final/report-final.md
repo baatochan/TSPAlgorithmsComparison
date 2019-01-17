@@ -28,3 +28,39 @@ Są to algorytmy dokładne, więc zawsze znajdą najbardziej optymalny wynik, je
 W sprawozdaniu z etapu 2 dokładnie opisałem działanie i moją implementację powyższego algorytmu, więc nie będę tutaj tego powtarzać.
 
 #### Algorytm genetyczny
+Wybranym przeze mnie algorytmem populacyjnym jest algorytm genetyczny.
+
+W odróżnieniu od metody Tabu Search algorytm ten jest o wiele bardziej sprecyzowany.
+
+Jego działanie wzięte zostało z biologii i tego jak poszczególne gatunki się rozwijają.
+
+Ogólny zarys działania algorytmu prezentuje się następująco:
+* Na start losowana jest początkowa populacja,
+* Populacja zostaje poddana ocenie jakości i najsłabsze osobniki są odrzucane (tak, aby populacja miała stałą, z góry ustaloną, wielkość),
+* Osobniki są poddawane działaniu operatorów ewolucyjnych:
+	* Nowe osobniki są tworzone poprzez odpowiednie złączanie genotypów rodziców (**krzyżowanie**),
+	* Osobniki są poddawane działaniu czynnika losowego (**mutacja**) delikatnie zmieniającego genotyp,
+* Nowe osobniki (pokolenie) dodawane jest do ogólnej populacji. Populacja zostaje poddana ocenie i jeśli rozwiązanie spełnia wymaganą jakość algorytm zostaje przerwany, albo kontynuowany jest proces reprodukcji.
+
+Moja implementacja charakteryzuje się następującymi cechami:
+* Genotypem osobnika jest trasa komiwojażera,
+* Fenotypem jest długość tej trasy,
+* **Populacja startowa jest generowana całkowicie losowo**,
+* Wielkość populacji jest parametrem algorytmu, domyślnie 50 osobników,
+* **Kryterium spełnienia jest długość pracy algorytmu** (również parametr; domyślnie 30 sekund),
+* Zastosowałem algorytm **krzyżowania OX**,
+* Zaimplementowane są **dwa rodzaje mutacji - zamiana wierzchołków albo krawędzi** (parametr algorytmu; domyślnie wierzchołków),
+* W przypadku krzyżowania, jak i mutacji w algorytmie są dwa parametry:
+	* **Współczynnik krzyżowania** - prawdopodobieństwo, że dwa osobniki zostaną poddane reprodukcji i stworzą dwa nowe (domyślnie 0.8 - 80%),
+	* **Współczynnik mutacji** - prawdopodobieństwo, że na osobniku zajdzie mutacja (domyślnie 0.01 - 1%).
+
+Tak jak przeszukiwanie z zakazami, algorytm ten w żaden sposób nie gwarantuje znalezienie najbardziej optymalnego rozwiązania, jednak znacząco skraca czas wyznaczania w miarę optymalnego rozwiązania (użytkownik decyduje ile czasu algorytm pracuje).
+
+Jeśli dla danej instancji problemu nie jest znane rozwiązanie optymalne, nie ma też żadnej możliwości aby oszacować stopnia błędu znalezionego przez algorytm rozwiązania.
+
+Algorytm ten, od innych metod heurystycznych, wyróżnia:
+* przetwarzanie populacji rozwiązań, prowadzące do równoległego przeszukiwania przestrzeni rozwiązań z różnych punktów,
+* w celu ukierunkowania procesu przeszukiwania wystarczającą informacją jest jakość aktualnych rozwiązań,
+* celowe wprowadzenie elementów losowych.
+
+Ponieważ algorytm genetyczny jest algorytmem niedeterministycznym, nie można dla niego w całości określić czasowej złożoności obliczeniowej. Można jednak podać złożoność obliczeniową pojedynczego przeglądu całej populacji w celu reprodukcji, która wynosi `O(n!)`, gdzie `n` oznacza wielkość populacji.
