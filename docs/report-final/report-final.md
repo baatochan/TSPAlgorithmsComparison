@@ -94,8 +94,32 @@ Pomiar czasu wykonywany był za pomocą `std::chrono::high_resolution_clock`, do
 ### Wyniki pomiarów
 #### Wpływ parametrów algorytmu na jego dokładność
 ##### Instancja `ftv33` - ATSP34
+![atsp34 - czas](charts/image001.png)
+![atsp34 - populacja](charts/image003.png)
+![atsp34 - krzyzowanie](charts/image005.png)
+![atsp34 - mutacja](charts/image007.png)
+![atsp34 - rodzaj](charts/image009.png)
 ##### Instancja `brazil58` - STSP58
+![STSP58 - czas](charts/image011.png)
+![STSP58 - populacja](charts/image013.png)
+![STSP58 - krzyzowanie](charts/image015.png)
+![STSP58 - mutacja](charts/image016.png)
+![STSP58 - rodzaj](charts/image019.png)
 ##### Instancja `ftv170` - ATSP171
+![ATSP171 - czas](charts/image021.png)
+![ATSP171 - populacja](charts/image023.png)
+![ATSP171 - krzyzowanie](charts/image025.png)
+![ATSP171 - mutacja](charts/image026.png)
+![ATSP171 - rodzaj](charts/image029.png)
 ##### Instancja `rbg443` - ATSP443
+![ATSP443 - czas](charts/image031.png)
+![ATSP443 - populacja](charts/image033.png)
+![ATSP443 - krzyzowanie](charts/image035.png)
+![ATSP443 - mutacja](charts/image036.png)
+![ATSP443 - rodzaj](charts/image039.png)
 #### Genetic vs Tabu Search
+![atsp34 - ts vs gen](charts/image041.png)
+![STSP58 - ts vs gen](charts/image042.png)
+![ATSP171 - ts vs gen](charts/image045.png)
+![ATSP443 - ts vs gen](charts/image047.png)
 ### Wnioski
