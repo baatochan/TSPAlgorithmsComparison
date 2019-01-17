@@ -200,19 +200,19 @@ std::string Test::testF() {
 }
 
 std::string Test::testG() {
-	return GenTestTemplateOnBigFiles("../tests/atsp/data34.txt", 'B');
+	return GenTestTemplateOnBigFiles("../tests/atsp/data34.txt", 'G');
 }
 
 std::string Test::testH() {
-	return GenTestTemplateOnBigFiles("../tests/tsp/data58.txt", 'C');
+	return GenTestTemplateOnBigFiles("../tests/tsp/data58.txt", 'H');
 }
 
 std::string Test::testI() {
-	return GenTestTemplateOnBigFiles("../tests/atsp/data171.txt", 'D');
+	return GenTestTemplateOnBigFiles("../tests/atsp/data171.txt", 'I');
 }
 
 std::string Test::testJ() {
-	return GenTestTemplateOnBigFiles("../tests/atsp/data443.txt", 'E');
+	return GenTestTemplateOnBigFiles("../tests/atsp/data443.txt", 'J');
 }
 
 std::string Test::testK() {
@@ -485,7 +485,7 @@ std::string Test::TSTestTemplateOnBigFiles(std::string fileName, char testNumber
 						numberOfSpaces++;
 					}
 				}
-				if (numberOfSpaces == 3) {
+				if (numberOfSpaces == 4) {
 					cutPosition = k + 1;
 					break;
 				}
@@ -521,7 +521,7 @@ std::string Test::TSTestTemplateOnBigFiles(std::string fileName, char testNumber
 						numberOfSpaces++;
 					}
 				}
-				if (numberOfSpaces == 3) {
+				if (numberOfSpaces == 4) {
 					cutPosition = k + 1;
 					break;
 				}
@@ -557,7 +557,7 @@ std::string Test::TSTestTemplateOnBigFiles(std::string fileName, char testNumber
 						numberOfSpaces++;
 					}
 				}
-				if (numberOfSpaces == 3) {
+				if (numberOfSpaces == 4) {
 					cutPosition = k + 1;
 					break;
 				}
@@ -593,7 +593,7 @@ std::string Test::TSTestTemplateOnBigFiles(std::string fileName, char testNumber
 						numberOfSpaces++;
 					}
 				}
-				if (numberOfSpaces == 3) {
+				if (numberOfSpaces == 4) {
 					cutPosition = k + 1;
 					break;
 				}
@@ -629,7 +629,7 @@ std::string Test::TSTestTemplateOnBigFiles(std::string fileName, char testNumber
 						numberOfSpaces++;
 					}
 				}
-				if (numberOfSpaces == 3) {
+				if (numberOfSpaces == 4) {
 					cutPosition = k + 1;
 					break;
 				}
@@ -687,7 +687,7 @@ std::string Test::GenTestTemplateOnBigFiles(std::string fileName, char testNumbe
 						numberOfSpaces++;
 					}
 				}
-				if (numberOfSpaces == 3) {
+				if (numberOfSpaces == 4) {
 					cutPosition = k + 1;
 					break;
 				}
@@ -723,7 +723,7 @@ std::string Test::GenTestTemplateOnBigFiles(std::string fileName, char testNumbe
 						numberOfSpaces++;
 					}
 				}
-				if (numberOfSpaces == 3) {
+				if (numberOfSpaces == 4) {
 					cutPosition = k + 1;
 					break;
 				}
@@ -759,7 +759,7 @@ std::string Test::GenTestTemplateOnBigFiles(std::string fileName, char testNumbe
 						numberOfSpaces++;
 					}
 				}
-				if (numberOfSpaces == 3) {
+				if (numberOfSpaces == 4) {
 					cutPosition = k + 1;
 					break;
 				}
@@ -795,7 +795,7 @@ std::string Test::GenTestTemplateOnBigFiles(std::string fileName, char testNumbe
 						numberOfSpaces++;
 					}
 				}
-				if (numberOfSpaces == 3) {
+				if (numberOfSpaces == 4) {
 					cutPosition = k + 1;
 					break;
 				}
@@ -831,7 +831,7 @@ std::string Test::GenTestTemplateOnBigFiles(std::string fileName, char testNumbe
 						numberOfSpaces++;
 					}
 				}
-				if (numberOfSpaces == 3) {
+				if (numberOfSpaces == 4) {
 					cutPosition = k + 1;
 					break;
 				}
