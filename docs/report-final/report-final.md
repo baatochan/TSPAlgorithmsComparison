@@ -64,3 +64,38 @@ Algorytm ten, od innych metod heurystycznych, wyróżnia:
 * celowe wprowadzenie elementów losowych.
 
 Ponieważ algorytm genetyczny jest algorytmem niedeterministycznym, nie można dla niego w całości określić czasowej złożoności obliczeniowej. Można jednak podać złożoność obliczeniową pojedynczego przeglądu całej populacji w celu reprodukcji, która wynosi `O(n!)`, gdzie `n` oznacza wielkość populacji.
+
+### Metoda testowania i plan eksperymentu
+Wykonane przeze mnie testy można podzielić na dwa etapy.
+
+Pierwszym etapem, w sumie głównym, jest, tak jak w przypadku Tabu Search, porównanie wpływu poszczególnych parametrów na działanie algorytmu przy czterech znanych instancjach problemu.
+
+Za każdym razem testowany był jeden parametr zostawiając inne na ustawieniu domyślnym.
+
+Po kolei testowane były następujące parametry:
+* Czas pracy algorytmu: [1s, 10s, 30s, 60s]
+* Wielkość populacji: [10, 30, 50, 100]
+* Współczynnik krzyżowania: [20%, 40%, 80%, 99%]
+* Współczynnik mutacji: [1%, 5%, 15%, 50%]
+* Rodzaj mutacji: [wierzchołków, krawędzi]
+
+Każdy parametr był testowany 10-cio krotnie i analizowane są znalezione wyniki. Na wykresie przedstawiona jest wartość błędu względnego znalezionego rozwiązania od rozwiązania optymalnego. Zamieszczone są trzy wartości - wartość błędu najgorszej wartości, średniej i najlepszej znalezionej w tych 10-ciu wywołaniach algorytmu.
+
+Wybrane do testu instancje problemu to:
+* `ftv33` - 34 miasta, instancja asymetryczna, trasa optymalna: 1286
+* `brazil58` - 58 miasta, instancja symetryczna, trasa optymalna: 25395
+* `ftv170` - 171 miasta, instancja asymetryczna, trasa optymalna: 2755
+* `rbg443` - 443 miasta, instancja asymetryczna, trasa optymalna: 2720
+
+Drugą częścią było porównanie uzyskanych wyników wpływu czasu działania algorytmu genetycznego z wpływem na algorytm Tabu Search dla tej samej instancji problemu.
+
+Pomiar czasu wykonywany był za pomocą `std::chrono::high_resolution_clock`, dostępnego w bibliotece standardowej C++11.
+
+### Wyniki pomiarów
+#### Wpływ parametrów algorytmu na jego dokładność
+##### Instancja `ftv33` - ATSP34
+##### Instancja `brazil58` - STSP58
+##### Instancja `ftv170` - ATSP171
+##### Instancja `rbg443` - ATSP443
+#### Genetic vs Tabu Search
+### Wnioski
