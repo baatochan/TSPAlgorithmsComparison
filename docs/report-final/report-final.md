@@ -95,31 +95,54 @@ Pomiar czasu wykonywany był za pomocą `std::chrono::high_resolution_clock`, do
 #### Wpływ parametrów algorytmu na jego dokładność
 ##### Instancja `ftv33` - ATSP34
 ![atsp34 - czas](charts/image001.png)
+Ten wykres jest chyba najłatwiejszy do przewidzenia i generalnie zgadza się z przewidywaniem, czyli jakość rozwiązania poprawia się wraz z zwiększeniem długości pracy algorytmu. Zadziwiająca jest tutaj stosunkowo mała poprawa, mimo znaczącego zwiększania czasu, jednak o wiele lepiej widoczne będzie to przy większych instancjach. Ciężki do wytłumaczenia jest natomiast spadek jakości rozwiązania przy skoku z 30s na 60s i jedyny mój strzał może być w kierunku tego, że w momencie tamtego testu komputer był bardziej obciążony.
+
 ![atsp34 - populacja](charts/image003.png)
+W tym przypadku również wynik był w miarę oczywisty - większa populacja daje większą liczbę miejsc w przestrzeni rozwiązań, która jest aktualnie sprawdzana, więc musiała powodować polepszenie rozwiązania.
+
 ![atsp34 - krzyzowanie](charts/image005.png)
+Wpływ współczynnika krzyżowania, który tak na prawdę jest prawdopodobieństwem nie był już taki przewidywalny, jednak widać, że generalnie najlepszy efekt daje krzyżowanie wszystkiego z wszystkim.
+
 ![atsp34 - mutacja](charts/image007.png)
+Wykres ukazujący współczynnik mutacji pokazuje, że wybrane przeze mnie domyślne ustawienie nie było najlepszym wyborem. Wygląda, że zwiększenie mutacji, czyli wprowadzenie większej losowości w rozwiązania dość sporo pomaga.
+
 ![atsp34 - rodzaj](charts/image009.png)
+Z uwagi na słaby wynik poprzedniego parametru i jego zły wybór wydaje mi się, że ten test nie jest w żaden sposób miarodajny, zwłaszcza, że wynik jest praktycznie identyczny.
+
 ##### Instancja `brazil58` - STSP58
 ![STSP58 - czas](charts/image011.png)
 ![STSP58 - populacja](charts/image013.png)
 ![STSP58 - krzyzowanie](charts/image015.png)
 ![STSP58 - mutacja](charts/image016.png)
 ![STSP58 - rodzaj](charts/image019.png)
+Generalnie powyższe wyniki potwierdzają obserwacje z poprzedniej instancji. Zauważyć można jednak lekki spadek wzrostu jakości. Wykres wpływu rodzaju mutacji na wynik algorytmu zdaje pokazywać, że wybór zamiany wierzchołków był również nie trafioną decyzją.
+
 ##### Instancja `ftv170` - ATSP171
 ![ATSP171 - czas](charts/image021.png)
 ![ATSP171 - populacja](charts/image023.png)
 ![ATSP171 - krzyzowanie](charts/image025.png)
 ![ATSP171 - mutacja](charts/image026.png)
 ![ATSP171 - rodzaj](charts/image029.png)
+W tym wypadku zauważyć należy znaczący wzrost wielkości instancji, jak i ogromny spadek jakości wyników. W oczy od razu rzuca się również odwrócenie trendu przy którym zwiększenie ilości osobników, czy prawdopodobieństwa krzyżowania (co bezpośrednio zwiększa się na rozmiar nowej populacji przy każdym wywołaniu). Wyjaśnienie tego problemu znajduje się w mojej implementacji metody krzyżowania OX, której złożoność obliczeniowa drastycznie wzrasta przy większej liczbie miast.
+
 ##### Instancja `rbg443` - ATSP443
 ![ATSP443 - czas](charts/image031.png)
 ![ATSP443 - populacja](charts/image033.png)
 ![ATSP443 - krzyzowanie](charts/image035.png)
 ![ATSP443 - mutacja](charts/image036.png)
 ![ATSP443 - rodzaj](charts/image039.png)
+Ta instancja również zachowuje zauważone trendy, gdzie się da oraz bardzo dobrze pokazuje problem, który został zauważony w poprzedniej instancji.
+
 #### Genetic vs Tabu Search
-![atsp34 - ts vs gen](charts/image041.png)
-![STSP58 - ts vs gen](charts/image042.png)
-![ATSP171 - ts vs gen](charts/image045.png)
+![ATSP34 - ts vs gen](charts/image045.png)
+![STSP58 - ts vs gen](charts/image041.png)
+![atsp171 - ts vs gen](charts/image042.png)
 ![ATSP443 - ts vs gen](charts/image047.png)
+Na etapie planowania testów porównanie tych dwóch algorytmów wydawało się być sensowne, jednak po odkryciu wspomnianego błędu w implementacji zdaje się bezcelowe. Bez problemu widać, że algorytm Tabu Search znajduje lepsze rozwiązania, a genetyczny tylko dla na prawdę małych instancji zdaje się być w stanie konkurować z nim. Dodatkowo bardzo ładnie widać o wiele większą losowość w algorytmie genetycznym.
+
 ### Wnioski
+* Problem z optymalizacją algorytmu krzyżowania w znaczący sposób szkodzi całemu algorytmowi. Skalę zjawiska reprezentuje umieszczone w moim kodzie zliczanie sprawdzonych rozwiązań, które dla Tabu Search przy 30s zwraca 50 milionów, podczas gdy Genetic sprawdza jedynie 150 tysięcy.
+* Wybranie populacji startowej w mniej losowy sposób, mogłoby dać lepsze efekty algorytmu.
+* Bardziej odpowiedne wybranie domyślnych parametrów (zwiększenie szans na mutację i zmiana rodzaju mutacji) powinno przynieść poprawę działania całego algorytmu.
+* Algorytm genetyczny jest o wiele bardziej losowy, co pokazuje różnica pomiędzy najlepszym, a najsłabszym wynikiem w próbie, która jest kilkakrotnie większa niż w przypadku Tabu Search.
+* Algorytm genetyczny powinien lepiej radzić sobie z lokalnymi minimum, w których moja implementacja Tabu Search utykała.
