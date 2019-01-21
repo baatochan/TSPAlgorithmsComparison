@@ -45,13 +45,9 @@ private:
 
 	void generateStartRoute();
 
-	int calculateRouteDistance(std::vector<int> &route);
-
 	std::tuple<int, int, int> enumerateNeighbourSolutions();
 
 	void updateTabuList();
-
-	void generateRandomRoute();
 
 	std::string generateOutput() override;
 

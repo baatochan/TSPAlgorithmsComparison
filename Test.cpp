@@ -199,6 +199,48 @@ std::string Test::testF() {
 	return output;
 }
 
+std::string Test::testG() {
+	return GenTestTemplateOnBigFiles("../tests/atsp/data34.txt", 'G');
+}
+
+std::string Test::testH() {
+	return GenTestTemplateOnBigFiles("../tests/tsp/data58.txt", 'H');
+}
+
+std::string Test::testI() {
+	return GenTestTemplateOnBigFiles("../tests/atsp/data171.txt", 'I');
+}
+
+std::string Test::testJ() {
+	return GenTestTemplateOnBigFiles("../tests/atsp/data443.txt", 'J');
+}
+
+std::string Test::testK() {
+	std::string output;
+
+	auto startTime = std::chrono::high_resolution_clock::now();
+
+	output += testG();
+	output += "\n";
+
+	output += testH();
+	output += "\n";
+
+	output += testI();
+	output += "\n";
+
+	output += testJ();
+	output += "\n";
+
+	auto endTime = std::chrono::high_resolution_clock::now();
+	auto duration = std::chrono::duration_cast<std::chrono::minutes>(endTime - startTime).count();
+
+	output += "\nCZAS PRACY CAŁOŚCI: " + std::to_string(duration) + "\n";
+	outputFile << std::endl << "CZAS PRACY CAŁOŚCI: " << duration << std::endl;
+
+	return output;
+}
+
 std::string Test::getTestName(char test) {
 	switch (test) {
 		case '1':
@@ -245,6 +287,21 @@ std::string Test::getTestName(char test) {
 
 		case 'F':
 			return "Testy B, C, D i E po kolei";
+
+		case 'G':
+			return "Genetic - porównanie parametrów dla ATSP34";
+
+		case 'H':
+			return "Genetic - porównanie parametrów dla STSP58";
+
+		case 'I':
+			return "Genetic - porównanie parametrów dla ATSP171";
+
+		case 'J':
+			return "Genetic - porównanie parametrów dla ATSP443";
+
+		case 'K':
+			return "Testy G, H, I i J po kolei";
 
 		default:
 			return "";
@@ -428,7 +485,7 @@ std::string Test::TSTestTemplateOnBigFiles(std::string fileName, char testNumber
 						numberOfSpaces++;
 					}
 				}
-				if (numberOfSpaces == 3) {
+				if (numberOfSpaces == 4) {
 					cutPosition = k + 1;
 					break;
 				}
@@ -464,7 +521,7 @@ std::string Test::TSTestTemplateOnBigFiles(std::string fileName, char testNumber
 						numberOfSpaces++;
 					}
 				}
-				if (numberOfSpaces == 3) {
+				if (numberOfSpaces == 4) {
 					cutPosition = k + 1;
 					break;
 				}
@@ -500,7 +557,7 @@ std::string Test::TSTestTemplateOnBigFiles(std::string fileName, char testNumber
 						numberOfSpaces++;
 					}
 				}
-				if (numberOfSpaces == 3) {
+				if (numberOfSpaces == 4) {
 					cutPosition = k + 1;
 					break;
 				}
@@ -536,7 +593,7 @@ std::string Test::TSTestTemplateOnBigFiles(std::string fileName, char testNumber
 						numberOfSpaces++;
 					}
 				}
-				if (numberOfSpaces == 3) {
+				if (numberOfSpaces == 4) {
 					cutPosition = k + 1;
 					break;
 				}
@@ -572,7 +629,7 @@ std::string Test::TSTestTemplateOnBigFiles(std::string fileName, char testNumber
 						numberOfSpaces++;
 					}
 				}
-				if (numberOfSpaces == 3) {
+				if (numberOfSpaces == 4) {
 					cutPosition = k + 1;
 					break;
 				}
@@ -587,6 +644,208 @@ std::string Test::TSTestTemplateOnBigFiles(std::string fileName, char testNumber
 	}
 
 	delete TS;
+
+	std::string output = outputConsole.str();
+	return output;
+}
+
+std::string Test::GenTestTemplateOnBigFiles(std::string fileName, char testNumber) {
+	std::vector<int> timeToTest {1, 10, 30, 60};
+	std::vector<int> populationToTest {10, 30, 50, 100};
+	std::vector<double> crossoverToTest {0.2, 0.4, 0.8, 0.99};
+	std::vector<double> mutationToTest {0.01, 0.05, 0.15, 0.50};
+
+	std::stringstream outputConsole;
+	outputConsole.setf(std::ios::fixed);
+
+	outputFile << "--- " << getTestName(testNumber) << " ---" << std::endl;
+	outputConsole << "--- " << getTestName(testNumber) << " ---" << std::endl;
+
+	TSP->loadDataFromFile(std::move(fileName));
+
+	Gen = new Genetic(TSP);
+
+	for (int timeToStop : timeToTest) {
+		outputFile << "Czas pracy: " << timeToStop << std::endl;
+		outputConsole << "Czas pracy: " << timeToStop << std::endl;
+
+		Gen->setDefaultParameters();
+		Gen->setTimeToBreakSearch(timeToStop);
+
+		for (int i = 0; i < 10; ++i) {
+			std::string temp = Gen->run();
+
+			int numberOfNewLines = 0;
+			int numberOfSpaces = 0;
+			int cutPosition = 0;
+			for (int k = 0; k < temp.size(); ++k) {
+				if (temp[k] == '\n') {
+					numberOfNewLines++;
+				}
+				if (numberOfNewLines == 3) {
+					if (temp[k] == ' ') {
+						numberOfSpaces++;
+					}
+				}
+				if (numberOfSpaces == 4) {
+					cutPosition = k + 1;
+					break;
+				}
+			}
+
+			temp.erase(temp.begin(), temp.begin() + cutPosition);
+			temp.pop_back();
+
+			outputFile << temp << std::endl;
+			outputConsole << temp << std::endl;
+		}
+	}
+
+	for (int populationSize : populationToTest) {
+		outputFile << "Wielkosc populacji: " << populationSize << std::endl;
+		outputConsole << "Wielkosc populacji: " << populationSize << std::endl;
+
+		Gen->setDefaultParameters();
+		Gen->setPopulationSize(populationSize);
+
+		for (int i = 0; i < 10; ++i) {
+			std::string temp = Gen->run();
+
+			int numberOfNewLines = 0;
+			int numberOfSpaces = 0;
+			int cutPosition = 0;
+			for (int k = 0; k < temp.size(); ++k) {
+				if (temp[k] == '\n') {
+					numberOfNewLines++;
+				}
+				if (numberOfNewLines == 3) {
+					if (temp[k] == ' ') {
+						numberOfSpaces++;
+					}
+				}
+				if (numberOfSpaces == 4) {
+					cutPosition = k + 1;
+					break;
+				}
+			}
+
+			temp.erase(temp.begin(), temp.begin() + cutPosition);
+			temp.pop_back();
+
+			outputFile << temp << std::endl;
+			outputConsole << temp << std::endl;
+		}
+	}
+
+	for (double crossoverCoefficient : crossoverToTest) {
+		outputFile << "Wspolczynnik krzyzowania: " << crossoverCoefficient << std::endl;
+		outputConsole << "Wspolczynnik krzyzowania: " << crossoverCoefficient << std::endl;
+
+		Gen->setDefaultParameters();
+		Gen->setCrossoverCoefficient(crossoverCoefficient);
+
+		for (int i = 0; i < 10; ++i) {
+			std::string temp = Gen->run();
+
+			int numberOfNewLines = 0;
+			int numberOfSpaces = 0;
+			int cutPosition = 0;
+			for (int k = 0; k < temp.size(); ++k) {
+				if (temp[k] == '\n') {
+					numberOfNewLines++;
+				}
+				if (numberOfNewLines == 3) {
+					if (temp[k] == ' ') {
+						numberOfSpaces++;
+					}
+				}
+				if (numberOfSpaces == 4) {
+					cutPosition = k + 1;
+					break;
+				}
+			}
+
+			temp.erase(temp.begin(), temp.begin() + cutPosition);
+			temp.pop_back();
+
+			outputFile << temp << std::endl;
+			outputConsole << temp << std::endl;
+		}
+	}
+
+	for (double mutationCoefficient : mutationToTest) {
+		outputFile << "Wspolczynnik mutacji: " << mutationCoefficient << std::endl;
+		outputConsole << "Wspolczynnik mutacji: " << mutationCoefficient << std::endl;
+
+		Gen->setDefaultParameters();
+		Gen->setCrossoverCoefficient(mutationCoefficient);
+
+		for (int i = 0; i < 10; ++i) {
+			std::string temp = Gen->run();
+
+			int numberOfNewLines = 0;
+			int numberOfSpaces = 0;
+			int cutPosition = 0;
+			for (int k = 0; k < temp.size(); ++k) {
+				if (temp[k] == '\n') {
+					numberOfNewLines++;
+				}
+				if (numberOfNewLines == 3) {
+					if (temp[k] == ' ') {
+						numberOfSpaces++;
+					}
+				}
+				if (numberOfSpaces == 4) {
+					cutPosition = k + 1;
+					break;
+				}
+			}
+
+			temp.erase(temp.begin(), temp.begin() + cutPosition);
+			temp.pop_back();
+
+			outputFile << temp << std::endl;
+			outputConsole << temp << std::endl;
+		}
+	}
+
+	for (int i = 0; i < 2; ++i) {
+		outputFile << "Rob mutacje poprzez zamiane krawedzi (0 false, 1 true): " << i << std::endl;
+		outputConsole << "Rob mutacje poprzez zamiane krawedzi (0 false, 1 true): " << i << std::endl;
+
+		Gen->setDefaultParameters();
+		Gen->setUseEdgeMutation(i);
+
+		for (int j = 0; j < 10; ++j) {
+			std::string temp = Gen->run();
+
+			int numberOfNewLines = 0;
+			int numberOfSpaces = 0;
+			int cutPosition = 0;
+			for (int k = 0; k < temp.size(); ++k) {
+				if (temp[k] == '\n') {
+					numberOfNewLines++;
+				}
+				if (numberOfNewLines == 3) {
+					if (temp[k] == ' ') {
+						numberOfSpaces++;
+					}
+				}
+				if (numberOfSpaces == 4) {
+					cutPosition = k + 1;
+					break;
+				}
+			}
+
+			temp.erase(temp.begin(), temp.begin() + cutPosition);
+			temp.pop_back();
+
+			outputFile << temp << std::endl;
+			outputConsole << temp << std::endl;
+		}
+	}
+
+	delete Gen;
 
 	std::string output = outputConsole.str();
 	return output;
