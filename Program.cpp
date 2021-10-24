@@ -3,6 +3,7 @@
 //
 
 #include "Program.h"
+#include "SimulatedAnnealingSolver.h"
 
 #include <limits>
 
@@ -126,6 +127,53 @@ void Program::start() {
 				}
 				break;
 
+			case 'S':
+				try {
+					int numberOfEdgesInLine = TSP->TSPData.size();
+					std::vector<Edge> edges;
+					for (int i = 0; i < numberOfEdgesInLine; i++)
+					{
+						for (int j = 0; j < numberOfEdgesInLine; j++)
+						{
+							Edge edge(i, j, TSP->TSPData.at(i).at(j));
+							edges.push_back(edge);
+						}
+					}
+					SimulatedAnnealingSolver simulatedAnnealingSolver(edges, TSP->TSPData.size());
+
+					float initialTemperature = 10000;
+					float endingTemperature = 10;
+					float const alpha = 0.995;
+					int repetitionsForOneTemperature = 50;
+
+					std::chrono::high_resolution_clock::time_point startTime;
+					std::chrono::high_resolution_clock::time_point endTime;
+					startTime = std::chrono::high_resolution_clock::now();
+
+					SimulatedAnnealingSolution solution = simulatedAnnealingSolver.solve(initialTemperature,
+					                                                                            endingTemperature,
+					                                                                            alpha,
+					                                                                            repetitionsForOneTemperature);
+					endTime = std::chrono::high_resolution_clock::now();
+
+					output = "cheapest solution cost: " + std::to_string(solution.cost);
+					std::cout << output << std::endl;
+
+					output = "";
+					for (int i = 0; i < solution.orderOfCities.size() - 1; i++) {
+						output += std::to_string(solution.orderOfCities.at(i)) + "->";
+					}
+					output += std::to_string(solution.orderOfCities.at(solution.orderOfCities.size() - 1));
+					std::cout << output << std::endl;
+
+					output = "solution found in time of " + std::to_string((endTime - startTime).count()) + " [ms]";
+
+					std::cout << output << std::endl;
+				} catch (const std::runtime_error &e) {
+					std::cerr << e.what() << std::endl;
+				}
+				break;
+
 			case 'F':
 			case 'f':
 				try {
@@ -158,6 +206,7 @@ void Program::printMenu() {
 	std::cout << "7. Uruchom algorytm Tabu Search" << std::endl;
 	std::cout << "8. Zmień ustawienia algorytmu Genetic" << std::endl;
 	std::cout << "9. Uruchom algorytm Genetic" << std::endl;
+	std::cout << "S. Uruchom algorytm Simulated Annealing" << std::endl;
 	std::cout << "F. Testy" << std::endl;
 	std::cout << "0. Wyjście" << std::endl;
 	std::cout << "Wybór: ";
