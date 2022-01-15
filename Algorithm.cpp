@@ -3,6 +3,7 @@
 //
 
 #include <random>
+#include <stdexcept>
 #include "Algorithm.h"
 
 Algorithm::Algorithm(std::shared_ptr<TravellingSalesmanProblem> TSP) : TSP(std::move(TSP)) {}

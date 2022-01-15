@@ -141,10 +141,10 @@ void Program::start() {
 					}
 					SimulatedAnnealingSolver simulatedAnnealingSolver(edges, TSP->TSPData.size());
 
-					float initialTemperature = 10000;
-					float endingTemperature = 10;
-					float const alpha = 0.995;
-					int repetitionsForOneTemperature = 50;
+					float initialTemperature = 1000;
+					float endingTemperature = 0.01;
+					float const alpha = 0.999;
+					int repetitionsForOneTemperature = 25;
 
 					std::chrono::high_resolution_clock::time_point startTime;
 					std::chrono::high_resolution_clock::time_point endTime;

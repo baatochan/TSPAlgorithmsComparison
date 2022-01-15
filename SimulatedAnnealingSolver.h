@@ -27,7 +27,6 @@ public:
 	void convertToMatrix();
 	void printEdges(std::string caseName);
 	int calculateCost(std::vector<int> orderOfCities);
-	static float getrandomNumberFrom0To1();
 
 	float temperature;
 	float endingTemperature;
@@ -35,9 +34,8 @@ public:
 	SimulatedAnnealingSolution solve(float initialTemperature, float endingTemperature, float alpha, int repetitionsForOneTemperature);
 	std::vector<int> getNeighbourBySwap(std::vector<int> citiesInOrder);
 	std::vector<int> getNeighbourByReverse(std::vector<int> citiesInOrder);
-	float getTemperature(int currentTemperature, float alpha);
-	float getProbability(float e, float en);
-	float getCriterion(SimulatedAnnealingSolution solution);
+	float getTemperature(float currentTemperature, float alpha);
+
 };
 
 

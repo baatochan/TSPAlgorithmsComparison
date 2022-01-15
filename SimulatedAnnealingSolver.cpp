@@ -3,30 +3,14 @@
 //
 
 #include "SimulatedAnnealingSolver.h"
+#include <cmath>
 #include <iostream>
 #include <iomanip>
 #include <algorithm>
 #include <cmath>
+#include <random>
 
-const float EULER = 2.71828182845904523536;
-
-//std::string showInfoBeforeRunning() { TODO daniel.krol
-//	std::string output;
-//
-//	output += "Algoryt został uruchomiony z następującymi parametrami:\n";
-//	output +="* Czas wykonywania algorytmu: " + std::to_string(timeToBreakSearch) + " (s)\n";
-//	output +="* Wielkość populacji: " + std::to_string(populationSize) + "\n";
-//	output +="* Współczynnik krzyżowania: " + std::to_string(crossoverCoefficient) + "\n";
-//	output +="* Współczynnik mutacji: " + std::to_string(mutationCoefficient) + "\n";
-//	output +="* Rodzaj mutacji: ";
-//	if (useEdgeMutation) {
-//		output +="zamiana krawędzi\n";
-//	} else {
-//		output +="zamiana wierzchołków\n";
-//	}
-//
-//	return output;
-//}
+using namespace std;
 
 SimulatedAnnealingSolver::SimulatedAnnealingSolver(std::vector<Edge> edges, int numberOfNodes)
 		: edges(edges), numberOfNodes(numberOfNodes), solutionCost(2147483647) {
@@ -44,21 +28,6 @@ void SimulatedAnnealingSolver::convertToMatrix() {
 			singleVector.push_back(edges.at(i * numberOfNodes + j).getCost());
 		}
 		matrix.push_back(singleVector);
-	}
-}
-
-void SimulatedAnnealingSolver::printEdges(std::string caseName) {
-	int i = 0;
-	std::cout << caseName << "\n";
-	for (Edge edge : edges)
-	{
-		std::cout << std::setw(4) << std::setfill(' ') << edge.getCost() << " ";
-		i++;
-		if (i == numberOfNodes)
-		{
-			i = 0;
-			std::cout << "\n";
-		}
 	}
 }
 
@@ -107,35 +76,19 @@ std::vector<int> SimulatedAnnealingSolver::getNeighbourByReverse(std::vector<int
 	return citiesInOrder;
 }
 
-float SimulatedAnnealingSolver::getTemperature(int currentTemperature, float alpha) {
+float SimulatedAnnealingSolver::getTemperature(float currentTemperature, float alpha) {
 	return currentTemperature * alpha;
-}
-
-float SimulatedAnnealingSolver::getProbability(float e, float en) {
-	if (e - en < 0) {
-		float probability = 1 / (1 + pow(EULER, ((e - en) / temperature)));
-		return probability;
-	}
-	else {
-		return 1;
-	}
-}
-
-float SimulatedAnnealingSolver::getrandomNumberFrom0To1() {
-	float number = std::rand();
-	number = number / (float)RAND_MAX;
-	return number;
-}
-
-float SimulatedAnnealingSolver::getCriterion(SimulatedAnnealingSolution solution) {
-	return solution.cost;
 }
 
 SimulatedAnnealingSolution SimulatedAnnealingSolver::solve(float initialTemperature, float endTemperature, float alpha, int repetitionsForOneTemperature) {
 	temperature = initialTemperature;
 	endingTemperature = endTemperature;
 
+	std::random_device rd;
+	std::mt19937 g(rd());
 	std::vector<int> randomOrder;
+	std::uniform_real_distribution<double> num(0.0, 1.0);
+	randomOrder.reserve(matrix.size());
 	for (int i = 0; i < matrix.size(); i++) {
 		randomOrder.push_back(i);
 	}
@@ -148,27 +101,24 @@ SimulatedAnnealingSolution SimulatedAnnealingSolver::solve(float initialTemperat
 
 	while (temperature > endingTemperature) {
 		int repetitionNumber = 0;
-		int bestLocalCost = INT_MAX;
 		while (repetitionNumber < repetitionsForOneTemperature) {
 			SimulatedAnnealingSolution solutionB;
 			solutionB.orderOfCities = getNeighbourByReverse(solutionA.orderOfCities);
 			solutionB.cost = calculateCost(solutionB.orderOfCities);
-			if (getCriterion(solutionA) < getCriterion(solutionB)) {
+			if(solutionB.cost < bestGlobalCost) {
+				bestGlobalCost = solutionB.cost;
+				bestOrder = solutionB.orderOfCities;
+			}
+			if(solutionB.cost < solutionA.cost) {
 				solutionA = solutionB;
 			}
-			else if (getrandomNumberFrom0To1() < getProbability(getCriterion(solutionB), getCriterion(solutionA))) {
-				solutionA = solutionB;
-			}
-			if (solutionA.cost < bestGlobalCost) {
-				bestGlobalCost = solutionA.cost;
-				bestOrder = solutionA.orderOfCities;
-			}
+			else {
+				if(std::exp(((double(solutionA.cost - solutionB.cost))/temperature)) > num(g)) {
+					solutionA = solutionB;
+				}
 
+			}
 			repetitionNumber++;
-
-			if (solutionB.cost < bestLocalCost) {
-				bestLocalCost = solutionB.cost;
-			}
 		}
 		temperature = getTemperature(temperature, alpha);
 	}
