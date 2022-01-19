@@ -25,7 +25,6 @@ public:
 
 	int getMinimumDistanceTo(int vertex) const;
 
-private:
 	std::vector<std::vector<int>> TSPData;
 
 };

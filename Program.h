@@ -21,7 +21,7 @@ public:
 	Program();
 
 	void start();
-
+	std::shared_ptr<TravellingSalesmanProblem> TSP;
 private:
 	void printMenu();
 
@@ -38,8 +38,6 @@ private:
 	void runGenSettingsMenu();
 
 	void printGenSettingsMenu();
-
-	std::shared_ptr<TravellingSalesmanProblem> TSP;
 
 	BruteForce BF;
 	BranchAndBound BnB;
