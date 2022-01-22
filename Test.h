@@ -10,6 +10,7 @@
 #include "Algorithm.h"
 #include "TabuSearch.h"
 #include "Genetic.h"
+#include "Edge.h"
 
 #include <fstream>
 
@@ -61,6 +62,16 @@ public:
 
 	std::string testK();
 
+	std::string testL();
+
+	std::string testM();
+
+	std::string testN();
+
+	std::string testO();
+
+	std::string testP();
+
 	std::string getTestName(char test);
 
 private:
@@ -73,6 +84,14 @@ private:
 	std::string TSTestTemplateOnBigFiles(std::string fileName, char testNumber);
 
 	std::string GenTestTemplateOnBigFiles(std::string fileName, char testNumber);
+
+	std::string TSTestTemplateForRealUseCase(std::string fileName);
+
+	std::string GenTestTemplateForRealUseCase(std::string fileName);
+
+	std::string runSimulatedAnnealing(std::vector<Edge> edges, float initialTemperature, float endingTemperature, int repetitionsForOneTemperature);
+
+	std::string SATestTemplateForRealUseCase(std::string fileName);
 
 	std::shared_ptr<TravellingSalesmanProblem> TSP;
 

@@ -4,6 +4,7 @@
 
 #include "Test.h"
 #include "BranchAndBound.h"
+#include "SimulatedAnnealingSolver.h"
 
 #include <sstream>
 #include <chrono>
@@ -102,6 +103,8 @@ std::string Test::test6() {
 	std::string output = exactTestTemplateOnFiles(7);
 
 	delete algorithm;
+
+	outputFile << output;
 
 	return output;
 }
@@ -241,6 +244,158 @@ std::string Test::testK() {
 	return output;
 }
 
+std::string Test::testL() {
+	algorithm = new BranchAndBound(TSP);
+
+	std::vector<std::string> filePaths {"12-1.txt", "12-2.txt", "17.txt", "24.txt"};
+	std::string pathToDir = "../tests/real/";
+
+	std::string output;
+
+	auto testStartTime = std::chrono::high_resolution_clock::now();
+
+	for (int j = 0; j < filePaths.size(); ++j) {
+		TSP->loadDataFromFile(pathToDir + filePaths[j]);
+
+		output += "Test: " + filePaths[j] + "\n";
+
+		std::chrono::high_resolution_clock::time_point algorithmStartTime = std::chrono::high_resolution_clock::now();
+		std::string temp = algorithm->run();
+		std::chrono::high_resolution_clock::time_point algorithmEndTime = std::chrono::high_resolution_clock::now();
+
+		auto result = std::chrono::duration_cast<std::chrono::microseconds>(algorithmEndTime - algorithmStartTime).count();
+		output += "Czas: " + std::to_string(result) + "\n";
+
+		int numberOfNewLines = 0;
+		int numberOfSpaces = 0;
+		int cutPosition = 0;
+		for (int k = 0; k < temp.size(); ++k) {
+			if (temp[k] == '\n') {
+				numberOfNewLines++;
+			}
+			if (numberOfNewLines == 3) {
+				if (temp[k] == ' ') {
+					numberOfSpaces++;
+				}
+			}
+			if (numberOfSpaces == 3) {
+				cutPosition = k + 1;
+				break;
+			}
+		}
+		temp.erase(0, cutPosition);
+
+		output += "Wynik: " + temp + "\n";
+	}
+
+	auto testEndTime = std::chrono::high_resolution_clock::now();
+	auto duration = std::chrono::duration_cast<std::chrono::microseconds>(testEndTime - testStartTime).count();
+
+	output += "\nIlość testów: " + std::to_string(filePaths.size()) + ", czas trwania: " + std::to_string(duration) + "\n";
+
+	delete algorithm;
+
+	outputFile << output;
+
+	return output;
+}
+
+std::string Test::testM() {
+	std::string output;
+
+	std::vector<std::string> filePaths {"12-1.txt", "12-2.txt", "17.txt", "24.txt", "31.txt", "50.txt"};
+	std::string pathToDir = "../tests/real/";
+
+	auto startTime = std::chrono::high_resolution_clock::now();
+
+	for (const auto& file : filePaths) {
+		output += TSTestTemplateForRealUseCase(pathToDir + file);
+		output += "\n";
+	}
+
+	auto endTime = std::chrono::high_resolution_clock::now();
+	auto duration = std::chrono::duration_cast<std::chrono::minutes>(endTime - startTime).count();
+
+	output += "\nCZAS PRACY CAŁOŚCI: " + std::to_string(duration) + "\n";
+	outputFile << std::endl << "CZAS PRACY CAŁOŚCI: " << duration << std::endl;
+
+	return output;
+}
+
+std::string Test::testN() {
+	std::string output;
+
+	std::vector<std::string> filePaths {"12-1.txt", "12-2.txt", "17.txt", "24.txt", "31.txt", "50.txt"};
+	std::string pathToDir = "../tests/real/";
+
+	auto startTime = std::chrono::high_resolution_clock::now();
+
+	for (const auto& file : filePaths) {
+		output += GenTestTemplateForRealUseCase(pathToDir + file);
+		output += "\n";
+	}
+
+	auto endTime = std::chrono::high_resolution_clock::now();
+	auto duration = std::chrono::duration_cast<std::chrono::minutes>(endTime - startTime).count();
+
+	output += "\nCZAS PRACY CAŁOŚCI: " + std::to_string(duration) + "\n";
+	outputFile << std::endl << "CZAS PRACY CAŁOŚCI: " << duration << std::endl;
+
+	return output;
+}
+
+std::string Test::testO() {
+	std::string output;
+
+	std::vector<std::string> filePaths {"12-1.txt", "12-2.txt", "17.txt", "24.txt", "31.txt", "50.txt"};
+	std::string pathToDir = "../tests/real/";
+
+	auto startTime = std::chrono::high_resolution_clock::now();
+
+	for (const auto& file : filePaths) {
+		output += SATestTemplateForRealUseCase(pathToDir + file);
+		output += "\n";
+	}
+
+	auto endTime = std::chrono::high_resolution_clock::now();
+	auto duration = std::chrono::duration_cast<std::chrono::minutes>(endTime - startTime).count();
+
+	output += "\nCZAS PRACY CAŁOŚCI: " + std::to_string(duration) + "\n";
+	outputFile << std::endl << "CZAS PRACY CAŁOŚCI: " << duration << std::endl;
+
+	return output;
+}
+
+std::string Test::testP() {
+	std::string output;
+
+	auto startTime = std::chrono::high_resolution_clock::now();
+
+	output += getTestName('L');
+	output += testL();
+	output += "\n\n\n";
+
+	output += getTestName('M');
+	output += testM();
+	output += "\n\n\n";
+
+	output += getTestName('N');
+	output += testN();
+	output += "\n\n\n";
+
+	output += getTestName('O');
+	output += testO();
+	output += "\n\n\n";
+
+	auto endTime = std::chrono::high_resolution_clock::now();
+	auto duration = std::chrono::duration_cast<std::chrono::minutes>(endTime - startTime).count();
+
+	output += "\nCZAS PRACY CAŁOŚCI: " + std::to_string(duration) + "\n";
+	outputFile << std::endl << "CZAS PRACY CAŁOŚCI: " << duration << std::endl;
+
+	return output;
+}
+
 std::string Test::getTestName(char test) {
 	switch (test) {
 		case '1':
@@ -302,6 +457,21 @@ std::string Test::getTestName(char test) {
 
 		case 'K':
 			return "Testy G, H, I i J po kolei";
+
+		case 'L':
+			return "Testy danych rzeczywistych 12-24 (BnB)";
+
+		case 'M':
+			return "Testy danych rzeczywistych 12-50 (TS)";
+
+		case 'N':
+			return "Testy danych rzeczywistych 12-50 (Gen)";
+
+		case 'O':
+			return "Testy danych rzeczywistych 12-50 (SA)";
+
+		case 'P':
+			return "Testy L, M, N i O po kolei";
 
 		default:
 			return "";
@@ -846,6 +1016,315 @@ std::string Test::GenTestTemplateOnBigFiles(std::string fileName, char testNumbe
 	}
 
 	delete Gen;
+
+	std::string output = outputConsole.str();
+	return output;
+}
+
+std::string Test::GenTestTemplateForRealUseCase(std::string fileName) {
+	std::vector<int> timeToTest {10, 30, 60};
+	std::vector<int> populationToTest {25, 50, 100};
+	std::vector<double> crossoverToTest {0.33, 0.8, 0.99};
+
+	std::stringstream outputConsole;
+	outputConsole.setf(std::ios::fixed);
+
+	outputFile << "Plik: " << fileName << std::endl;
+	outputConsole << "Plik: " << fileName << std::endl;
+
+	TSP->loadDataFromFile(std::move(fileName));
+
+	Gen = new Genetic(TSP);
+
+	for (int timeToStop : timeToTest) {
+		outputFile << "Czas pracy: " << timeToStop << std::endl;
+		outputConsole << "Czas pracy: " << timeToStop << std::endl;
+
+		Gen->setDefaultParameters();
+		Gen->setTimeToBreakSearch(timeToStop);
+
+		for (int i = 0; i < 10; ++i) {
+			std::string temp = Gen->run();
+
+			int numberOfNewLines = 0;
+			int numberOfSpaces = 0;
+			int cutPosition = 0;
+			for (int k = 0; k < temp.size(); ++k) {
+				if (temp[k] == '\n') {
+					numberOfNewLines++;
+				}
+				if (numberOfNewLines == 3) {
+					if (temp[k] == ' ') {
+						numberOfSpaces++;
+					}
+				}
+				if (numberOfSpaces == 4) {
+					cutPosition = k + 1;
+					break;
+				}
+			}
+
+			temp.erase(temp.begin(), temp.begin() + cutPosition);
+			temp.pop_back();
+
+			outputFile << temp << std::endl;
+			outputConsole << temp << std::endl;
+		}
+	}
+
+	for (int populationSize : populationToTest) {
+		outputFile << "Wielkosc populacji: " << populationSize << std::endl;
+		outputConsole << "Wielkosc populacji: " << populationSize << std::endl;
+
+		Gen->setDefaultParameters();
+		Gen->setPopulationSize(populationSize);
+
+		for (int i = 0; i < 10; ++i) {
+			std::string temp = Gen->run();
+
+			int numberOfNewLines = 0;
+			int numberOfSpaces = 0;
+			int cutPosition = 0;
+			for (int k = 0; k < temp.size(); ++k) {
+				if (temp[k] == '\n') {
+					numberOfNewLines++;
+				}
+				if (numberOfNewLines == 3) {
+					if (temp[k] == ' ') {
+						numberOfSpaces++;
+					}
+				}
+				if (numberOfSpaces == 4) {
+					cutPosition = k + 1;
+					break;
+				}
+			}
+
+			temp.erase(temp.begin(), temp.begin() + cutPosition);
+			temp.pop_back();
+
+			outputFile << temp << std::endl;
+			outputConsole << temp << std::endl;
+		}
+	}
+
+	for (double crossoverCoefficient : crossoverToTest) {
+		outputFile << "Wspolczynnik krzyzowania: " << crossoverCoefficient << std::endl;
+		outputConsole << "Wspolczynnik krzyzowania: " << crossoverCoefficient << std::endl;
+
+		Gen->setDefaultParameters();
+		Gen->setCrossoverCoefficient(crossoverCoefficient);
+
+		for (int i = 0; i < 10; ++i) {
+			std::string temp = Gen->run();
+
+			int numberOfNewLines = 0;
+			int numberOfSpaces = 0;
+			int cutPosition = 0;
+			for (int k = 0; k < temp.size(); ++k) {
+				if (temp[k] == '\n') {
+					numberOfNewLines++;
+				}
+				if (numberOfNewLines == 3) {
+					if (temp[k] == ' ') {
+						numberOfSpaces++;
+					}
+				}
+				if (numberOfSpaces == 4) {
+					cutPosition = k + 1;
+					break;
+				}
+			}
+
+			temp.erase(temp.begin(), temp.begin() + cutPosition);
+			temp.pop_back();
+
+			outputFile << temp << std::endl;
+			outputConsole << temp << std::endl;
+		}
+	}
+
+	delete Gen;
+
+	std::string output = outputConsole.str();
+	return output;
+}
+
+std::string Test::TSTestTemplateForRealUseCase(std::string fileName) {
+	std::vector<double> cadencyToTest {0.25, 0.5, 1, 2};
+	std::vector<int> timeToTest {5, 10, 30};
+
+	std::stringstream outputConsole;
+	outputConsole.setf(std::ios::fixed);
+
+	outputFile << "Plik: " << fileName << std::endl;
+	outputConsole << "Plik: " << fileName << std::endl;
+
+	TSP->loadDataFromFile(std::move(fileName));
+
+	TS = new TabuSearch(TSP);
+
+	for (double cadencyMultiplier : cadencyToTest) {
+		outputFile << "Kadencja: " << cadencyMultiplier << " * iloscMiast" << std::endl;
+		outputConsole << "Kadencja: " << cadencyMultiplier << " * iloscMiast" << std::endl;
+
+		TS->setDefaultParameters();
+		TS->setCadency(static_cast<int>(cadencyMultiplier * TSP->getNumberOfCities()));
+
+		for (int i = 0; i < 10; ++i) {
+			std::string temp = TS->run();
+
+			int numberOfNewLines = 0;
+			int numberOfSpaces = 0;
+			int cutPosition = 0;
+			for (int k = 0; k < temp.size(); ++k) {
+				if (temp[k] == '\n') {
+					numberOfNewLines++;
+				}
+				if (numberOfNewLines == 3) {
+					if (temp[k] == ' ') {
+						numberOfSpaces++;
+					}
+				}
+				if (numberOfSpaces == 4) {
+					cutPosition = k + 1;
+					break;
+				}
+			}
+
+			temp.erase(temp.begin(), temp.begin() + cutPosition);
+			temp.pop_back();
+
+			outputFile << temp << std::endl;
+			outputConsole << temp << std::endl;
+		}
+	}
+
+	for (int timeToStop : timeToTest) {
+		outputFile << "Czas pracy: " << timeToStop << std::endl;
+		outputConsole << "Czas pracy: " << timeToStop << std::endl;
+
+		TS->setDefaultParameters();
+		TS->setTimeToBreakSearch(timeToStop);
+
+		for (int i = 0; i < 10; ++i) {
+			std::string temp = TS->run();
+
+			int numberOfNewLines = 0;
+			int numberOfSpaces = 0;
+			int cutPosition = 0;
+			for (int k = 0; k < temp.size(); ++k) {
+				if (temp[k] == '\n') {
+					numberOfNewLines++;
+				}
+				if (numberOfNewLines == 3) {
+					if (temp[k] == ' ') {
+						numberOfSpaces++;
+					}
+				}
+				if (numberOfSpaces == 4) {
+					cutPosition = k + 1;
+					break;
+				}
+			}
+
+			temp.erase(temp.begin(), temp.begin() + cutPosition);
+			temp.pop_back();
+
+			outputFile << temp << std::endl;
+			outputConsole << temp << std::endl;
+		}
+	}
+
+	delete TS;
+
+	std::string output = outputConsole.str();
+	return output;
+}
+
+std::string Test::runSimulatedAnnealing(std::vector<Edge> edges, float initialTemperature, float endingTemperature, int repetitionsForOneTemperature) {
+	std::string output;
+
+	SimulatedAnnealingSolver simulatedAnnealingSolver(std::move(edges), TSP->TSPData.size());
+
+	float const alpha = 0.999;
+
+	std::chrono::high_resolution_clock::time_point startTime;
+	std::chrono::high_resolution_clock::time_point endTime;
+	startTime = std::chrono::high_resolution_clock::now();
+
+	SimulatedAnnealingSolution solution = simulatedAnnealingSolver.solve(initialTemperature,
+	                                                                     endingTemperature,
+	                                                                     alpha,
+	                                                                     repetitionsForOneTemperature);
+	endTime = std::chrono::high_resolution_clock::now();
+
+	return std::to_string(solution.cost) + ' ' + std::to_string((endTime - startTime).count());
+}
+
+std::string Test::SATestTemplateForRealUseCase(std::string fileName) {
+	std::vector<float> startTemperatureToTest {1000, 5000, 10000};
+	std::vector<float> endTemperatureToTest {0.1, 0.01, 0.001};
+	std::vector<int> repetitionsToTest {25, 50, 100};
+
+	float defaultStartTemperature = 1000;
+	float defaultEndingTemperature = 0.01;
+	int defaultRepetitions = 25;
+
+	std::stringstream outputConsole;
+	outputConsole.setf(std::ios::fixed);
+
+	outputFile << "Plik: " << fileName << std::endl;
+	outputConsole << "Plik: " << fileName << std::endl;
+
+	TSP->loadDataFromFile(std::move(fileName));
+
+	int numberOfEdgesInLine = TSP->TSPData.size();
+	std::vector<Edge> edges;
+	for (int i = 0; i < numberOfEdgesInLine; i++)
+	{
+		for (int j = 0; j < numberOfEdgesInLine; j++)
+		{
+			Edge edge(i, j, TSP->TSPData.at(i).at(j));
+			edges.push_back(edge);
+		}
+	}
+
+	for (float startTemperature : startTemperatureToTest) {
+		outputFile << "Temp start: " << startTemperature << std::endl;
+		outputConsole << "Temp start: " << startTemperature << std::endl;
+
+		for (int i = 0; i < 10; ++i) {
+			std::string temp = runSimulatedAnnealing(edges, startTemperature, defaultEndingTemperature, defaultRepetitions);
+
+			outputFile << temp << std::endl;
+			outputConsole << temp << std::endl;
+		}
+	}
+
+	for (float endTemperature : endTemperatureToTest) {
+		outputFile << "Temp end: " << endTemperature << std::endl;
+		outputConsole << "Temp end: " << endTemperature << std::endl;
+
+		for (int i = 0; i < 10; ++i) {
+			std::string temp = runSimulatedAnnealing(edges, defaultStartTemperature, endTemperature, defaultRepetitions);
+
+			outputFile << temp << std::endl;
+			outputConsole << temp << std::endl;
+		}
+	}
+
+	for (int repetitions : repetitionsToTest) {
+		outputFile << "Repetitions: " << repetitions << std::endl;
+		outputConsole << "Repetitions: " << repetitions << std::endl;
+
+		for (int i = 0; i < 10; ++i) {
+			std::string temp = runSimulatedAnnealing(edges, defaultStartTemperature, defaultEndingTemperature, repetitions);
+
+			outputFile << temp << std::endl;
+			outputConsole << temp << std::endl;
+		}
+	}
 
 	std::string output = outputConsole.str();
 	return output;

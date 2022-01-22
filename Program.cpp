@@ -429,6 +429,56 @@ void Program::runTestMenu() {
 				}
 				break;
 
+			case 'L':
+			case 'l':
+				try {
+					output = test.testL();
+					std::cout << output << std::endl;
+				} catch (const std::runtime_error &e) {
+					std::cerr << e.what() << std::endl;
+				}
+				break;
+
+			case 'M':
+			case 'm':
+				try {
+					output = test.testM();
+					std::cout << output << std::endl;
+				} catch (const std::runtime_error &e) {
+					std::cerr << e.what() << std::endl;
+				}
+				break;
+
+			case 'N':
+			case 'n':
+				try {
+					output = test.testN();
+					std::cout << output << std::endl;
+				} catch (const std::runtime_error &e) {
+					std::cerr << e.what() << std::endl;
+				}
+				break;
+
+			case 'O':
+			case 'o':
+				try {
+					output = test.testO();
+					std::cout << output << std::endl;
+				} catch (const std::runtime_error &e) {
+					std::cerr << e.what() << std::endl;
+				}
+				break;
+
+			case 'P':
+			case 'p':
+				try {
+					output = test.testP();
+					std::cout << output << std::endl;
+				} catch (const std::runtime_error &e) {
+					std::cerr << e.what() << std::endl;
+				}
+				break;
+
 			case '0':
 				break;
 
@@ -463,6 +513,11 @@ void Program::printTestMenu() {
 	std::cout << "I. Test nr 18 (" << test.getTestName('I') << ")" << std::endl;
 	std::cout << "J. Test nr 19 (" << test.getTestName('J') << ")" << std::endl;
 	std::cout << "K. Test nr 20 (" << test.getTestName('K') << ")" << std::endl;
+	std::cout << "L. Test nr 21 (" << test.getTestName('L') << ")" << std::endl;
+	std::cout << "M. Test nr 22 (" << test.getTestName('M') << ")" << std::endl;
+	std::cout << "N. Test nr 23 (" << test.getTestName('N') << ")" << std::endl;
+	std::cout << "O. Test nr 24 (" << test.getTestName('O') << ")" << std::endl;
+	std::cout << "P. Test nr 25 (" << test.getTestName('P') << ")" << std::endl;
 	std::cout << "0. Powrót" << std::endl;
 	std::cout << "Wybór: ";
 }
