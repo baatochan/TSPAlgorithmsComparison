@@ -1,0 +1,20 @@
+Branch and bound
+
+Test: 12-1.txt
+Czas: 26790
+Wynik: 54
+
+Test: 12-2.txt
+Czas: 33468
+Wynik: 47
+
+Test: 17.txt
+Czas: 1401814
+Wynik: 62
+
+Test: 24.txt
+Czas: 1919329847
+Wynik: 80
+
+
+Ilość testów: 4, czas trwania: 1920793561

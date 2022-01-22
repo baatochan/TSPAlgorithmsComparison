@@ -1,0 +1,477 @@
+Tabu Search
+Domyslna kadencja: 0.5*iloscMiast
+Domyslny czas: 10s
+Aspiracja: wlaczona
+Dywersyfikacja: wlaczona
+Domyslna ilosc iteracji bez poprawy do dywersyfikacji: 10000
+
+Plik: ../tests/real/12-1.txt
+Kadencja: 0.250000 * iloscMiast
+54
+54
+54
+54
+54
+54
+54
+54
+54
+54
+Kadencja: 0.500000 * iloscMiast
+54
+54
+54
+54
+54
+54
+54
+54
+54
+54
+Kadencja: 1.000000 * iloscMiast
+54
+54
+54
+54
+54
+54
+54
+54
+54
+54
+Kadencja: 2.000000 * iloscMiast
+54
+54
+54
+54
+54
+54
+54
+54
+54
+54
+Czas pracy: 5
+54
+54
+54
+54
+54
+54
+54
+54
+54
+54
+Czas pracy: 10
+54
+54
+54
+54
+54
+54
+54
+54
+54
+54
+Czas pracy: 30
+54
+54
+54
+54
+54
+54
+54
+54
+54
+54
+Plik: ../tests/real/12-2.txt
+Kadencja: 0.250000 * iloscMiast
+47
+47
+47
+47
+47
+47
+47
+47
+47
+47
+Kadencja: 0.500000 * iloscMiast
+47
+47
+47
+47
+47
+47
+47
+47
+47
+47
+Kadencja: 1.000000 * iloscMiast
+47
+47
+47
+47
+47
+47
+47
+47
+47
+47
+Kadencja: 2.000000 * iloscMiast
+47
+47
+47
+47
+47
+47
+47
+47
+47
+47
+Czas pracy: 5
+47
+47
+47
+47
+47
+47
+47
+47
+47
+47
+Czas pracy: 10
+47
+47
+47
+47
+47
+47
+47
+47
+47
+47
+Czas pracy: 30
+47
+47
+47
+47
+47
+47
+47
+47
+47
+47
+Plik: ../tests/real/17.txt
+Kadencja: 0.250000 * iloscMiast
+61
+62
+61
+61
+61
+61
+61
+61
+61
+61
+Kadencja: 0.500000 * iloscMiast
+61
+61
+61
+61
+61
+61
+61
+61
+61
+61
+Kadencja: 1.000000 * iloscMiast
+61
+61
+61
+61
+61
+61
+61
+61
+61
+61
+Kadencja: 2.000000 * iloscMiast
+61
+61
+61
+61
+61
+61
+61
+61
+61
+61
+Czas pracy: 5
+61
+61
+61
+61
+61
+61
+61
+61
+61
+61
+Czas pracy: 10
+61
+61
+61
+61
+61
+61
+61
+61
+61
+61
+Czas pracy: 30
+61
+61
+61
+61
+61
+61
+61
+61
+61
+61
+Plik: ../tests/real/24.txt
+Kadencja: 0.250000 * iloscMiast
+80
+81
+83
+80
+80
+81
+80
+82
+82
+81
+Kadencja: 0.500000 * iloscMiast
+78
+79
+80
+79
+78
+79
+79
+79
+79
+79
+Kadencja: 1.000000 * iloscMiast
+80
+80
+80
+80
+80
+80
+79
+80
+80
+80
+Kadencja: 2.000000 * iloscMiast
+81
+81
+81
+81
+81
+81
+81
+81
+81
+81
+Czas pracy: 5
+80
+80
+80
+80
+79
+80
+80
+78
+80
+79
+Czas pracy: 10
+79
+79
+80
+79
+80
+79
+80
+80
+79
+79
+Czas pracy: 30
+79
+80
+79
+79
+79
+79
+79
+78
+79
+79
+Plik: ../tests/real/31.txt
+Kadencja: 0.250000 * iloscMiast
+98
+99
+99
+97
+99
+99
+97
+99
+96
+98
+Kadencja: 0.500000 * iloscMiast
+94
+94
+94
+94
+94
+94
+94
+94
+94
+94
+Kadencja: 1.000000 * iloscMiast
+98
+99
+99
+99
+97
+99
+99
+99
+99
+99
+Kadencja: 2.000000 * iloscMiast
+98
+98
+98
+98
+98
+98
+98
+98
+98
+98
+Czas pracy: 5
+94
+94
+94
+94
+94
+94
+94
+94
+94
+94
+Czas pracy: 10
+94
+94
+94
+94
+94
+94
+94
+94
+94
+94
+Czas pracy: 30
+94
+94
+94
+94
+94
+94
+94
+94
+94
+94
+Plik: ../tests/real/50.txt
+Kadencja: 0.250000 * iloscMiast
+154
+154
+154
+154
+154
+154
+154
+154
+154
+154
+Kadencja: 0.500000 * iloscMiast
+154
+154
+154
+154
+154
+154
+154
+154
+154
+154
+Kadencja: 1.000000 * iloscMiast
+157
+157
+157
+157
+157
+157
+157
+157
+157
+157
+Kadencja: 2.000000 * iloscMiast
+157
+157
+157
+157
+157
+157
+157
+157
+157
+157
+Czas pracy: 5
+154
+154
+154
+154
+154
+154
+154
+154
+154
+154
+Czas pracy: 10
+154
+154
+154
+154
+154
+154
+154
+154
+154
+154
+Czas pracy: 30
+154
+154
+154
+154
+154
+154
+154
+153
+154
+154
+
+CZAS PRACY CAŁOŚCI: 92 min

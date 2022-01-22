@@ -1,0 +1,609 @@
+Genetyk
+Domyslny czas: 30s
+Domyslna populacja: 50
+Domyslny wspolczynnik krzyzowania: 0.8
+Domyslny wspolczynnik mutacji 0.01
+Domyslna mutacja: wierzcholkowa
+
+Plik: ../tests/real/12-1.txt
+Czas pracy: 10
+54
+54
+54
+54
+54
+54
+54
+54
+54
+54
+Czas pracy: 30
+54
+54
+54
+54
+54
+54
+54
+54
+54
+54
+Czas pracy: 60
+54
+54
+54
+54
+54
+54
+54
+54
+54
+54
+Wielkosc populacji: 25
+54
+54
+54
+54
+54
+54
+54
+54
+54
+54
+Wielkosc populacji: 50
+54
+54
+54
+54
+54
+54
+54
+54
+54
+54
+Wielkosc populacji: 100
+54
+54
+54
+54
+54
+54
+54
+54
+54
+54
+Wspolczynnik krzyzowania: 0.330000
+54
+54
+54
+54
+54
+54
+54
+54
+54
+54
+Wspolczynnik krzyzowania: 0.800000
+54
+54
+54
+54
+54
+54
+54
+54
+54
+54
+Wspolczynnik krzyzowania: 0.990000
+54
+54
+54
+54
+56
+54
+54
+54
+54
+54
+Plik: ../tests/real/12-2.txt
+Czas pracy: 10
+47
+47
+47
+47
+47
+47
+47
+47
+47
+47
+Czas pracy: 30
+47
+47
+47
+47
+47
+47
+47
+47
+47
+47
+Czas pracy: 60
+47
+47
+47
+47
+47
+47
+47
+47
+47
+47
+Wielkosc populacji: 25
+47
+47
+47
+47
+47
+47
+47
+47
+47
+47
+Wielkosc populacji: 50
+47
+47
+47
+47
+47
+47
+47
+47
+47
+47
+Wielkosc populacji: 100
+47
+47
+47
+47
+47
+47
+47
+47
+47
+47
+Wspolczynnik krzyzowania: 0.330000
+47
+47
+47
+47
+47
+47
+47
+47
+47
+47
+Wspolczynnik krzyzowania: 0.800000
+47
+47
+47
+47
+47
+47
+47
+47
+47
+47
+Wspolczynnik krzyzowania: 0.990000
+47
+47
+47
+47
+47
+47
+47
+47
+47
+47
+Plik: ../tests/real/17.txt
+Czas pracy: 10
+62
+62
+62
+65
+64
+64
+61
+62
+64
+64
+Czas pracy: 30
+63
+66
+61
+64
+64
+61
+63
+62
+61
+62
+Czas pracy: 60
+63
+62
+63
+63
+62
+64
+63
+66
+62
+62
+Wielkosc populacji: 25
+64
+64
+64
+62
+63
+62
+64
+62
+62
+65
+Wielkosc populacji: 50
+61
+62
+62
+64
+63
+63
+61
+64
+63
+65
+Wielkosc populacji: 100
+61
+63
+61
+61
+61
+62
+62
+62
+62
+63
+Wspolczynnik krzyzowania: 0.330000
+62
+64
+61
+64
+64
+63
+62
+63
+62
+62
+Wspolczynnik krzyzowania: 0.800000
+62
+61
+62
+62
+62
+63
+64
+63
+63
+64
+Wspolczynnik krzyzowania: 0.990000
+63
+63
+63
+64
+63
+62
+65
+61
+62
+63
+Plik: ../tests/real/24.txt
+Czas pracy: 10
+86
+92
+87
+86
+86
+83
+84
+84
+87
+83
+Czas pracy: 30
+88
+88
+85
+88
+84
+85
+86
+85
+87
+83
+Czas pracy: 60
+84
+82
+87
+85
+87
+88
+90
+86
+87
+85
+Wielkosc populacji: 25
+88
+91
+89
+86
+87
+90
+92
+86
+87
+92
+Wielkosc populacji: 50
+85
+88
+89
+90
+91
+88
+86
+83
+87
+91
+Wielkosc populacji: 100
+90
+79
+84
+84
+85
+84
+85
+83
+82
+83
+Wspolczynnik krzyzowania: 0.330000
+88
+84
+89
+87
+88
+88
+88
+88
+88
+87
+Wspolczynnik krzyzowania: 0.800000
+86
+89
+87
+89
+90
+83
+89
+84
+87
+86
+Wspolczynnik krzyzowania: 0.990000
+83
+80
+85
+84
+84
+86
+85
+86
+85
+80
+Plik: ../tests/real/31.txt
+Czas pracy: 10
+105
+109
+106
+110
+104
+107
+105
+103
+118
+106
+Czas pracy: 30
+113
+107
+113
+109
+111
+115
+106
+107
+104
+110
+Czas pracy: 60
+107
+118
+109
+109
+105
+113
+108
+115
+109
+107
+Wielkosc populacji: 25
+114
+113
+110
+116
+107
+120
+106
+116
+118
+110
+Wielkosc populacji: 50
+104
+116
+109
+99
+110
+107
+105
+105
+106
+112
+Wielkosc populacji: 100
+108
+103
+101
+106
+105
+105
+103
+104
+104
+101
+Wspolczynnik krzyzowania: 0.330000
+106
+103
+117
+109
+104
+112
+113
+109
+113
+108
+Wspolczynnik krzyzowania: 0.800000
+115
+107
+105
+107
+107
+111
+109
+101
+102
+117
+Wspolczynnik krzyzowania: 0.990000
+116
+107
+106
+110
+99
+110
+109
+106
+110
+105
+Plik: ../tests/real/50.txt
+Czas pracy: 10
+174
+177
+166
+172
+183
+177
+180
+184
+173
+191
+Czas pracy: 30
+176
+183
+180
+188
+175
+170
+169
+172
+174
+181
+Czas pracy: 60
+176
+184
+180
+185
+174
+189
+177
+176
+173
+182
+Wielkosc populacji: 25
+184
+188
+187
+194
+181
+184
+179
+180
+187
+183
+Wielkosc populacji: 50
+167
+171
+173
+184
+186
+182
+176
+168
+170
+183
+Wielkosc populacji: 100
+177
+175
+175
+158
+156
+165
+177
+169
+179
+160
+Wspolczynnik krzyzowania: 0.330000
+177
+184
+180
+192
+179
+175
+181
+188
+170
+172
+Wspolczynnik krzyzowania: 0.800000
+174
+183
+173
+173
+173
+182
+174
+180
+182
+180
+Wspolczynnik krzyzowania: 0.990000
+174
+176
+171
+179
+173
+171
+184
+162
+180
+171
+
+CZAS PRACY CAŁOŚCI: 291 min
