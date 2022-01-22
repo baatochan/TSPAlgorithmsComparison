@@ -14,5 +14,5 @@
 
 ### Wyzarzanie
 * temperatura początkowa: [1000, 10000, 5000]
-* temperatura końcowa: [0.01, 0,1, 0,01]
+* temperatura końcowa: [0.1, 0.01, 0.001]
 * liczba powtórzeń dla jednej temperatury: [25, 50, 100]
