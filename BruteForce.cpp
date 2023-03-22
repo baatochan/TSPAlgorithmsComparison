@@ -5,6 +5,7 @@
 #include "BruteForce.h"
 
 #include <cmath>
+#include <stdexcept>
 
 BruteForce::BruteForce(std::shared_ptr<TravellingSalesmanProblem> TSP) : Algorithm(std::move(TSP)) {}
 
